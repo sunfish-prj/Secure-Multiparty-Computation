@@ -1,0 +1,9 @@
+grammar com.cybsec.smcaas.SMC with org.eclipse.xtext.common.Terminals
+
+generate sMC "http://www.cybsec.com/smcaas/SMC"
+
+Model:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';
