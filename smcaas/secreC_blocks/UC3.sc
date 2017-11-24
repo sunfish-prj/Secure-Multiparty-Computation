@@ -14,7 +14,7 @@ domain pd_shared3p shared3p;
 
 /**
  *
- * TO NOTICE that each a simplified version of how they really are written in SecreC
+ * TO NOTICE that each block is a simplified version of how they really are written in SecreC
  * Therefore, refer to https://github.com/sunfish-prj/Secure-Multiparty-Computation/tree/master/usecase
  *
  */
