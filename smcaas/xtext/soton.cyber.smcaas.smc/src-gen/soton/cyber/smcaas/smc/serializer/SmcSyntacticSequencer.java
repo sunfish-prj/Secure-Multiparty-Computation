@@ -68,10 +68,9 @@ public class SmcSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) {And.left=}
 	 *     (rule start) (ambiguity) {Comparison.left=}
 	 *     (rule start) (ambiguity) {Equality.left=}
-	 *     (rule start) (ambiguity) {Minus.left=}
 	 *     (rule start) (ambiguity) {MulOrDiv.left=}
 	 *     (rule start) (ambiguity) {Or.left=}
-	 *     (rule start) (ambiguity) {Plus.left=}
+	 *     (rule start) (ambiguity) {PlusOrMinus.left=}
 	 */
 	protected void emit_Primary_LeftParenthesisKeyword_0_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -85,10 +84,9 @@ public class SmcSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) {And.left=}
 	 *     (rule start) (ambiguity) {Comparison.left=}
 	 *     (rule start) (ambiguity) {Equality.left=}
-	 *     (rule start) (ambiguity) {Minus.left=}
 	 *     (rule start) (ambiguity) {MulOrDiv.left=}
 	 *     (rule start) (ambiguity) {Or.left=}
-	 *     (rule start) (ambiguity) {Plus.left=}
+	 *     (rule start) (ambiguity) {PlusOrMinus.left=}
 	 */
 	protected void emit_Primary_LeftParenthesisKeyword_0_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

@@ -670,14 +670,14 @@ public interface SmcPackage extends EPackage
   int COMPARISON_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
   /**
-   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.PlusImpl <em>Plus</em>}' class.
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.PlusOrMinusImpl <em>Plus Or Minus</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see soton.cyber.smcaas.smc.smc.impl.PlusImpl
-   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getPlus()
+   * @see soton.cyber.smcaas.smc.smc.impl.PlusOrMinusImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getPlusOrMinus()
    * @generated
    */
-  int PLUS = 17;
+  int PLUS_OR_MINUS = 17;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -686,7 +686,16 @@ public interface SmcPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PLUS__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+  int PLUS_OR_MINUS__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Op</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PLUS_OR_MINUS__OP = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -695,53 +704,16 @@ public interface SmcPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PLUS__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+  int PLUS_OR_MINUS__RIGHT = EXPRESSION_FEATURE_COUNT + 2;
 
   /**
-   * The number of structural features of the '<em>Plus</em>' class.
+   * The number of structural features of the '<em>Plus Or Minus</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PLUS_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.MinusImpl <em>Minus</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see soton.cyber.smcaas.smc.smc.impl.MinusImpl
-   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getMinus()
-   * @generated
-   */
-  int MINUS = 18;
-
-  /**
-   * The feature id for the '<em><b>Left</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MINUS__LEFT = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Right</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MINUS__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Minus</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MINUS_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+  int PLUS_OR_MINUS_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.MulOrDivImpl <em>Mul Or Div</em>}' class.
@@ -751,7 +723,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getMulOrDiv()
    * @generated
    */
-  int MUL_OR_DIV = 19;
+  int MUL_OR_DIV = 18;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -797,7 +769,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getNot()
    * @generated
    */
-  int NOT = 20;
+  int NOT = 19;
 
   /**
    * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -825,7 +797,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getIntLiteral()
    * @generated
    */
-  int INT_LITERAL = 21;
+  int INT_LITERAL = 20;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -853,7 +825,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getDoubleLiteral()
    * @generated
    */
-  int DOUBLE_LITERAL = 22;
+  int DOUBLE_LITERAL = 21;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -881,7 +853,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getBooleanLiteral()
    * @generated
    */
-  int BOOLEAN_LITERAL = 23;
+  int BOOLEAN_LITERAL = 22;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -909,7 +881,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getStringLiteral()
    * @generated
    */
-  int STRING_LITERAL = 24;
+  int STRING_LITERAL = 23;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -937,7 +909,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getDateLiteral()
    * @generated
    */
-  int DATE_LITERAL = 25;
+  int DATE_LITERAL = 24;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -965,7 +937,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getTimeLiteral()
    * @generated
    */
-  int TIME_LITERAL = 26;
+  int TIME_LITERAL = 25;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -993,7 +965,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getVariableRef()
    * @generated
    */
-  int VARIABLE_REF = 27;
+  int VARIABLE_REF = 26;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -1021,7 +993,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getBlockType()
    * @generated
    */
-  int BLOCK_TYPE = 28;
+  int BLOCK_TYPE = 27;
 
   /**
    * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.BasicType <em>Basic Type</em>}' enum.
@@ -1031,7 +1003,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getBasicType()
    * @generated
    */
-  int BASIC_TYPE = 29;
+  int BASIC_TYPE = 28;
 
 
   /**
@@ -1557,68 +1529,47 @@ public interface SmcPackage extends EPackage
   EReference getComparison_Right();
 
   /**
-   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.Plus <em>Plus</em>}'.
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.PlusOrMinus <em>Plus Or Minus</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Plus</em>'.
-   * @see soton.cyber.smcaas.smc.smc.Plus
+   * @return the meta object for class '<em>Plus Or Minus</em>'.
+   * @see soton.cyber.smcaas.smc.smc.PlusOrMinus
    * @generated
    */
-  EClass getPlus();
+  EClass getPlusOrMinus();
 
   /**
-   * Returns the meta object for the containment reference '{@link soton.cyber.smcaas.smc.smc.Plus#getLeft <em>Left</em>}'.
+   * Returns the meta object for the containment reference '{@link soton.cyber.smcaas.smc.smc.PlusOrMinus#getLeft <em>Left</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Left</em>'.
-   * @see soton.cyber.smcaas.smc.smc.Plus#getLeft()
-   * @see #getPlus()
+   * @see soton.cyber.smcaas.smc.smc.PlusOrMinus#getLeft()
+   * @see #getPlusOrMinus()
    * @generated
    */
-  EReference getPlus_Left();
+  EReference getPlusOrMinus_Left();
 
   /**
-   * Returns the meta object for the containment reference '{@link soton.cyber.smcaas.smc.smc.Plus#getRight <em>Right</em>}'.
+   * Returns the meta object for the attribute '{@link soton.cyber.smcaas.smc.smc.PlusOrMinus#getOp <em>Op</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Op</em>'.
+   * @see soton.cyber.smcaas.smc.smc.PlusOrMinus#getOp()
+   * @see #getPlusOrMinus()
+   * @generated
+   */
+  EAttribute getPlusOrMinus_Op();
+
+  /**
+   * Returns the meta object for the containment reference '{@link soton.cyber.smcaas.smc.smc.PlusOrMinus#getRight <em>Right</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see soton.cyber.smcaas.smc.smc.Plus#getRight()
-   * @see #getPlus()
+   * @see soton.cyber.smcaas.smc.smc.PlusOrMinus#getRight()
+   * @see #getPlusOrMinus()
    * @generated
    */
-  EReference getPlus_Right();
-
-  /**
-   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.Minus <em>Minus</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Minus</em>'.
-   * @see soton.cyber.smcaas.smc.smc.Minus
-   * @generated
-   */
-  EClass getMinus();
-
-  /**
-   * Returns the meta object for the containment reference '{@link soton.cyber.smcaas.smc.smc.Minus#getLeft <em>Left</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Left</em>'.
-   * @see soton.cyber.smcaas.smc.smc.Minus#getLeft()
-   * @see #getMinus()
-   * @generated
-   */
-  EReference getMinus_Left();
-
-  /**
-   * Returns the meta object for the containment reference '{@link soton.cyber.smcaas.smc.smc.Minus#getRight <em>Right</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see soton.cyber.smcaas.smc.smc.Minus#getRight()
-   * @see #getMinus()
-   * @generated
-   */
-  EReference getMinus_Right();
+  EReference getPlusOrMinus_Right();
 
   /**
    * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.MulOrDiv <em>Mul Or Div</em>}'.
@@ -2301,14 +2252,14 @@ public interface SmcPackage extends EPackage
     EReference COMPARISON__RIGHT = eINSTANCE.getComparison_Right();
 
     /**
-     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.PlusImpl <em>Plus</em>}' class.
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.PlusOrMinusImpl <em>Plus Or Minus</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see soton.cyber.smcaas.smc.smc.impl.PlusImpl
-     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getPlus()
+     * @see soton.cyber.smcaas.smc.smc.impl.PlusOrMinusImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getPlusOrMinus()
      * @generated
      */
-    EClass PLUS = eINSTANCE.getPlus();
+    EClass PLUS_OR_MINUS = eINSTANCE.getPlusOrMinus();
 
     /**
      * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
@@ -2316,7 +2267,15 @@ public interface SmcPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PLUS__LEFT = eINSTANCE.getPlus_Left();
+    EReference PLUS_OR_MINUS__LEFT = eINSTANCE.getPlusOrMinus_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PLUS_OR_MINUS__OP = eINSTANCE.getPlusOrMinus_Op();
 
     /**
      * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
@@ -2324,33 +2283,7 @@ public interface SmcPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PLUS__RIGHT = eINSTANCE.getPlus_Right();
-
-    /**
-     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.MinusImpl <em>Minus</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see soton.cyber.smcaas.smc.smc.impl.MinusImpl
-     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getMinus()
-     * @generated
-     */
-    EClass MINUS = eINSTANCE.getMinus();
-
-    /**
-     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MINUS__LEFT = eINSTANCE.getMinus_Left();
-
-    /**
-     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MINUS__RIGHT = eINSTANCE.getMinus_Right();
+    EReference PLUS_OR_MINUS__RIGHT = eINSTANCE.getPlusOrMinus_Right();
 
     /**
      * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.MulOrDivImpl <em>Mul Or Div</em>}' class.

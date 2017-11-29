@@ -28,11 +28,10 @@ import soton.cyber.smcaas.smc.smc.IntLiteral;
 import soton.cyber.smcaas.smc.smc.Invocation;
 import soton.cyber.smcaas.smc.smc.List;
 import soton.cyber.smcaas.smc.smc.MainSMC;
-import soton.cyber.smcaas.smc.smc.Minus;
 import soton.cyber.smcaas.smc.smc.MulOrDiv;
 import soton.cyber.smcaas.smc.smc.Not;
 import soton.cyber.smcaas.smc.smc.Or;
-import soton.cyber.smcaas.smc.smc.Plus;
+import soton.cyber.smcaas.smc.smc.PlusOrMinus;
 import soton.cyber.smcaas.smc.smc.Print;
 import soton.cyber.smcaas.smc.smc.Smc;
 import soton.cyber.smcaas.smc.smc.SmcFactory;
@@ -176,14 +175,7 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass plusEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass minusEClass = null;
+  private EClass plusOrMinusEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -820,9 +812,9 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getPlus()
+  public EClass getPlusOrMinus()
   {
-    return plusEClass;
+    return plusOrMinusEClass;
   }
 
   /**
@@ -830,9 +822,9 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPlus_Left()
+  public EReference getPlusOrMinus_Left()
   {
-    return (EReference)plusEClass.getEStructuralFeatures().get(0);
+    return (EReference)plusOrMinusEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -840,9 +832,9 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPlus_Right()
+  public EAttribute getPlusOrMinus_Op()
   {
-    return (EReference)plusEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)plusOrMinusEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -850,29 +842,9 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getMinus()
+  public EReference getPlusOrMinus_Right()
   {
-    return minusEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getMinus_Left()
-  {
-    return (EReference)minusEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getMinus_Right()
-  {
-    return (EReference)minusEClass.getEStructuralFeatures().get(1);
+    return (EReference)plusOrMinusEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1191,13 +1163,10 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
     createEAttribute(comparisonEClass, COMPARISON__OP);
     createEReference(comparisonEClass, COMPARISON__RIGHT);
 
-    plusEClass = createEClass(PLUS);
-    createEReference(plusEClass, PLUS__LEFT);
-    createEReference(plusEClass, PLUS__RIGHT);
-
-    minusEClass = createEClass(MINUS);
-    createEReference(minusEClass, MINUS__LEFT);
-    createEReference(minusEClass, MINUS__RIGHT);
+    plusOrMinusEClass = createEClass(PLUS_OR_MINUS);
+    createEReference(plusOrMinusEClass, PLUS_OR_MINUS__LEFT);
+    createEAttribute(plusOrMinusEClass, PLUS_OR_MINUS__OP);
+    createEReference(plusOrMinusEClass, PLUS_OR_MINUS__RIGHT);
 
     mulOrDivEClass = createEClass(MUL_OR_DIV);
     createEReference(mulOrDivEClass, MUL_OR_DIV__LEFT);
@@ -1275,8 +1244,7 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
     andEClass.getESuperTypes().add(this.getExpression());
     equalityEClass.getESuperTypes().add(this.getExpression());
     comparisonEClass.getESuperTypes().add(this.getExpression());
-    plusEClass.getESuperTypes().add(this.getExpression());
-    minusEClass.getESuperTypes().add(this.getExpression());
+    plusOrMinusEClass.getESuperTypes().add(this.getExpression());
     mulOrDivEClass.getESuperTypes().add(this.getExpression());
     notEClass.getESuperTypes().add(this.getExpression());
     intLiteralEClass.getESuperTypes().add(this.getExpression());
@@ -1354,13 +1322,10 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
     initEAttribute(getComparison_Op(), ecorePackage.getEString(), "op", null, 0, 1, Comparison.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getComparison_Right(), this.getExpression(), null, "right", null, 0, 1, Comparison.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(plusEClass, Plus.class, "Plus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPlus_Left(), this.getExpression(), null, "left", null, 0, 1, Plus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPlus_Right(), this.getExpression(), null, "right", null, 0, 1, Plus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(minusEClass, Minus.class, "Minus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getMinus_Left(), this.getExpression(), null, "left", null, 0, 1, Minus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMinus_Right(), this.getExpression(), null, "right", null, 0, 1, Minus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(plusOrMinusEClass, PlusOrMinus.class, "PlusOrMinus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPlusOrMinus_Left(), this.getExpression(), null, "left", null, 0, 1, PlusOrMinus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPlusOrMinus_Op(), ecorePackage.getEString(), "op", null, 0, 1, PlusOrMinus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPlusOrMinus_Right(), this.getExpression(), null, "right", null, 0, 1, PlusOrMinus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(mulOrDivEClass, MulOrDiv.class, "MulOrDiv", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getMulOrDiv_Left(), this.getExpression(), null, "left", null, 0, 1, MulOrDiv.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1406,7 +1371,7 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
     addEEnumLiteral(basicTypeEEnum, BasicType.BOOLEAN);
     addEEnumLiteral(basicTypeEEnum, BasicType.STRING);
     addEEnumLiteral(basicTypeEEnum, BasicType.LIST);
-    addEEnumLiteral(basicTypeEEnum, BasicType.TUPLE);
+    addEEnumLiteral(basicTypeEEnum, BasicType.MATRIX);
 
     // Create resource
     createResource(eNS_URI);

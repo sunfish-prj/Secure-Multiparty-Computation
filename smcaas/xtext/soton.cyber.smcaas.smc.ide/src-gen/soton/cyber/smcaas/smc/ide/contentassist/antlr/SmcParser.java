@@ -34,7 +34,7 @@ public class SmcParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCommandAccess().getAlternatives(), "rule__Command__Alternatives");
 					put(grammarAccess.getEqualityAccess().getOpAlternatives_1_1_0(), "rule__Equality__OpAlternatives_1_1_0");
 					put(grammarAccess.getComparisonAccess().getOpAlternatives_1_1_0(), "rule__Comparison__OpAlternatives_1_1_0");
-					put(grammarAccess.getPlusOrMinusAccess().getAlternatives_1_0(), "rule__PlusOrMinus__Alternatives_1_0");
+					put(grammarAccess.getPlusOrMinusAccess().getOpAlternatives_1_1_0(), "rule__PlusOrMinus__OpAlternatives_1_1_0");
 					put(grammarAccess.getMulOrDivAccess().getOpAlternatives_1_1_0(), "rule__MulOrDiv__OpAlternatives_1_1_0");
 					put(grammarAccess.getPrimaryAccess().getAlternatives(), "rule__Primary__Alternatives");
 					put(grammarAccess.getAtomicAccess().getAlternatives(), "rule__Atomic__Alternatives");
@@ -62,8 +62,6 @@ public class SmcParser extends AbstractContentAssistParser {
 					put(grammarAccess.getComparisonAccess().getGroup_1(), "rule__Comparison__Group_1__0");
 					put(grammarAccess.getPlusOrMinusAccess().getGroup(), "rule__PlusOrMinus__Group__0");
 					put(grammarAccess.getPlusOrMinusAccess().getGroup_1(), "rule__PlusOrMinus__Group_1__0");
-					put(grammarAccess.getPlusOrMinusAccess().getGroup_1_0_0(), "rule__PlusOrMinus__Group_1_0_0__0");
-					put(grammarAccess.getPlusOrMinusAccess().getGroup_1_0_1(), "rule__PlusOrMinus__Group_1_0_1__0");
 					put(grammarAccess.getMulOrDivAccess().getGroup(), "rule__MulOrDiv__Group__0");
 					put(grammarAccess.getMulOrDivAccess().getGroup_1(), "rule__MulOrDiv__Group_1__0");
 					put(grammarAccess.getPrimaryAccess().getGroup_0(), "rule__Primary__Group_0__0");
@@ -106,7 +104,8 @@ public class SmcParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEqualityAccess().getRightAssignment_1_2(), "rule__Equality__RightAssignment_1_2");
 					put(grammarAccess.getComparisonAccess().getOpAssignment_1_1(), "rule__Comparison__OpAssignment_1_1");
 					put(grammarAccess.getComparisonAccess().getRightAssignment_1_2(), "rule__Comparison__RightAssignment_1_2");
-					put(grammarAccess.getPlusOrMinusAccess().getRightAssignment_1_1(), "rule__PlusOrMinus__RightAssignment_1_1");
+					put(grammarAccess.getPlusOrMinusAccess().getOpAssignment_1_1(), "rule__PlusOrMinus__OpAssignment_1_1");
+					put(grammarAccess.getPlusOrMinusAccess().getRightAssignment_1_2(), "rule__PlusOrMinus__RightAssignment_1_2");
 					put(grammarAccess.getMulOrDivAccess().getOpAssignment_1_1(), "rule__MulOrDiv__OpAssignment_1_1");
 					put(grammarAccess.getMulOrDivAccess().getRightAssignment_1_2(), "rule__MulOrDiv__RightAssignment_1_2");
 					put(grammarAccess.getPrimaryAccess().getExpressionAssignment_1_2(), "rule__Primary__ExpressionAssignment_1_2");

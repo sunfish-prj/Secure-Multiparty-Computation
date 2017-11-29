@@ -56,7 +56,7 @@
     <eLiterals name="BOOLEAN" value="2" literal="BOOLEAN"/>
     <eLiterals name="STRING" value="3" literal="STRING"/>
     <eLiterals name="LIST" value="4" literal="[]"/>
-    <eLiterals name="TUPLE" value="5" literal="tuple"/>
+    <eLiterals name="MATRIX" value="5" literal="[[]]"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VariableAssignment" eSuperTypes="#//Command">
     <eStructuralFeatures xsi:type="ecore:EReference" name="var" eType="#//VariableDecl"/>
@@ -104,15 +104,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Expression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Plus" eSuperTypes="#//Expression">
+  <eClassifiers xsi:type="ecore:EClass" name="PlusOrMinus" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Expression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Expression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Minus" eSuperTypes="#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Expression"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Expression"
         containment="true"/>
   </eClassifiers>

@@ -20,6 +20,7 @@
 'DOUBLE'=52
 'INT'=51
 'STRING'=54
+'[[]]'=56
 '[]'=55
 'access_control'=49
 'anonymization'=48
@@ -34,7 +35,6 @@
 'permission_release'=50
 'print'=25
 'search'=47
-'tuple'=56
 'var'=29
 'while'=26
 '{'=23

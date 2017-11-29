@@ -161,14 +161,9 @@ public class SmcAdapterFactory extends AdapterFactoryImpl
         return createComparisonAdapter();
       }
       @Override
-      public Adapter casePlus(Plus object)
+      public Adapter casePlusOrMinus(PlusOrMinus object)
       {
-        return createPlusAdapter();
-      }
-      @Override
-      public Adapter caseMinus(Minus object)
-      {
-        return createMinusAdapter();
+        return createPlusOrMinusAdapter();
       }
       @Override
       public Adapter caseMulOrDiv(MulOrDiv object)
@@ -493,31 +488,16 @@ public class SmcAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.Plus <em>Plus</em>}'.
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.PlusOrMinus <em>Plus Or Minus</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see soton.cyber.smcaas.smc.smc.Plus
+   * @see soton.cyber.smcaas.smc.smc.PlusOrMinus
    * @generated
    */
-  public Adapter createPlusAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.Minus <em>Minus</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see soton.cyber.smcaas.smc.smc.Minus
-   * @generated
-   */
-  public Adapter createMinusAdapter()
+  public Adapter createPlusOrMinusAdapter()
   {
     return null;
   }

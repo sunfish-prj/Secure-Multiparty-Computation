@@ -50,13 +50,12 @@ VariableDecl:
 ;
 
 enum BasicType: 
-	INT | DOUBLE | BOOLEAN | STRING | LIST='[]' | TUPLE='tuple'
+	INT | DOUBLE | BOOLEAN | STRING | LIST='[]' | MATRIX='[[]]'
 ;
 
 VariableAssignment: 
 	var=[VariableDecl] '=' exp=Expression ';'
 ;
-
 
 Expression:
 	Or 
@@ -82,7 +81,7 @@ Comparison returns Expression:
 
 PlusOrMinus returns Expression:
   MulOrDiv (
-    ({Plus.left=current} '+' | {Minus.left=current} '-')
+    {PlusOrMinus.left=current} op=('+'|'-')
     right=MulOrDiv
   )* ;
 

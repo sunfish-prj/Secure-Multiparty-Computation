@@ -71,14 +71,14 @@ public enum BasicType implements Enumerator
   LIST(4, "LIST", "[]"),
 
   /**
-   * The '<em><b>TUPLE</b></em>' literal object.
+   * The '<em><b>MATRIX</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #TUPLE_VALUE
+   * @see #MATRIX_VALUE
    * @generated
    * @ordered
    */
-  TUPLE(5, "TUPLE", "tuple");
+  MATRIX(5, "MATRIX", "[[]]");
 
   /**
    * The '<em><b>INT</b></em>' literal value.
@@ -156,19 +156,19 @@ public enum BasicType implements Enumerator
   public static final int LIST_VALUE = 4;
 
   /**
-   * The '<em><b>TUPLE</b></em>' literal value.
+   * The '<em><b>MATRIX</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>TUPLE</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>MATRIX</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #TUPLE
-   * @model literal="tuple"
+   * @see #MATRIX
+   * @model literal="[[]]"
    * @generated
    * @ordered
    */
-  public static final int TUPLE_VALUE = 5;
+  public static final int MATRIX_VALUE = 5;
 
   /**
    * An array of all the '<em><b>Basic Type</b></em>' enumerators.
@@ -184,7 +184,7 @@ public enum BasicType implements Enumerator
       BOOLEAN,
       STRING,
       LIST,
-      TUPLE,
+      MATRIX,
     };
 
   /**
@@ -254,7 +254,7 @@ public enum BasicType implements Enumerator
       case BOOLEAN_VALUE: return BOOLEAN;
       case STRING_VALUE: return STRING;
       case LIST_VALUE: return LIST;
-      case TUPLE_VALUE: return TUPLE;
+      case MATRIX_VALUE: return MATRIX;
     }
     return null;
   }

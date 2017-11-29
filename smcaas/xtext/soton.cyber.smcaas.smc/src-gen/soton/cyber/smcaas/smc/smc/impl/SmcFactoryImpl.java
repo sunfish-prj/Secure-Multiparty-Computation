@@ -83,8 +83,7 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
       case SmcPackage.AND: return createAnd();
       case SmcPackage.EQUALITY: return createEquality();
       case SmcPackage.COMPARISON: return createComparison();
-      case SmcPackage.PLUS: return createPlus();
-      case SmcPackage.MINUS: return createMinus();
+      case SmcPackage.PLUS_OR_MINUS: return createPlusOrMinus();
       case SmcPackage.MUL_OR_DIV: return createMulOrDiv();
       case SmcPackage.NOT: return createNot();
       case SmcPackage.INT_LITERAL: return createIntLiteral();
@@ -329,21 +328,10 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Plus createPlus()
+  public PlusOrMinus createPlusOrMinus()
   {
-    PlusImpl plus = new PlusImpl();
-    return plus;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Minus createMinus()
-  {
-    MinusImpl minus = new MinusImpl();
-    return minus;
+    PlusOrMinusImpl plusOrMinus = new PlusOrMinusImpl();
+    return plusOrMinus;
   }
 
   /**

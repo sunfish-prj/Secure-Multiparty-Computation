@@ -11,19 +11,75 @@ import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import soton.cyber.smcaas.smc.smc.Smc
+import org.eclipse.xtext.xbase.testing.CompilationTestHelper
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
 
 @RunWith(XtextRunner)
 @InjectWith(SmcInjectorProvider)
 class SmcParsingTest {
-	@Inject
-	ParseHelper<Smc> parseHelper
+
+
+@Inject extension ParseHelper<Smc>
+@Inject extension ValidationTestHelper
+
+@Inject extension CompilationTestHelper
+
+//	
+//	@Test
+//	def void loadModel() {
+//		val result = parseHelper.parse('''
+//			Hello Xtext!
+//		''')
+//		Assert.assertNotNull(result)
+//		Assert.assertTrue(result.eResource.errors.isEmpty)
+//	}
+//	
 	
 	@Test
-	def void loadModel() {
-		val result = parseHelper.parse('''
-			Hello Xtext!
-		''')
-		Assert.assertNotNull(result)
-		Assert.assertTrue(result.eResource.errors.isEmpty)
+	def void testGen(){
+		var model = '''
+		block insert_data B1 = new ('UC3');
+		block search B2 = new();
+		block access_control B3 = new('O', 'S', 'TS');
+		block permission_release B4 = new();
+		block anonymization B5 = new();
+		block math_computation B7 = new();
+		
+		main{
+			//each ROCU insert his own cyber crime
+			var [] features_names = list('ROCU', 'CYBER_CRIME', 'LVL');
+			var [] values = list('cyber-crime-23', 'cyber-crime-235', 
+				'cyber-crime-176', 'cyber-crime-870', 'cyber-crime-544'
+			); 
+			var STRING dataset = B1.addDataset(features_names, values);
+			var [] levels = list('TS', 'S', 'S', 'O', 'TS');
+			B1.addClearanceLvl(levels)
+			
+			//search on 'UC3', match will be a tuple <data, level>
+			var STRING keyword = 'cyber-crime-176';
+			var [] match = B2.find(B1.getDataset(), keyword);
+			
+			//control between data level and requester level
+			//the output will be a tuple <data, (n)ack>
+			var [] ac_result;
+			var STRING mylvl = 'TS';
+			ac_result = B3.checkPolicy(mylvl, match);
+			
+			var STRING final_result;
+			//check if is denied (i.e. requester_lvl < data_lvl)
+			if(ac_result == 'DENY') {
+				//being denied, ask to data owner to release 
+				var BOOLEAN flag = B4.askPermission(ac_result);
+				if(flag == true){
+					final_result = B4.grantPermission();
+				}
+			}
+		}
+		'''
+		model.parse.assertNoErrors
+		
+		//model.assertCompilesTo('''ciao''')
+		
 	}
+	
 }

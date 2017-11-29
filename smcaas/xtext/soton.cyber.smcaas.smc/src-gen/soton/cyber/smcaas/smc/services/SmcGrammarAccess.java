@@ -648,55 +648,47 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cMulOrDivParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Alternatives cAlternatives_1_0 = (Alternatives)cGroup_1.eContents().get(0);
-		private final Group cGroup_1_0_0 = (Group)cAlternatives_1_0.eContents().get(0);
-		private final Action cPlusLeftAction_1_0_0_0 = (Action)cGroup_1_0_0.eContents().get(0);
-		private final Keyword cPlusSignKeyword_1_0_0_1 = (Keyword)cGroup_1_0_0.eContents().get(1);
-		private final Group cGroup_1_0_1 = (Group)cAlternatives_1_0.eContents().get(1);
-		private final Action cMinusLeftAction_1_0_1_0 = (Action)cGroup_1_0_1.eContents().get(0);
-		private final Keyword cHyphenMinusKeyword_1_0_1_1 = (Keyword)cGroup_1_0_1.eContents().get(1);
-		private final Assignment cRightAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cRightMulOrDivParserRuleCall_1_1_0 = (RuleCall)cRightAssignment_1_1.eContents().get(0);
+		private final Action cPlusOrMinusLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Assignment cOpAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final Alternatives cOpAlternatives_1_1_0 = (Alternatives)cOpAssignment_1_1.eContents().get(0);
+		private final Keyword cOpPlusSignKeyword_1_1_0_0 = (Keyword)cOpAlternatives_1_1_0.eContents().get(0);
+		private final Keyword cOpHyphenMinusKeyword_1_1_0_1 = (Keyword)cOpAlternatives_1_1_0.eContents().get(1);
+		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cRightMulOrDivParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
 		
 		//PlusOrMinus Expression:
-		//	MulOrDiv (({Plus.left=current} '+' | {Minus.left=current} '-') right=MulOrDiv)*;
+		//	MulOrDiv ({PlusOrMinus.left=current} op=('+' | '-') right=MulOrDiv)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//MulOrDiv (({Plus.left=current} '+' | {Minus.left=current} '-') right=MulOrDiv)*
+		//MulOrDiv ({PlusOrMinus.left=current} op=('+' | '-') right=MulOrDiv)*
 		public Group getGroup() { return cGroup; }
 		
 		//MulOrDiv
 		public RuleCall getMulOrDivParserRuleCall_0() { return cMulOrDivParserRuleCall_0; }
 		
-		//(({Plus.left=current} '+' | {Minus.left=current} '-') right=MulOrDiv)*
+		//({PlusOrMinus.left=current} op=('+' | '-') right=MulOrDiv)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//{Plus.left=current} '+' | {Minus.left=current} '-'
-		public Alternatives getAlternatives_1_0() { return cAlternatives_1_0; }
+		//{PlusOrMinus.left=current}
+		public Action getPlusOrMinusLeftAction_1_0() { return cPlusOrMinusLeftAction_1_0; }
 		
-		//{Plus.left=current} '+'
-		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
+		//op=('+' | '-')
+		public Assignment getOpAssignment_1_1() { return cOpAssignment_1_1; }
 		
-		//{Plus.left=current}
-		public Action getPlusLeftAction_1_0_0_0() { return cPlusLeftAction_1_0_0_0; }
+		//('+' | '-')
+		public Alternatives getOpAlternatives_1_1_0() { return cOpAlternatives_1_1_0; }
 		
 		//'+'
-		public Keyword getPlusSignKeyword_1_0_0_1() { return cPlusSignKeyword_1_0_0_1; }
-		
-		//{Minus.left=current} '-'
-		public Group getGroup_1_0_1() { return cGroup_1_0_1; }
-		
-		//{Minus.left=current}
-		public Action getMinusLeftAction_1_0_1_0() { return cMinusLeftAction_1_0_1_0; }
+		public Keyword getOpPlusSignKeyword_1_1_0_0() { return cOpPlusSignKeyword_1_1_0_0; }
 		
 		//'-'
-		public Keyword getHyphenMinusKeyword_1_0_1_1() { return cHyphenMinusKeyword_1_0_1_1; }
+		public Keyword getOpHyphenMinusKeyword_1_1_0_1() { return cOpHyphenMinusKeyword_1_1_0_1; }
 		
 		//right=MulOrDiv
-		public Assignment getRightAssignment_1_1() { return cRightAssignment_1_1; }
+		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
 		
 		//MulOrDiv
-		public RuleCall getRightMulOrDivParserRuleCall_1_1_0() { return cRightMulOrDivParserRuleCall_1_1_0; }
+		public RuleCall getRightMulOrDivParserRuleCall_1_2_0() { return cRightMulOrDivParserRuleCall_1_2_0; }
 	}
 	public class MulOrDivElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.MulOrDiv");
@@ -1132,14 +1124,14 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSTRINGSTRINGKeyword_3_0 = (Keyword)cSTRINGEnumLiteralDeclaration_3.eContents().get(0);
 		private final EnumLiteralDeclaration cLISTEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
 		private final Keyword cLISTLeftSquareBracketRightSquareBracketKeyword_4_0 = (Keyword)cLISTEnumLiteralDeclaration_4.eContents().get(0);
-		private final EnumLiteralDeclaration cTUPLEEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
-		private final Keyword cTUPLETupleKeyword_5_0 = (Keyword)cTUPLEEnumLiteralDeclaration_5.eContents().get(0);
+		private final EnumLiteralDeclaration cMATRIXEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
+		private final Keyword cMATRIXLeftSquareBracketLeftSquareBracketRightSquareBracketRightSquareBracketKeyword_5_0 = (Keyword)cMATRIXEnumLiteralDeclaration_5.eContents().get(0);
 		
 		//enum BasicType:
-		//	INT | DOUBLE | BOOLEAN | STRING | LIST='[]' | TUPLE='tuple';
+		//	INT | DOUBLE | BOOLEAN | STRING | LIST='[]' | MATRIX='[[]]';
 		public EnumRule getRule() { return rule; }
 		
-		//INT | DOUBLE | BOOLEAN | STRING | LIST='[]' | TUPLE='tuple'
+		//INT | DOUBLE | BOOLEAN | STRING | LIST='[]' | MATRIX='[[]]'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//INT
@@ -1172,11 +1164,11 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		//'[]'
 		public Keyword getLISTLeftSquareBracketRightSquareBracketKeyword_4_0() { return cLISTLeftSquareBracketRightSquareBracketKeyword_4_0; }
 		
-		//TUPLE='tuple'
-		public EnumLiteralDeclaration getTUPLEEnumLiteralDeclaration_5() { return cTUPLEEnumLiteralDeclaration_5; }
+		//MATRIX='[[]]'
+		public EnumLiteralDeclaration getMATRIXEnumLiteralDeclaration_5() { return cMATRIXEnumLiteralDeclaration_5; }
 		
-		//'tuple'
-		public Keyword getTUPLETupleKeyword_5_0() { return cTUPLETupleKeyword_5_0; }
+		//'[[]]'
+		public Keyword getMATRIXLeftSquareBracketLeftSquareBracketRightSquareBracketRightSquareBracketKeyword_5_0() { return cMATRIXLeftSquareBracketLeftSquareBracketRightSquareBracketRightSquareBracketKeyword_5_0; }
 	}
 	
 	private final SmcElements pSmc;
@@ -1384,7 +1376,7 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//enum BasicType:
-	//	INT | DOUBLE | BOOLEAN | STRING | LIST='[]' | TUPLE='tuple';
+	//	INT | DOUBLE | BOOLEAN | STRING | LIST='[]' | MATRIX='[[]]';
 	public BasicTypeElements getBasicTypeAccess() {
 		return eBasicType;
 	}
@@ -1454,7 +1446,7 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//PlusOrMinus Expression:
-	//	MulOrDiv (({Plus.left=current} '+' | {Minus.left=current} '-') right=MulOrDiv)*;
+	//	MulOrDiv ({PlusOrMinus.left=current} op=('+' | '-') right=MulOrDiv)*;
 	public PlusOrMinusElements getPlusOrMinusAccess() {
 		return pPlusOrMinus;
 	}

@@ -205,19 +205,11 @@ public class SmcSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case SmcPackage.PLUS:
+      case SmcPackage.PLUS_OR_MINUS:
       {
-        Plus plus = (Plus)theEObject;
-        T result = casePlus(plus);
-        if (result == null) result = caseExpression(plus);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case SmcPackage.MINUS:
-      {
-        Minus minus = (Minus)theEObject;
-        T result = caseMinus(minus);
-        if (result == null) result = caseExpression(minus);
+        PlusOrMinus plusOrMinus = (PlusOrMinus)theEObject;
+        T result = casePlusOrMinus(plusOrMinus);
+        if (result == null) result = caseExpression(plusOrMinus);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -570,33 +562,17 @@ public class SmcSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Plus</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Plus Or Minus</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Plus</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Plus Or Minus</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casePlus(Plus object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Minus</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Minus</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseMinus(Minus object)
+  public T casePlusOrMinus(PlusOrMinus object)
   {
     return null;
   }

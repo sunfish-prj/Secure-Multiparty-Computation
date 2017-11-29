@@ -1188,40 +1188,45 @@ rulePlusOrMinus returns [EObject current=null]
 		}
 		(
 			(
+				{
+					$current = forceCreateModelElementAndSet(
+						grammarAccess.getPlusOrMinusAccess().getPlusOrMinusLeftAction_1_0(),
+						$current);
+				}
+			)
+			(
 				(
 					(
+						lv_op_2_1='+'
 						{
-							$current = forceCreateModelElementAndSet(
-								grammarAccess.getPlusOrMinusAccess().getPlusLeftAction_1_0_0_0(),
-								$current);
+							newLeafNode(lv_op_2_1, grammarAccess.getPlusOrMinusAccess().getOpPlusSignKeyword_1_1_0_0());
+						}
+						{
+							if ($current==null) {
+								$current = createModelElement(grammarAccess.getPlusOrMinusRule());
+							}
+							setWithLastConsumed($current, "op", lv_op_2_1, null);
+						}
+						    |
+						lv_op_2_2='-'
+						{
+							newLeafNode(lv_op_2_2, grammarAccess.getPlusOrMinusAccess().getOpHyphenMinusKeyword_1_1_0_1());
+						}
+						{
+							if ($current==null) {
+								$current = createModelElement(grammarAccess.getPlusOrMinusRule());
+							}
+							setWithLastConsumed($current, "op", lv_op_2_2, null);
 						}
 					)
-					otherlv_2='+'
-					{
-						newLeafNode(otherlv_2, grammarAccess.getPlusOrMinusAccess().getPlusSignKeyword_1_0_0_1());
-					}
-				)
-				    |
-				(
-					(
-						{
-							$current = forceCreateModelElementAndSet(
-								grammarAccess.getPlusOrMinusAccess().getMinusLeftAction_1_0_1_0(),
-								$current);
-						}
-					)
-					otherlv_4='-'
-					{
-						newLeafNode(otherlv_4, grammarAccess.getPlusOrMinusAccess().getHyphenMinusKeyword_1_0_1_1());
-					}
 				)
 			)
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getPlusOrMinusAccess().getRightMulOrDivParserRuleCall_1_1_0());
+						newCompositeNode(grammarAccess.getPlusOrMinusAccess().getRightMulOrDivParserRuleCall_1_2_0());
 					}
-					lv_right_5_0=ruleMulOrDiv
+					lv_right_3_0=ruleMulOrDiv
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getPlusOrMinusRule());
@@ -1229,7 +1234,7 @@ rulePlusOrMinus returns [EObject current=null]
 						set(
 							$current,
 							"right",
-							lv_right_5_0,
+							lv_right_3_0,
 							"soton.cyber.smcaas.smc.Smc.MulOrDiv");
 						afterParserOrEnumRuleCall();
 					}
@@ -1615,15 +1620,6 @@ ruleAtomic returns [EObject current=null]
 			$current = $this_List_14.current;
 			afterParserOrEnumRuleCall();
 		}
-		    |
-		{
-			newCompositeNode(grammarAccess.getAtomicAccess().getInvocationParserRuleCall_8());
-		}
-		this_Invocation_15=ruleInvocation
-		{
-			$current = $this_Invocation_15.current;
-			afterParserOrEnumRuleCall();
-		}
 	)
 ;
 
@@ -1917,10 +1913,10 @@ ruleBasicType returns [Enumerator current=null]
 		)
 		    |
 		(
-			enumLiteral_5='tuple'
+			enumLiteral_5='[[]]'
 			{
-				$current = grammarAccess.getBasicTypeAccess().getTUPLEEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_5, grammarAccess.getBasicTypeAccess().getTUPLEEnumLiteralDeclaration_5());
+				$current = grammarAccess.getBasicTypeAccess().getMATRIXEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_5, grammarAccess.getBasicTypeAccess().getMATRIXEnumLiteralDeclaration_5());
 			}
 		)
 	)

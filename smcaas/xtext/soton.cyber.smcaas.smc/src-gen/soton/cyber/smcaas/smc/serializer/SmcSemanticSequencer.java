@@ -28,11 +28,10 @@ import soton.cyber.smcaas.smc.smc.IntLiteral;
 import soton.cyber.smcaas.smc.smc.Invocation;
 import soton.cyber.smcaas.smc.smc.List;
 import soton.cyber.smcaas.smc.smc.MainSMC;
-import soton.cyber.smcaas.smc.smc.Minus;
 import soton.cyber.smcaas.smc.smc.MulOrDiv;
 import soton.cyber.smcaas.smc.smc.Not;
 import soton.cyber.smcaas.smc.smc.Or;
-import soton.cyber.smcaas.smc.smc.Plus;
+import soton.cyber.smcaas.smc.smc.PlusOrMinus;
 import soton.cyber.smcaas.smc.smc.Print;
 import soton.cyber.smcaas.smc.smc.Smc;
 import soton.cyber.smcaas.smc.smc.SmcPackage;
@@ -96,9 +95,6 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case SmcPackage.MAIN_SMC:
 				sequence_MainSMC(context, (MainSMC) semanticObject); 
 				return; 
-			case SmcPackage.MINUS:
-				sequence_PlusOrMinus(context, (Minus) semanticObject); 
-				return; 
 			case SmcPackage.MUL_OR_DIV:
 				sequence_MulOrDiv(context, (MulOrDiv) semanticObject); 
 				return; 
@@ -108,8 +104,8 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case SmcPackage.OR:
 				sequence_Or(context, (Or) semanticObject); 
 				return; 
-			case SmcPackage.PLUS:
-				sequence_PlusOrMinus(context, (Plus) semanticObject); 
+			case SmcPackage.PLUS_OR_MINUS:
+				sequence_PlusOrMinus(context, (PlusOrMinus) semanticObject); 
 				return; 
 			case SmcPackage.PRINT:
 				sequence_Print(context, (Print) semanticObject); 
@@ -152,8 +148,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Comparison returns And
 	 *     Comparison.Comparison_1_0 returns And
 	 *     PlusOrMinus returns And
-	 *     PlusOrMinus.Plus_1_0_0_0 returns And
-	 *     PlusOrMinus.Minus_1_0_1_0 returns And
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns And
 	 *     MulOrDiv returns And
 	 *     MulOrDiv.MulOrDiv_1_0 returns And
 	 *     Primary returns And
@@ -187,8 +182,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Comparison returns BooleanLiteral
 	 *     Comparison.Comparison_1_0 returns BooleanLiteral
 	 *     PlusOrMinus returns BooleanLiteral
-	 *     PlusOrMinus.Plus_1_0_0_0 returns BooleanLiteral
-	 *     PlusOrMinus.Minus_1_0_1_0 returns BooleanLiteral
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns BooleanLiteral
 	 *     MulOrDiv returns BooleanLiteral
 	 *     MulOrDiv.MulOrDiv_1_0 returns BooleanLiteral
 	 *     Primary returns BooleanLiteral
@@ -220,8 +214,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Comparison returns DateLiteral
 	 *     Comparison.Comparison_1_0 returns DateLiteral
 	 *     PlusOrMinus returns DateLiteral
-	 *     PlusOrMinus.Plus_1_0_0_0 returns DateLiteral
-	 *     PlusOrMinus.Minus_1_0_1_0 returns DateLiteral
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns DateLiteral
 	 *     MulOrDiv returns DateLiteral
 	 *     MulOrDiv.MulOrDiv_1_0 returns DateLiteral
 	 *     Primary returns DateLiteral
@@ -253,8 +246,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Comparison returns DoubleLiteral
 	 *     Comparison.Comparison_1_0 returns DoubleLiteral
 	 *     PlusOrMinus returns DoubleLiteral
-	 *     PlusOrMinus.Plus_1_0_0_0 returns DoubleLiteral
-	 *     PlusOrMinus.Minus_1_0_1_0 returns DoubleLiteral
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns DoubleLiteral
 	 *     MulOrDiv returns DoubleLiteral
 	 *     MulOrDiv.MulOrDiv_1_0 returns DoubleLiteral
 	 *     Primary returns DoubleLiteral
@@ -286,8 +278,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Comparison returns IntLiteral
 	 *     Comparison.Comparison_1_0 returns IntLiteral
 	 *     PlusOrMinus returns IntLiteral
-	 *     PlusOrMinus.Plus_1_0_0_0 returns IntLiteral
-	 *     PlusOrMinus.Minus_1_0_1_0 returns IntLiteral
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns IntLiteral
 	 *     MulOrDiv returns IntLiteral
 	 *     MulOrDiv.MulOrDiv_1_0 returns IntLiteral
 	 *     Primary returns IntLiteral
@@ -319,8 +310,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Comparison returns StringLiteral
 	 *     Comparison.Comparison_1_0 returns StringLiteral
 	 *     PlusOrMinus returns StringLiteral
-	 *     PlusOrMinus.Plus_1_0_0_0 returns StringLiteral
-	 *     PlusOrMinus.Minus_1_0_1_0 returns StringLiteral
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns StringLiteral
 	 *     MulOrDiv returns StringLiteral
 	 *     MulOrDiv.MulOrDiv_1_0 returns StringLiteral
 	 *     Primary returns StringLiteral
@@ -352,8 +342,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Comparison returns TimeLiteral
 	 *     Comparison.Comparison_1_0 returns TimeLiteral
 	 *     PlusOrMinus returns TimeLiteral
-	 *     PlusOrMinus.Plus_1_0_0_0 returns TimeLiteral
-	 *     PlusOrMinus.Minus_1_0_1_0 returns TimeLiteral
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns TimeLiteral
 	 *     MulOrDiv returns TimeLiteral
 	 *     MulOrDiv.MulOrDiv_1_0 returns TimeLiteral
 	 *     Primary returns TimeLiteral
@@ -385,8 +374,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Comparison returns VariableRef
 	 *     Comparison.Comparison_1_0 returns VariableRef
 	 *     PlusOrMinus returns VariableRef
-	 *     PlusOrMinus.Plus_1_0_0_0 returns VariableRef
-	 *     PlusOrMinus.Minus_1_0_1_0 returns VariableRef
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns VariableRef
 	 *     MulOrDiv returns VariableRef
 	 *     MulOrDiv.MulOrDiv_1_0 returns VariableRef
 	 *     Primary returns VariableRef
@@ -443,8 +431,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Comparison returns Comparison
 	 *     Comparison.Comparison_1_0 returns Comparison
 	 *     PlusOrMinus returns Comparison
-	 *     PlusOrMinus.Plus_1_0_0_0 returns Comparison
-	 *     PlusOrMinus.Minus_1_0_1_0 returns Comparison
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns Comparison
 	 *     MulOrDiv returns Comparison
 	 *     MulOrDiv.MulOrDiv_1_0 returns Comparison
 	 *     Primary returns Comparison
@@ -469,8 +456,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Comparison returns Equality
 	 *     Comparison.Comparison_1_0 returns Equality
 	 *     PlusOrMinus returns Equality
-	 *     PlusOrMinus.Plus_1_0_0_0 returns Equality
-	 *     PlusOrMinus.Minus_1_0_1_0 returns Equality
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns Equality
 	 *     MulOrDiv returns Equality
 	 *     MulOrDiv.MulOrDiv_1_0 returns Equality
 	 *     Primary returns Equality
@@ -509,8 +495,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Comparison returns Invocation
 	 *     Comparison.Comparison_1_0 returns Invocation
 	 *     PlusOrMinus returns Invocation
-	 *     PlusOrMinus.Plus_1_0_0_0 returns Invocation
-	 *     PlusOrMinus.Minus_1_0_1_0 returns Invocation
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns Invocation
 	 *     MulOrDiv returns Invocation
 	 *     MulOrDiv.MulOrDiv_1_0 returns Invocation
 	 *     Primary returns Invocation
@@ -537,8 +522,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Comparison returns List
 	 *     Comparison.Comparison_1_0 returns List
 	 *     PlusOrMinus returns List
-	 *     PlusOrMinus.Plus_1_0_0_0 returns List
-	 *     PlusOrMinus.Minus_1_0_1_0 returns List
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns List
 	 *     MulOrDiv returns List
 	 *     MulOrDiv.MulOrDiv_1_0 returns List
 	 *     Primary returns List
@@ -577,8 +561,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Comparison returns MulOrDiv
 	 *     Comparison.Comparison_1_0 returns MulOrDiv
 	 *     PlusOrMinus returns MulOrDiv
-	 *     PlusOrMinus.Plus_1_0_0_0 returns MulOrDiv
-	 *     PlusOrMinus.Minus_1_0_1_0 returns MulOrDiv
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns MulOrDiv
 	 *     MulOrDiv returns MulOrDiv
 	 *     MulOrDiv.MulOrDiv_1_0 returns MulOrDiv
 	 *     Primary returns MulOrDiv
@@ -603,8 +586,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Comparison returns Or
 	 *     Comparison.Comparison_1_0 returns Or
 	 *     PlusOrMinus returns Or
-	 *     PlusOrMinus.Plus_1_0_0_0 returns Or
-	 *     PlusOrMinus.Minus_1_0_1_0 returns Or
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns Or
 	 *     MulOrDiv returns Or
 	 *     MulOrDiv.MulOrDiv_1_0 returns Or
 	 *     Primary returns Or
@@ -628,71 +610,26 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     Expression returns Minus
-	 *     Or returns Minus
-	 *     Or.Or_1_0 returns Minus
-	 *     And returns Minus
-	 *     And.And_1_0 returns Minus
-	 *     Equality returns Minus
-	 *     Equality.Equality_1_0 returns Minus
-	 *     Comparison returns Minus
-	 *     Comparison.Comparison_1_0 returns Minus
-	 *     PlusOrMinus returns Minus
-	 *     PlusOrMinus.Plus_1_0_0_0 returns Minus
-	 *     PlusOrMinus.Minus_1_0_1_0 returns Minus
-	 *     MulOrDiv returns Minus
-	 *     MulOrDiv.MulOrDiv_1_0 returns Minus
-	 *     Primary returns Minus
+	 *     Expression returns PlusOrMinus
+	 *     Or returns PlusOrMinus
+	 *     Or.Or_1_0 returns PlusOrMinus
+	 *     And returns PlusOrMinus
+	 *     And.And_1_0 returns PlusOrMinus
+	 *     Equality returns PlusOrMinus
+	 *     Equality.Equality_1_0 returns PlusOrMinus
+	 *     Comparison returns PlusOrMinus
+	 *     Comparison.Comparison_1_0 returns PlusOrMinus
+	 *     PlusOrMinus returns PlusOrMinus
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns PlusOrMinus
+	 *     MulOrDiv returns PlusOrMinus
+	 *     MulOrDiv.MulOrDiv_1_0 returns PlusOrMinus
+	 *     Primary returns PlusOrMinus
 	 *
 	 * Constraint:
-	 *     (left=PlusOrMinus_Minus_1_0_1_0 right=MulOrDiv)
+	 *     (left=PlusOrMinus_PlusOrMinus_1_0 (op='+' | op='-') right=MulOrDiv)
 	 */
-	protected void sequence_PlusOrMinus(ISerializationContext context, Minus semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.MINUS__LEFT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.MINUS__LEFT));
-			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.MINUS__RIGHT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.MINUS__RIGHT));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getPlusOrMinusAccess().getMinusLeftAction_1_0_1_0(), semanticObject.getLeft());
-		feeder.accept(grammarAccess.getPlusOrMinusAccess().getRightMulOrDivParserRuleCall_1_1_0(), semanticObject.getRight());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Expression returns Plus
-	 *     Or returns Plus
-	 *     Or.Or_1_0 returns Plus
-	 *     And returns Plus
-	 *     And.And_1_0 returns Plus
-	 *     Equality returns Plus
-	 *     Equality.Equality_1_0 returns Plus
-	 *     Comparison returns Plus
-	 *     Comparison.Comparison_1_0 returns Plus
-	 *     PlusOrMinus returns Plus
-	 *     PlusOrMinus.Plus_1_0_0_0 returns Plus
-	 *     PlusOrMinus.Minus_1_0_1_0 returns Plus
-	 *     MulOrDiv returns Plus
-	 *     MulOrDiv.MulOrDiv_1_0 returns Plus
-	 *     Primary returns Plus
-	 *
-	 * Constraint:
-	 *     (left=PlusOrMinus_Plus_1_0_0_0 right=MulOrDiv)
-	 */
-	protected void sequence_PlusOrMinus(ISerializationContext context, Plus semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.PLUS__LEFT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.PLUS__LEFT));
-			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.PLUS__RIGHT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.PLUS__RIGHT));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getPlusOrMinusAccess().getPlusLeftAction_1_0_0_0(), semanticObject.getLeft());
-		feeder.accept(grammarAccess.getPlusOrMinusAccess().getRightMulOrDivParserRuleCall_1_1_0(), semanticObject.getRight());
-		feeder.finish();
+	protected void sequence_PlusOrMinus(ISerializationContext context, PlusOrMinus semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -708,8 +645,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Comparison returns Not
 	 *     Comparison.Comparison_1_0 returns Not
 	 *     PlusOrMinus returns Not
-	 *     PlusOrMinus.Plus_1_0_0_0 returns Not
-	 *     PlusOrMinus.Minus_1_0_1_0 returns Not
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns Not
 	 *     MulOrDiv returns Not
 	 *     MulOrDiv.MulOrDiv_1_0 returns Not
 	 *     Primary returns Not

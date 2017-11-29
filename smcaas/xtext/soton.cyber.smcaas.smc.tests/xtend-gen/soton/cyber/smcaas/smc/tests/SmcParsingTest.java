@@ -8,8 +8,10 @@ import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.eclipse.xtext.testing.util.ParseHelper;
+import org.eclipse.xtext.testing.validation.ValidationTestHelper;
 import org.eclipse.xtext.xbase.lib.Exceptions;
-import org.junit.Assert;
+import org.eclipse.xtext.xbase.lib.Extension;
+import org.eclipse.xtext.xbase.testing.CompilationTestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import soton.cyber.smcaas.smc.smc.Smc;
@@ -20,17 +22,121 @@ import soton.cyber.smcaas.smc.tests.SmcInjectorProvider;
 @SuppressWarnings("all")
 public class SmcParsingTest {
   @Inject
-  private ParseHelper<Smc> parseHelper;
+  @Extension
+  private ParseHelper<Smc> _parseHelper;
+  
+  @Inject
+  @Extension
+  private ValidationTestHelper _validationTestHelper;
+  
+  @Inject
+  @Extension
+  private CompilationTestHelper _compilationTestHelper;
   
   @Test
-  public void loadModel() {
+  public void testGen() {
     try {
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("Hello Xtext!");
+      _builder.append("block insert_data B1 = new (\'UC3\');");
       _builder.newLine();
-      final Smc result = this.parseHelper.parse(_builder);
-      Assert.assertNotNull(result);
-      Assert.assertTrue(result.eResource().getErrors().isEmpty());
+      _builder.append("block search B2 = new();");
+      _builder.newLine();
+      _builder.append("block access_control B3 = new(\'O\', \'S\', \'TS\');");
+      _builder.newLine();
+      _builder.append("block permission_release B4 = new();");
+      _builder.newLine();
+      _builder.append("block anonymization B5 = new();");
+      _builder.newLine();
+      _builder.append("block math_computation B7 = new();");
+      _builder.newLine();
+      _builder.newLine();
+      _builder.append("main{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("//each ROCU insert his own cyber crime");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("var [] features_names = list(\'ROCU\', \'CYBER_CRIME\', \'LVL\');");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("var [] values = list(\'cyber-crime-23\', \'cyber-crime-235\', ");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("\'cyber-crime-176\', \'cyber-crime-870\', \'cyber-crime-544\'");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("); ");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("var STRING dataset = B1.addDataset(features_names, values);");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("var [] levels = list(\'TS\', \'S\', \'S\', \'O\', \'TS\');");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("B1.addClearanceLvl(levels)");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("//search on \'UC3\', match will be a tuple <data, level>");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("var STRING keyword = \'cyber-crime-176\';");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("var [] match = B2.find(B1.getDataset(), keyword);");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("//control between data level and requester level");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("//the output will be a tuple <data, (n)ack>");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("var [] ac_result;");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("var STRING mylvl = \'TS\';");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("ac_result = B3.checkPolicy(mylvl, match);");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("var STRING final_result;");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("//check if is denied (i.e. requester_lvl < data_lvl)");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("if(ac_result == \'DENY\') {");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("//being denied, ask to data owner to release ");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("var BOOLEAN flag = B4.askPermission(ac_result);");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("if(flag == true){");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("final_result = B4.grantPermission();");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      String model = _builder.toString();
+      this._validationTestHelper.assertNoErrors(this._parseHelper.parse(model));
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

@@ -7,6 +7,35 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+import soton.cyber.smcaas.smc.smc.Smc
+import soton.cyber.smcaas.smc.smc.MainSMC
+import soton.cyber.smcaas.smc.smc.BlockSMC
+import soton.cyber.smcaas.smc.smc.BlockType
+import soton.cyber.smcaas.smc.smc.Expression
+import soton.cyber.smcaas.smc.smc.Command
+import soton.cyber.smcaas.smc.smc.Invocation
+import soton.cyber.smcaas.smc.smc.Print
+import soton.cyber.smcaas.smc.smc.VariableDecl
+import soton.cyber.smcaas.smc.smc.VariableAssignment
+import soton.cyber.smcaas.smc.smc.IfThenElse
+import soton.cyber.smcaas.smc.smc.While
+import soton.cyber.smcaas.smc.smc.BasicType
+import soton.cyber.smcaas.smc.smc.Or
+import soton.cyber.smcaas.smc.smc.And
+import soton.cyber.smcaas.smc.smc.StringLiteral
+import soton.cyber.smcaas.smc.smc.Block
+import soton.cyber.smcaas.smc.smc.Equality
+import soton.cyber.smcaas.smc.smc.Comparison
+import soton.cyber.smcaas.smc.smc.PlusOrMinus
+import soton.cyber.smcaas.smc.smc.MulOrDiv
+import soton.cyber.smcaas.smc.smc.Not
+import soton.cyber.smcaas.smc.smc.IntLiteral
+import soton.cyber.smcaas.smc.smc.DoubleLiteral
+import soton.cyber.smcaas.smc.smc.BooleanLiteral
+import soton.cyber.smcaas.smc.smc.DateLiteral
+import soton.cyber.smcaas.smc.smc.TimeLiteral
+import soton.cyber.smcaas.smc.smc.VariableRef
+import soton.cyber.smcaas.smc.smc.List
 
 /**
  * Generates code from your model files on save.
@@ -16,10 +45,276 @@ import org.eclipse.xtext.generator.IGeneratorContext
 class SmcGenerator extends AbstractGenerator {
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-//		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-//			resource.allContents
-//				.filter(Greeting)
-//				.map[name]
-//				.join(', '))
+		for(e: resource.contents.filter(typeof(Smc))) {
+			fsa.generateFile('main.sc',compile(e))
+		}
 	}
+	
+	def compile(Smc smc) '''
+		import shared3p;
+		import shared3p_table_database;
+		import stdlib;
+		import table_database;
+		
+		domain pd_shared3p shared3p;
+		
+		«FOR block : smc.blocks»
+			«block.compile»
+		«ENDFOR»
+		
+		«IF smc.main !== null»«smc.main.compile»«ENDIF»
+	'''
+		
+	def compile(BlockSMC block)'''
+		«switch (block.type) {
+			case INSERT: {
+				'''«addDataset»'''
+			}
+			case COMP: {
+				'''comp - guarda come diverto'''
+			}
+			case SEARCH: {
+				'''search - guarda come diverto'''
+			}
+			case ANONYMIZATION: {
+				'''anon - guarda come diverto'''
+			}
+			case ACCESS: {
+				'''access - guarda come diverto'''
+			}
+			case PERMISSION: {
+				'''perm - guarda come diverto'''
+			}
+		}»
+	'''
+	
+	/* blocks */
+	
+	def addDataset()'''
+		void addDataset(string ds, string tbl, string [[1]] clm_names, pd_shared3p uint64 [[2]] values){
+		
+		  // First create table
+		  uint params = tdbVmapNew();
+		
+		  for (uint i = 0; i < size(clm_names); ++i) {
+		    pd_shared3p uint64 vtype;
+		    tdbVmapAddType(params, "types", vtype);
+		    tdbVmapAddString(params, "names", clm_names[i]);
+		  }
+		
+		  tdbTableCreate(ds, tbl, params);
+		
+		  // Then insert values into database:
+		  uint length = size(values) / size(clm_names);
+		  for (uint i = 0; i < length; ++i) {
+		
+		    tdbVmapClear(params);
+		
+		    for (uint j = 0; j < size(clm_names); ++j) {
+		      tdbVmapAddValue(params, "values", values[j]);
+		    }
+		
+		    tdbInsertRow(ds, tbl, params);
+		  }
+		  tdbVmapDelete(params);
+		
+		  return tbl;
+		}
+	'''
+	
+	def compile(MainSMC mainSmc)'''
+		void main() {
+			
+			string ds = "DS1";
+			string tbl = argument("UC3");
+			
+			tdbOpenConnection(ds);
+			
+			if (tdbTableExists(ds, tbl)) {
+			      print("Table `" + tbl + "` already exisis, deleting...");
+			      tdbTableDelete(ds, tbl);
+			}
+			«FOR c : mainSmc.commands»
+				«compileCommand(c)»
+			«ENDFOR»
+			
+		}
+	'''
+	
+	/* commands */
+	
+	def dispatch compileCommand(Command c){
+		c.compileCommand
+	}
+	
+	def dispatch compileCommand(Block c)'''
+		{
+			«FOR x : c.commands»
+				«x.compileCommand»
+			«ENDFOR»
+		}
+	'''
+	
+	//change in grammar needed to allow Sharemind PDK
+	def dispatch compileCommand(VariableDecl c)'''
+		«c.type.toSecrecType» «c.name»
+		«IF c.exp !== null» = «c.exp.compileEx»«ENDIF»
+		;
+	'''
+	
+	def getToSecrecType(BasicType type) {
+		switch (type) {
+			case INT: {
+				'''uint64'''
+			}
+			case DOUBLE: {
+				'''uint64'''
+			}
+			case BOOLEAN: {
+				'''bool'''
+			}
+			case STRING: {
+				'''string'''
+			}
+			case LIST: {
+				'''[[1]]'''
+			}
+			case MATRIX: {
+				'''[[2]]'''
+			}
+		}
+	}
+	
+	def dispatch compileCommand(VariableAssignment c)'''
+		«c.^var» = «c.exp»;
+	'''
+	
+	def dispatch compileCommand(IfThenElse c)'''
+		if(«c.condition.compileEx»)«c.thenBrach.compileCommand»
+		«IF c.elseBranch !== null»
+			else «c.elseBranch.compileCommand»
+		«ENDIF»
+	'''
+	
+	def dispatch compileCommand(While c)'''
+		while («c.condition.compileEx») «c.body.compileCommand»
+	'''
+	
+	def dispatch compileCommand(Print c) '''
+		print("«c.value»");
+	'''
+	
+	//change in grammar needed to allow invocation on variable
+	def dispatch compileCommand(Invocation c) '''
+		«c.blockName».«c.function»(
+			«IF c.args !== null»
+				«FOR x : c.args SEPARATOR ','»
+					«x.compileEx»
+				«ENDFOR»
+			«ENDIF»
+		)
+	'''
+	
+	/* expressions */
+	
+	def dispatch compileEx (Expression e){
+		e.compileEx
+	}
+	
+	def dispatch compileEx (Or e)'''
+		(«e.left.compileEx») || («e.right.compileEx»)
+	'''
+	
+	def dispatch compileEx (And e)'''
+		(«e.left.compileEx») && («e.right.compileEx»)
+	'''
+	
+	def dispatch compileEx (Equality e)'''
+		«switch (e.op) {
+			case "==": {
+				'''(«e.left.compileEx») == («e.right.compileEx»)'''
+			}
+			case "!=": {
+				'''(«e.left.compileEx») != («e.right.compileEx»)'''
+			}
+		}»
+	'''
+	
+	def dispatch compileEx (Comparison e)'''
+		«switch (e.op) {
+			case ">=": {
+				'''(«e.left.compileEx») >= («e.right.compileEx»)'''
+			}
+			case "<=": {
+				'''(«e.left.compileEx») <= («e.right.compileEx»)'''
+			}
+			case ">": {
+				'''(«e.left.compileEx») > («e.right.compileEx»)'''
+			}
+			case "<": {
+				'''(«e.left.compileEx») < («e.right.compileEx»)'''
+			}
+		}»
+	'''
+	
+	def dispatch compileEx (PlusOrMinus e)'''
+		«switch (e.op) {
+			case '+': {
+				'''(«e.left.compileEx») + («e.right.compileEx»)'''
+			}
+			case '-': {
+				'''(«e.left.compileEx») - («e.right.compileEx»)'''
+			}
+		}»
+	'''
+	
+	def dispatch compileEx (MulOrDiv e)'''
+		«switch (e.op) {
+			case '*': {
+				'''(«e.left.compileEx») * («e.right.compileEx»)'''
+			}
+			case '/': {
+				'''(«e.left.compileEx») / («e.right.compileEx»)'''
+			}
+		}»
+	'''
+	
+	def dispatch compileEx (Not e)'''
+		!«e.expression.compileEx»"
+	'''
+	
+	def dispatch compileEx (IntLiteral e)'''
+		«e.value»
+	'''
+	
+	def dispatch compileEx (DoubleLiteral e)'''
+		«e.value»
+	'''
+	
+	def dispatch compileEx (BooleanLiteral e)'''
+		«e.value»
+	'''
+	
+	def dispatch compileEx (StringLiteral e)'''
+		"«e.value»"
+	'''
+	
+	def dispatch compileEx (DateLiteral e)'''
+		«e.value»
+	'''
+	
+	def dispatch compileEx (TimeLiteral e)'''
+		«e.value»
+	'''
+	
+	//to be checked
+	def dispatch compileEx (VariableRef e)'''
+		«e.variable»
+	'''
+	//to be checked
+	def dispatch compileEx (List e)'''
+		«FOR x : e.args SEPARATOR ','»
+			«x.compileEx»
+		«ENDFOR»
+	'''
 }

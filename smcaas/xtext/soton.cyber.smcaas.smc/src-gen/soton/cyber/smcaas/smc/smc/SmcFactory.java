@@ -177,22 +177,13 @@ public interface SmcFactory extends EFactory
   Comparison createComparison();
 
   /**
-   * Returns a new object of class '<em>Plus</em>'.
+   * Returns a new object of class '<em>Plus Or Minus</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Plus</em>'.
+   * @return a new object of class '<em>Plus Or Minus</em>'.
    * @generated
    */
-  Plus createPlus();
-
-  /**
-   * Returns a new object of class '<em>Minus</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Minus</em>'.
-   * @generated
-   */
-  Minus createMinus();
+  PlusOrMinus createPlusOrMinus();
 
   /**
    * Returns a new object of class '<em>Mul Or Div</em>'.
