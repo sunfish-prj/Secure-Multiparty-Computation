@@ -73,19 +73,19 @@ class SmcGenerator extends AbstractGenerator {
 				'''«addDataset»'''
 			}
 			case COMP: {
-				'''comp - guarda come diverto'''
+				'''comp - TO ADD MODULE'''
 			}
 			case SEARCH: {
-				'''search - guarda come diverto'''
+				'''search - TO ADD MODULE'''
 			}
 			case ANONYMIZATION: {
-				'''anon - guarda come diverto'''
+				'''anon - TO ADD MODULE'''
 			}
 			case ACCESS: {
-				'''access - guarda come diverto'''
+				'''access - TO ADD MODULE'''
 			}
 			case PERMISSION: {
-				'''perm - guarda come diverto'''
+				'''perm - TO ADD MODULE'''
 			}
 		}»
 	'''
