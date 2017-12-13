@@ -180,13 +180,13 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIfThenElseParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cWhileParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		private final RuleCall cPrintParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cInvocationParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cInvocationVoidParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		
 		//Command:
-		//	Block | VariableDecl | VariableAssignment | IfThenElse | While | Print | Invocation;
+		//	Block | VariableDecl | VariableAssignment | IfThenElse | While | Print | InvocationVoid;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//Block | VariableDecl | VariableAssignment | IfThenElse | While | Print | Invocation
+		//Block | VariableDecl | VariableAssignment | IfThenElse | While | Print | InvocationVoid
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//Block
@@ -207,8 +207,31 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		//Print
 		public RuleCall getPrintParserRuleCall_5() { return cPrintParserRuleCall_5; }
 		
+		//InvocationVoid
+		public RuleCall getInvocationVoidParserRuleCall_6() { return cInvocationVoidParserRuleCall_6; }
+	}
+	public class InvocationVoidElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.InvocationVoid");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cCallAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cCallInvocationParserRuleCall_0_0 = (RuleCall)cCallAssignment_0.eContents().get(0);
+		private final Keyword cSemicolonKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//InvocationVoid:
+		//	call=Invocation ';';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//call=Invocation ';'
+		public Group getGroup() { return cGroup; }
+		
+		//call=Invocation
+		public Assignment getCallAssignment_0() { return cCallAssignment_0; }
+		
 		//Invocation
-		public RuleCall getInvocationParserRuleCall_6() { return cInvocationParserRuleCall_6; }
+		public RuleCall getCallInvocationParserRuleCall_0_0() { return cCallInvocationParserRuleCall_0_0; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_1() { return cSemicolonKeyword_1; }
 	}
 	public class BlockElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.Block");
@@ -374,52 +397,68 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.VariableDecl");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cVarKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cTypeAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cTypeBasicTypeEnumRuleCall_1_0 = (RuleCall)cTypeAssignment_1.eContents().get(0);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cEqualsSignKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cExpAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cExpExpressionParserRuleCall_3_1_0 = (RuleCall)cExpAssignment_3_1.eContents().get(0);
-		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cVisibilityAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cVisibilitySecTypeEnumRuleCall_1_0 = (RuleCall)cVisibilityAssignment_1.eContents().get(0);
+		private final Assignment cTypeAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cTypeBasicTypeEnumRuleCall_2_0 = (RuleCall)cTypeAssignment_2.eContents().get(0);
+		private final Assignment cArrayAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final Keyword cArrayLeftSquareBracketRightSquareBracketKeyword_3_0 = (Keyword)cArrayAssignment_3.eContents().get(0);
+		private final Assignment cNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cNameIDTerminalRuleCall_4_0 = (RuleCall)cNameAssignment_4.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cEqualsSignKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cExpAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cExpExpressionParserRuleCall_5_1_0 = (RuleCall)cExpAssignment_5_1.eContents().get(0);
+		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//VariableDecl:
-		//	'var' type=BasicType name=ID ('=' exp=Expression)? ';';
+		//	'var' visibility=SecType type=BasicType array?='[]'? name=ID ('=' exp=Expression)? ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'var' type=BasicType name=ID ('=' exp=Expression)? ';'
+		//'var' visibility=SecType type=BasicType array?='[]'? name=ID ('=' exp=Expression)? ';'
 		public Group getGroup() { return cGroup; }
 		
 		//'var'
 		public Keyword getVarKeyword_0() { return cVarKeyword_0; }
 		
+		//visibility=SecType
+		public Assignment getVisibilityAssignment_1() { return cVisibilityAssignment_1; }
+		
+		//SecType
+		public RuleCall getVisibilitySecTypeEnumRuleCall_1_0() { return cVisibilitySecTypeEnumRuleCall_1_0; }
+		
 		//type=BasicType
-		public Assignment getTypeAssignment_1() { return cTypeAssignment_1; }
+		public Assignment getTypeAssignment_2() { return cTypeAssignment_2; }
 		
 		//BasicType
-		public RuleCall getTypeBasicTypeEnumRuleCall_1_0() { return cTypeBasicTypeEnumRuleCall_1_0; }
+		public RuleCall getTypeBasicTypeEnumRuleCall_2_0() { return cTypeBasicTypeEnumRuleCall_2_0; }
+		
+		//array?='[]'?
+		public Assignment getArrayAssignment_3() { return cArrayAssignment_3; }
+		
+		//'[]'
+		public Keyword getArrayLeftSquareBracketRightSquareBracketKeyword_3_0() { return cArrayLeftSquareBracketRightSquareBracketKeyword_3_0; }
 		
 		//name=ID
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		public Assignment getNameAssignment_4() { return cNameAssignment_4; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		public RuleCall getNameIDTerminalRuleCall_4_0() { return cNameIDTerminalRuleCall_4_0; }
 		
 		//('=' exp=Expression)?
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_5() { return cGroup_5; }
 		
 		//'='
-		public Keyword getEqualsSignKeyword_3_0() { return cEqualsSignKeyword_3_0; }
+		public Keyword getEqualsSignKeyword_5_0() { return cEqualsSignKeyword_5_0; }
 		
 		//exp=Expression
-		public Assignment getExpAssignment_3_1() { return cExpAssignment_3_1; }
+		public Assignment getExpAssignment_5_1() { return cExpAssignment_5_1; }
 		
 		//Expression
-		public RuleCall getExpExpressionParserRuleCall_3_1_0() { return cExpExpressionParserRuleCall_3_1_0; }
+		public RuleCall getExpExpressionParserRuleCall_5_1_0() { return cExpExpressionParserRuleCall_5_1_0; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
+		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
 	}
 	public class VariableAssignmentElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.VariableAssignment");
@@ -432,6 +471,9 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cExpExpressionParserRuleCall_2_0 = (RuleCall)cExpAssignment_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
+		////enum ArrayType:
+		////	EMPTY=' ' | LIST='[]' | MATRIX='[[]]'
+		////;
 		//VariableAssignment:
 		//	var=[VariableDecl] '=' exp=Expression ';';
 		@Override public ParserRule getRule() { return rule; }
@@ -1111,6 +1153,33 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		//'permission_release'
 		public Keyword getPERMISSIONPermission_releaseKeyword_5_0() { return cPERMISSIONPermission_releaseKeyword_5_0; }
 	}
+	public class SecTypeElements extends AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.SecType");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final EnumLiteralDeclaration cPUBLICEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cPUBLICPublicKeyword_0_0 = (Keyword)cPUBLICEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cPRIVATEEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cPRIVATEPrivateKeyword_1_0 = (Keyword)cPRIVATEEnumLiteralDeclaration_1.eContents().get(0);
+		
+		//enum SecType:
+		//	PUBLIC='public' | PRIVATE='private';
+		public EnumRule getRule() { return rule; }
+		
+		//PUBLIC='public' | PRIVATE='private'
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//PUBLIC='public'
+		public EnumLiteralDeclaration getPUBLICEnumLiteralDeclaration_0() { return cPUBLICEnumLiteralDeclaration_0; }
+		
+		//'public'
+		public Keyword getPUBLICPublicKeyword_0_0() { return cPUBLICPublicKeyword_0_0; }
+		
+		//PRIVATE='private'
+		public EnumLiteralDeclaration getPRIVATEEnumLiteralDeclaration_1() { return cPRIVATEEnumLiteralDeclaration_1; }
+		
+		//'private'
+		public Keyword getPRIVATEPrivateKeyword_1_0() { return cPRIVATEPrivateKeyword_1_0; }
+	}
 	public class BasicTypeElements extends AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.BasicType");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -1122,16 +1191,12 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cBOOLEANBOOLEANKeyword_2_0 = (Keyword)cBOOLEANEnumLiteralDeclaration_2.eContents().get(0);
 		private final EnumLiteralDeclaration cSTRINGEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
 		private final Keyword cSTRINGSTRINGKeyword_3_0 = (Keyword)cSTRINGEnumLiteralDeclaration_3.eContents().get(0);
-		private final EnumLiteralDeclaration cLISTEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
-		private final Keyword cLISTLeftSquareBracketRightSquareBracketKeyword_4_0 = (Keyword)cLISTEnumLiteralDeclaration_4.eContents().get(0);
-		private final EnumLiteralDeclaration cMATRIXEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
-		private final Keyword cMATRIXLeftSquareBracketLeftSquareBracketRightSquareBracketRightSquareBracketKeyword_5_0 = (Keyword)cMATRIXEnumLiteralDeclaration_5.eContents().get(0);
 		
 		//enum BasicType:
-		//	INT | DOUBLE | BOOLEAN | STRING | LIST='[]' | MATRIX='[[]]';
+		//	INT | DOUBLE | BOOLEAN | STRING;
 		public EnumRule getRule() { return rule; }
 		
-		//INT | DOUBLE | BOOLEAN | STRING | LIST='[]' | MATRIX='[[]]'
+		//INT | DOUBLE | BOOLEAN | STRING
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//INT
@@ -1157,18 +1222,6 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//"STRING"
 		public Keyword getSTRINGSTRINGKeyword_3_0() { return cSTRINGSTRINGKeyword_3_0; }
-		
-		//LIST='[]'
-		public EnumLiteralDeclaration getLISTEnumLiteralDeclaration_4() { return cLISTEnumLiteralDeclaration_4; }
-		
-		//'[]'
-		public Keyword getLISTLeftSquareBracketRightSquareBracketKeyword_4_0() { return cLISTLeftSquareBracketRightSquareBracketKeyword_4_0; }
-		
-		//MATRIX='[[]]'
-		public EnumLiteralDeclaration getMATRIXEnumLiteralDeclaration_5() { return cMATRIXEnumLiteralDeclaration_5; }
-		
-		//'[[]]'
-		public Keyword getMATRIXLeftSquareBracketLeftSquareBracketRightSquareBracketRightSquareBracketKeyword_5_0() { return cMATRIXLeftSquareBracketLeftSquareBracketRightSquareBracketRightSquareBracketKeyword_5_0; }
 	}
 	
 	private final SmcElements pSmc;
@@ -1176,11 +1229,13 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 	private final BlockTypeElements eBlockType;
 	private final MainSMCElements pMainSMC;
 	private final CommandElements pCommand;
+	private final InvocationVoidElements pInvocationVoid;
 	private final BlockElements pBlock;
 	private final PrintElements pPrint;
 	private final WhileElements pWhile;
 	private final IfThenElseElements pIfThenElse;
 	private final VariableDeclElements pVariableDecl;
+	private final SecTypeElements eSecType;
 	private final BasicTypeElements eBasicType;
 	private final VariableAssignmentElements pVariableAssignment;
 	private final ExpressionElements pExpression;
@@ -1217,11 +1272,13 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		this.eBlockType = new BlockTypeElements();
 		this.pMainSMC = new MainSMCElements();
 		this.pCommand = new CommandElements();
+		this.pInvocationVoid = new InvocationVoidElements();
 		this.pBlock = new BlockElements();
 		this.pPrint = new PrintElements();
 		this.pWhile = new WhileElements();
 		this.pIfThenElse = new IfThenElseElements();
 		this.pVariableDecl = new VariableDeclElements();
+		this.eSecType = new SecTypeElements();
 		this.eBasicType = new BasicTypeElements();
 		this.pVariableAssignment = new VariableAssignmentElements();
 		this.pExpression = new ExpressionElements();
@@ -1316,13 +1373,23 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Command:
-	//	Block | VariableDecl | VariableAssignment | IfThenElse | While | Print | Invocation;
+	//	Block | VariableDecl | VariableAssignment | IfThenElse | While | Print | InvocationVoid;
 	public CommandElements getCommandAccess() {
 		return pCommand;
 	}
 	
 	public ParserRule getCommandRule() {
 		return getCommandAccess().getRule();
+	}
+	
+	//InvocationVoid:
+	//	call=Invocation ';';
+	public InvocationVoidElements getInvocationVoidAccess() {
+		return pInvocationVoid;
+	}
+	
+	public ParserRule getInvocationVoidRule() {
+		return getInvocationVoidAccess().getRule();
 	}
 	
 	//Block Command:
@@ -1366,7 +1433,7 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//VariableDecl:
-	//	'var' type=BasicType name=ID ('=' exp=Expression)? ';';
+	//	'var' visibility=SecType type=BasicType array?='[]'? name=ID ('=' exp=Expression)? ';';
 	public VariableDeclElements getVariableDeclAccess() {
 		return pVariableDecl;
 	}
@@ -1375,8 +1442,18 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		return getVariableDeclAccess().getRule();
 	}
 	
+	//enum SecType:
+	//	PUBLIC='public' | PRIVATE='private';
+	public SecTypeElements getSecTypeAccess() {
+		return eSecType;
+	}
+	
+	public EnumRule getSecTypeRule() {
+		return getSecTypeAccess().getRule();
+	}
+	
 	//enum BasicType:
-	//	INT | DOUBLE | BOOLEAN | STRING | LIST='[]' | MATRIX='[[]]';
+	//	INT | DOUBLE | BOOLEAN | STRING;
 	public BasicTypeElements getBasicTypeAccess() {
 		return eBasicType;
 	}
@@ -1385,6 +1462,9 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		return getBasicTypeAccess().getRule();
 	}
 	
+	////enum ArrayType:
+	////	EMPTY=' ' | LIST='[]' | MATRIX='[[]]'
+	////;
 	//VariableAssignment:
 	//	var=[VariableDecl] '=' exp=Expression ';';
 	public VariableAssignmentElements getVariableAssignmentAccess() {

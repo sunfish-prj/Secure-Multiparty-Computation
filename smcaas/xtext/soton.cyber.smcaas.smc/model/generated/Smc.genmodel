@@ -14,13 +14,15 @@
       <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//BlockType/ACCESS"/>
       <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//BlockType/PERMISSION"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Smc.ecore#//SecType">
+      <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//SecType/PUBLIC"/>
+      <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//SecType/PRIVATE"/>
+    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Smc.ecore#//BasicType">
       <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//BasicType/INT"/>
       <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//BasicType/DOUBLE"/>
       <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//BasicType/BOOLEAN"/>
       <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//BasicType/STRING"/>
-      <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//BasicType/LIST"/>
-      <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//BasicType/MATRIX"/>
     </genEnums>
     <genClasses ecoreClass="Smc.ecore#//Smc">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//Smc/blocks"/>
@@ -35,6 +37,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//MainSMC/commands"/>
     </genClasses>
     <genClasses ecoreClass="Smc.ecore#//Command"/>
+    <genClasses ecoreClass="Smc.ecore#//InvocationVoid">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//InvocationVoid/call"/>
+    </genClasses>
     <genClasses ecoreClass="Smc.ecore#//Print">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//Print/value"/>
     </genClasses>
@@ -48,7 +53,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//IfThenElse/elseBranch"/>
     </genClasses>
     <genClasses ecoreClass="Smc.ecore#//VariableDecl">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//VariableDecl/visibility"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//VariableDecl/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//VariableDecl/array"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//VariableDecl/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//VariableDecl/exp"/>
     </genClasses>

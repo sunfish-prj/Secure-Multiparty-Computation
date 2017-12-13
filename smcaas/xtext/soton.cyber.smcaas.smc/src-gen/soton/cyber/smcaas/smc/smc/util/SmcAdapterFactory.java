@@ -96,6 +96,11 @@ public class SmcAdapterFactory extends AdapterFactoryImpl
         return createCommandAdapter();
       }
       @Override
+      public Adapter caseInvocationVoid(InvocationVoid object)
+      {
+        return createInvocationVoidAdapter();
+      }
+      @Override
       public Adapter casePrint(Print object)
       {
         return createPrintAdapter();
@@ -288,6 +293,21 @@ public class SmcAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createCommandAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.InvocationVoid <em>Invocation Void</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.InvocationVoid
+   * @generated
+   */
+  public Adapter createInvocationVoidAdapter()
   {
     return null;
   }

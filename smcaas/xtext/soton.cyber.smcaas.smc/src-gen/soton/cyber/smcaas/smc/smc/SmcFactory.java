@@ -60,6 +60,15 @@ public interface SmcFactory extends EFactory
   Command createCommand();
 
   /**
+   * Returns a new object of class '<em>Invocation Void</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Invocation Void</em>'.
+   * @generated
+   */
+  InvocationVoid createInvocationVoid();
+
+  /**
    * Returns a new object of class '<em>Print</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

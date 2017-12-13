@@ -7,24 +7,23 @@ import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.util.ParseHelper
-import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import soton.cyber.smcaas.smc.smc.Smc
 import org.eclipse.xtext.xbase.testing.CompilationTestHelper
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
 
+import static extension org.junit.Assert.*
+
 @RunWith(XtextRunner)
 @InjectWith(SmcInjectorProvider)
 class SmcParsingTest {
 
+	@Inject extension ParseHelper<Smc>
+	@Inject extension ValidationTestHelper
+	@Inject extension CompilationTestHelper
 
-@Inject extension ParseHelper<Smc>
-@Inject extension ValidationTestHelper
-
-@Inject extension CompilationTestHelper
-
-//	
+//	********************************************************************** //
 //	@Test
 //	def void loadModel() {
 //		val result = parseHelper.parse('''
@@ -33,53 +32,162 @@ class SmcParsingTest {
 //		Assert.assertNotNull(result)
 //		Assert.assertTrue(result.eResource.errors.isEmpty)
 //	}
-//	
-	
+//	********************************************************************** //
+
 	@Test
-	def void testGen(){
+	def void testGen1() {
 		var model = '''
-		block insert_data B1 = new ('UC3');
-		block search B2 = new();
-		block access_control B3 = new('O', 'S', 'TS');
-		block permission_release B4 = new();
-		block anonymization B5 = new();
-		block math_computation B7 = new();
-		
-		main{
-			//each ROCU insert his own cyber crime
-			var [] features_names = list('ROCU', 'CYBER_CRIME', 'LVL');
-			var [] values = list('cyber-crime-23', 'cyber-crime-235', 
-				'cyber-crime-176', 'cyber-crime-870', 'cyber-crime-544'
-			); 
-			var STRING dataset = B1.addDataset(features_names, values);
-			var [] levels = list('TS', 'S', 'S', 'O', 'TS');
-			B1.addClearanceLvl(levels)
+			block insert_data B1 = new ('UC3');
+			block search B2 = new();
+			block access_control B3 = new('O', 'S', 'TS');
+			block permission_release B4 = new();
 			
-			//search on 'UC3', match will be a tuple <data, level>
-			var STRING keyword = 'cyber-crime-176';
-			var [] match = B2.find(B1.getDataset(), keyword);
-			
-			//control between data level and requester level
-			//the output will be a tuple <data, (n)ack>
-			var [] ac_result;
-			var STRING mylvl = 'TS';
-			ac_result = B3.checkPolicy(mylvl, match);
-			
-			var STRING final_result;
-			//check if is denied (i.e. requester_lvl < data_lvl)
-			if(ac_result == 'DENY') {
-				//being denied, ask to data owner to release 
-				var BOOLEAN flag = B4.askPermission(ac_result);
-				if(flag == true){
-					final_result = B4.grantPermission();
+			main{
+				var private INT x;
+				var private INT y = (5 * 5) + 3;
+				
+				x = 5;
+				
+				if(x == y){
+					var private INT z = 5;
+				}else{
+					var private INT w = 5;
 				}
+				
+				while((5 && 5) || (5 && 5)){
+					var private INT g = 5;
+				}
+				
+				if(!y){
+					print(5);
+				}
+				
+				var private INT l = list(5, 6, 7, x);
+				
+				B4.ciao();
 			}
-		}
 		'''
 		model.parse.assertNoErrors
-		
-		//model.assertCompilesTo('''ciao''')
-		
+
+		model.compile [
+			assertEquals('''
+				void main() {
+					
+					string ds = "DS1";
+					string tbl = argument("UC3");
+					
+					tdbOpenConnection(ds);
+					
+					if (tdbTableExists(ds, tbl)) {
+						print("Table `" + tbl + "` already exisis, deleting...");
+						tdbTableDelete(ds, tbl);
+					}
+				 	pd_shared3p uint64 x;
+				 	pd_shared3p uint64 y = ((5) * (5)) + (3);
+				 	
+				 	x = 5;
+				 	
+				 	if((x) == (y)){
+				 		pd_shared3p uint64 z = 5;
+				 	}else{
+				 		pd_shared3p uint64 w = 5;
+				 	}
+				 	
+				 	while(((5) && (5)) || ((5) && (5))){
+				 		pd_shared3p uint64 g = 5;
+				 	}
+				 	
+				 	if(!(y)){
+				 		print("5");
+				 	}
+				 	
+				 	pd_shared3p uint64 l = {5, 6, 7, x};
+				 	
+				 	B4.ciao();
+				}
+				'''.toString.replaceAll("\\s",""),
+				singleGeneratedCode.substring(singleGeneratedCode.indexOf("void main()")).replaceAll("\\s",""))
+		]
+
+	}
+
+	@Test
+	def void testGen2() {
+		var model = '''
+			block insert_data B1 = new ('UC3');
+			block search B2 = new();
+			block access_control B3 = new('O', 'S', 'TS');
+			block permission_release B4 = new();
+			
+			main{
+				var private STRING [] features_names = list('ROCU', 'CYBER_CRIME', 'LVL');
+				var private STRING [] values = list('cyber-crime-23', 'cyber-crime-235', 
+							'cyber-crime-176', 'cyber-crime-870', 'cyber-crime-544'
+						); 
+				var public STRING datasetName = B1.addDataset(features_names, values);
+				var private STRING [] levels = list('TS', 'S', 'S', 'O', 'TS');
+				B1.addClearanceLvl(levels);
+				
+				//search on 'UC3', match will be a flag indicating if there is a match
+				var private STRING keyword = 'cyber-crime-176';
+				var private BOOLEAN match = B2.find(B1.getDataset(), keyword);
+				
+				var private STRING final_result;
+				
+				//control on level-security between data and requester
+				if(match == true){
+					var private BOOLEAN ac_result;
+					var private STRING mylvl = 'TS';
+					ac_result = B3.checkPolicy(mylvl, B2.getResult());
+					
+					//check if is denied (i.e. requester_lvl < data_lvl)
+					if(ac_result == 'DENY') {
+						
+						//being denied, ask to data owner to release 
+						var private BOOLEAN flag = B4.askPermission(ac_result);
+						if(flag == true){
+							final_result = B4.grantPermission();
+						}
+					}else{
+						final_result = B3.getData();
+					}
+				}
+				
+				//make result public
+				print(final_result);
+			}
+		'''
+		model.parse.assertNoErrors
+
+		model.compile [
+			assertEquals('''
+				void main() {
+					
+				 	B4.ciao();
+				}
+				'''.toString.replaceAll("\\s",""),
+				singleGeneratedCode.substring(singleGeneratedCode.indexOf("void main()")).replaceAll("\\s",""))
+		]
+
+//		contains('''
+//			void main() {
+//						
+//				string ds = "DdadfgafadS1";
+//				string tbl = argument("UC3");
+//				
+//				tdbOpenConnection(ds);
+//				
+//				if (tdbTableExists(ds, tbl)) {
+//				      print("Table `" + tbl + "` already exisis, deleting...");
+//				      tdbTableDelete(ds, tbl);
+//				}
+//				
+//				[[1]] features_names = "ROCU", "CYBER_CRIME", "LVL";
+//			}
+//		''')
+//		println(model)
+//		Assert::assertEquals(a,true);
 	}
 	
+
 }

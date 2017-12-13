@@ -402,12 +402,54 @@ ruleCommand returns [EObject current=null]
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getCommandAccess().getInvocationParserRuleCall_6());
+			newCompositeNode(grammarAccess.getCommandAccess().getInvocationVoidParserRuleCall_6());
 		}
-		this_Invocation_6=ruleInvocation
+		this_InvocationVoid_6=ruleInvocationVoid
 		{
-			$current = $this_Invocation_6.current;
+			$current = $this_InvocationVoid_6.current;
 			afterParserOrEnumRuleCall();
+		}
+	)
+;
+
+// Entry rule entryRuleInvocationVoid
+entryRuleInvocationVoid returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getInvocationVoidRule()); }
+	iv_ruleInvocationVoid=ruleInvocationVoid
+	{ $current=$iv_ruleInvocationVoid.current; }
+	EOF;
+
+// Rule InvocationVoid
+ruleInvocationVoid returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getInvocationVoidAccess().getCallInvocationParserRuleCall_0_0());
+				}
+				lv_call_0_0=ruleInvocation
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getInvocationVoidRule());
+					}
+					set(
+						$current,
+						"call",
+						lv_call_0_0,
+						"soton.cyber.smcaas.smc.Smc.Invocation");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_1=';'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getInvocationVoidAccess().getSemicolonKeyword_1());
 		}
 	)
 ;
@@ -708,9 +750,28 @@ ruleVariableDecl returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getVariableDeclAccess().getTypeBasicTypeEnumRuleCall_1_0());
+					newCompositeNode(grammarAccess.getVariableDeclAccess().getVisibilitySecTypeEnumRuleCall_1_0());
 				}
-				lv_type_1_0=ruleBasicType
+				lv_visibility_1_0=ruleSecType
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getVariableDeclRule());
+					}
+					set(
+						$current,
+						"visibility",
+						lv_visibility_1_0,
+						"soton.cyber.smcaas.smc.Smc.SecType");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getVariableDeclAccess().getTypeBasicTypeEnumRuleCall_2_0());
+				}
+				lv_type_2_0=ruleBasicType
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getVariableDeclRule());
@@ -718,7 +779,7 @@ ruleVariableDecl returns [EObject current=null]
 					set(
 						$current,
 						"type",
-						lv_type_1_0,
+						lv_type_2_0,
 						"soton.cyber.smcaas.smc.Smc.BasicType");
 					afterParserOrEnumRuleCall();
 				}
@@ -726,9 +787,23 @@ ruleVariableDecl returns [EObject current=null]
 		)
 		(
 			(
-				lv_name_2_0=RULE_ID
+				lv_array_3_0='[]'
 				{
-					newLeafNode(lv_name_2_0, grammarAccess.getVariableDeclAccess().getNameIDTerminalRuleCall_2_0());
+					newLeafNode(lv_array_3_0, grammarAccess.getVariableDeclAccess().getArrayLeftSquareBracketRightSquareBracketKeyword_3_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getVariableDeclRule());
+					}
+					setWithLastConsumed($current, "array", true, "[]");
+				}
+			)
+		)?
+		(
+			(
+				lv_name_4_0=RULE_ID
+				{
+					newLeafNode(lv_name_4_0, grammarAccess.getVariableDeclAccess().getNameIDTerminalRuleCall_4_0());
 				}
 				{
 					if ($current==null) {
@@ -737,22 +812,22 @@ ruleVariableDecl returns [EObject current=null]
 					setWithLastConsumed(
 						$current,
 						"name",
-						lv_name_2_0,
+						lv_name_4_0,
 						"org.eclipse.xtext.common.Terminals.ID");
 				}
 			)
 		)
 		(
-			otherlv_3='='
+			otherlv_5='='
 			{
-				newLeafNode(otherlv_3, grammarAccess.getVariableDeclAccess().getEqualsSignKeyword_3_0());
+				newLeafNode(otherlv_5, grammarAccess.getVariableDeclAccess().getEqualsSignKeyword_5_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getVariableDeclAccess().getExpExpressionParserRuleCall_3_1_0());
+						newCompositeNode(grammarAccess.getVariableDeclAccess().getExpExpressionParserRuleCall_5_1_0());
 					}
-					lv_exp_4_0=ruleExpression
+					lv_exp_6_0=ruleExpression
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getVariableDeclRule());
@@ -760,16 +835,16 @@ ruleVariableDecl returns [EObject current=null]
 						set(
 							$current,
 							"exp",
-							lv_exp_4_0,
+							lv_exp_6_0,
 							"soton.cyber.smcaas.smc.Smc.Expression");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)?
-		otherlv_5=';'
+		otherlv_7=';'
 		{
-			newLeafNode(otherlv_5, grammarAccess.getVariableDeclAccess().getSemicolonKeyword_4());
+			newLeafNode(otherlv_7, grammarAccess.getVariableDeclAccess().getSemicolonKeyword_6());
 		}
 	)
 ;
@@ -1620,6 +1695,15 @@ ruleAtomic returns [EObject current=null]
 			$current = $this_List_14.current;
 			afterParserOrEnumRuleCall();
 		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getAtomicAccess().getInvocationParserRuleCall_8());
+		}
+		this_Invocation_15=ruleInvocation
+		{
+			$current = $this_Invocation_15.current;
+			afterParserOrEnumRuleCall();
+		}
 	)
 ;
 
@@ -1863,6 +1947,33 @@ ruleBlockType returns [Enumerator current=null]
 	)
 ;
 
+// Rule SecType
+ruleSecType returns [Enumerator current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			enumLiteral_0='public'
+			{
+				$current = grammarAccess.getSecTypeAccess().getPUBLICEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_0, grammarAccess.getSecTypeAccess().getPUBLICEnumLiteralDeclaration_0());
+			}
+		)
+		    |
+		(
+			enumLiteral_1='private'
+			{
+				$current = grammarAccess.getSecTypeAccess().getPRIVATEEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_1, grammarAccess.getSecTypeAccess().getPRIVATEEnumLiteralDeclaration_1());
+			}
+		)
+	)
+;
+
 // Rule BasicType
 ruleBasicType returns [Enumerator current=null]
 @init {
@@ -1901,22 +2012,6 @@ ruleBasicType returns [Enumerator current=null]
 			{
 				$current = grammarAccess.getBasicTypeAccess().getSTRINGEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
 				newLeafNode(enumLiteral_3, grammarAccess.getBasicTypeAccess().getSTRINGEnumLiteralDeclaration_3());
-			}
-		)
-		    |
-		(
-			enumLiteral_4='[]'
-			{
-				$current = grammarAccess.getBasicTypeAccess().getLISTEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_4, grammarAccess.getBasicTypeAccess().getLISTEnumLiteralDeclaration_4());
-			}
-		)
-		    |
-		(
-			enumLiteral_5='[[]]'
-			{
-				$current = grammarAccess.getBasicTypeAccess().getMATRIXEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_5, grammarAccess.getBasicTypeAccess().getMATRIXEnumLiteralDeclaration_5());
 			}
 		)
 	)

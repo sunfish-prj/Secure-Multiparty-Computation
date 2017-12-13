@@ -58,27 +58,7 @@ public enum BasicType implements Enumerator
    * @generated
    * @ordered
    */
-  STRING(3, "STRING", "STRING"),
-
-  /**
-   * The '<em><b>LIST</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #LIST_VALUE
-   * @generated
-   * @ordered
-   */
-  LIST(4, "LIST", "[]"),
-
-  /**
-   * The '<em><b>MATRIX</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #MATRIX_VALUE
-   * @generated
-   * @ordered
-   */
-  MATRIX(5, "MATRIX", "[[]]");
+  STRING(3, "STRING", "STRING");
 
   /**
    * The '<em><b>INT</b></em>' literal value.
@@ -141,36 +121,6 @@ public enum BasicType implements Enumerator
   public static final int STRING_VALUE = 3;
 
   /**
-   * The '<em><b>LIST</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>LIST</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @see #LIST
-   * @model literal="[]"
-   * @generated
-   * @ordered
-   */
-  public static final int LIST_VALUE = 4;
-
-  /**
-   * The '<em><b>MATRIX</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>MATRIX</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @see #MATRIX
-   * @model literal="[[]]"
-   * @generated
-   * @ordered
-   */
-  public static final int MATRIX_VALUE = 5;
-
-  /**
    * An array of all the '<em><b>Basic Type</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -183,8 +133,6 @@ public enum BasicType implements Enumerator
       DOUBLE,
       BOOLEAN,
       STRING,
-      LIST,
-      MATRIX,
     };
 
   /**
@@ -253,8 +201,6 @@ public enum BasicType implements Enumerator
       case DOUBLE_VALUE: return DOUBLE;
       case BOOLEAN_VALUE: return BOOLEAN;
       case STRING_VALUE: return STRING;
-      case LIST_VALUE: return LIST;
-      case MATRIX_VALUE: return MATRIX;
     }
     return null;
   }

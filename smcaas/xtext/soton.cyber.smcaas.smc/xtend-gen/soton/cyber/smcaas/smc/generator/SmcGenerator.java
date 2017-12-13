@@ -26,6 +26,7 @@ import soton.cyber.smcaas.smc.smc.Expression;
 import soton.cyber.smcaas.smc.smc.IfThenElse;
 import soton.cyber.smcaas.smc.smc.IntLiteral;
 import soton.cyber.smcaas.smc.smc.Invocation;
+import soton.cyber.smcaas.smc.smc.InvocationVoid;
 import soton.cyber.smcaas.smc.smc.List;
 import soton.cyber.smcaas.smc.smc.MainSMC;
 import soton.cyber.smcaas.smc.smc.MulOrDiv;
@@ -33,6 +34,7 @@ import soton.cyber.smcaas.smc.smc.Not;
 import soton.cyber.smcaas.smc.smc.Or;
 import soton.cyber.smcaas.smc.smc.PlusOrMinus;
 import soton.cyber.smcaas.smc.smc.Print;
+import soton.cyber.smcaas.smc.smc.SecType;
 import soton.cyber.smcaas.smc.smc.Smc;
 import soton.cyber.smcaas.smc.smc.StringLiteral;
 import soton.cyber.smcaas.smc.smc.TimeLiteral;
@@ -236,10 +238,10 @@ public class SmcGenerator extends AbstractGenerator {
     _builder.append("\t");
     _builder.append("if (tdbTableExists(ds, tbl)) {");
     _builder.newLine();
-    _builder.append("\t      ");
+    _builder.append("\t\t");
     _builder.append("print(\"Table `\" + tbl + \"` already exisis, deleting...\");");
     _builder.newLine();
-    _builder.append("\t      ");
+    _builder.append("\t\t");
     _builder.append("tdbTableDelete(ds, tbl);");
     _builder.newLine();
     _builder.append("\t");
@@ -288,9 +290,19 @@ public class SmcGenerator extends AbstractGenerator {
   
   protected Object _compileCommand(final VariableDecl c) {
     StringConcatenation _builder = new StringConcatenation();
+    CharSequence _toSecrecVisibility = this.getToSecrecVisibility(c.getVisibility());
+    _builder.append(_toSecrecVisibility);
+    _builder.append(" ");
     CharSequence _toSecrecType = this.getToSecrecType(c.getType());
     _builder.append(_toSecrecType);
     _builder.append(" ");
+    _builder.newLineIfNotEmpty();
+    {
+      boolean _isArray = c.isArray();
+      if (_isArray) {
+        _builder.append("[[1]] ");
+      }
+    }
     String _name = c.getName();
     _builder.append(_name);
     _builder.newLineIfNotEmpty();
@@ -307,6 +319,26 @@ public class SmcGenerator extends AbstractGenerator {
     _builder.append(";");
     _builder.newLine();
     return _builder;
+  }
+  
+  public CharSequence getToSecrecVisibility(final SecType type) {
+    CharSequence _switchResult = null;
+    if (type != null) {
+      switch (type) {
+        case PUBLIC:
+          StringConcatenation _builder = new StringConcatenation();
+          _switchResult = _builder;
+          break;
+        case PRIVATE:
+          StringConcatenation _builder_1 = new StringConcatenation();
+          _builder_1.append("pd_shared3p");
+          _switchResult = _builder_1;
+          break;
+        default:
+          break;
+      }
+    }
+    return _switchResult;
   }
   
   public CharSequence getToSecrecType(final BasicType type) {
@@ -333,16 +365,6 @@ public class SmcGenerator extends AbstractGenerator {
           _builder_3.append("string");
           _switchResult = _builder_3;
           break;
-        case LIST:
-          StringConcatenation _builder_4 = new StringConcatenation();
-          _builder_4.append("[[1]]");
-          _switchResult = _builder_4;
-          break;
-        case MATRIX:
-          StringConcatenation _builder_5 = new StringConcatenation();
-          _builder_5.append("[[2]]");
-          _switchResult = _builder_5;
-          break;
         default:
           break;
       }
@@ -352,11 +374,11 @@ public class SmcGenerator extends AbstractGenerator {
   
   protected Object _compileCommand(final VariableAssignment c) {
     StringConcatenation _builder = new StringConcatenation();
-    VariableDecl _var = c.getVar();
-    _builder.append(_var);
+    String _name = c.getVar().getName();
+    _builder.append(_name);
     _builder.append(" = ");
-    Expression _exp = c.getExp();
-    _builder.append(_exp);
+    Object _compileEx = this.compileEx(c.getExp());
+    _builder.append(_compileEx);
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     return _builder;
@@ -399,45 +421,19 @@ public class SmcGenerator extends AbstractGenerator {
   protected Object _compileCommand(final Print c) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("print(\"");
-    Expression _value = c.getValue();
-    _builder.append(_value);
+    Object _compileEx = this.compileEx(c.getValue());
+    _builder.append(_compileEx);
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
     return _builder;
   }
   
-  protected Object _compileCommand(final Invocation c) {
+  protected Object _compileCommand(final InvocationVoid c) {
     StringConcatenation _builder = new StringConcatenation();
-    BlockSMC _blockName = c.getBlockName();
-    _builder.append(_blockName);
-    _builder.append(".");
-    String _function = c.getFunction();
-    _builder.append(_function);
-    _builder.append("(");
+    Object _compileEx = this.compileEx(c.getCall());
+    _builder.append(_compileEx);
+    _builder.append(";");
     _builder.newLineIfNotEmpty();
-    {
-      EList<Expression> _args = c.getArgs();
-      boolean _tripleNotEquals = (_args != null);
-      if (_tripleNotEquals) {
-        {
-          EList<Expression> _args_1 = c.getArgs();
-          boolean _hasElements = false;
-          for(final Expression x : _args_1) {
-            if (!_hasElements) {
-              _hasElements = true;
-            } else {
-              _builder.appendImmediate(",", "\t");
-            }
-            _builder.append("\t");
-            Object _compileEx = this.compileEx(x);
-            _builder.append(_compileEx, "\t");
-            _builder.newLineIfNotEmpty();
-          }
-        }
-      }
-    }
-    _builder.append(")");
-    _builder.newLine();
     return _builder;
   }
   
@@ -638,10 +634,10 @@ public class SmcGenerator extends AbstractGenerator {
   
   protected Object _compileEx(final Not e) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("!");
+    _builder.append("!(");
     Object _compileEx = this.compileEx(e.getExpression());
     _builder.append(_compileEx);
-    _builder.append("\"");
+    _builder.append(")");
     _builder.newLineIfNotEmpty();
     return _builder;
   }
@@ -698,14 +694,16 @@ public class SmcGenerator extends AbstractGenerator {
   
   protected Object _compileEx(final VariableRef e) {
     StringConcatenation _builder = new StringConcatenation();
-    VariableDecl _variable = e.getVariable();
-    _builder.append(_variable);
+    String _name = e.getVariable().getName();
+    _builder.append(_name);
     _builder.newLineIfNotEmpty();
     return _builder;
   }
   
   protected Object _compileEx(final List e) {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.append("{");
+    _builder.newLine();
     {
       EList<Expression> _args = e.getArgs();
       boolean _hasElements = false;
@@ -713,13 +711,52 @@ public class SmcGenerator extends AbstractGenerator {
         if (!_hasElements) {
           _hasElements = true;
         } else {
-          _builder.appendImmediate(",", "");
+          _builder.appendImmediate(",", "\t\t");
         }
+        _builder.append("\t\t");
         Object _compileEx = this.compileEx(x);
-        _builder.append(_compileEx);
+        _builder.append(_compileEx, "\t\t");
         _builder.newLineIfNotEmpty();
+        _builder.append("\t\t");
       }
     }
+    _builder.append("}");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  protected Object _compileEx(final Invocation c) {
+    StringConcatenation _builder = new StringConcatenation();
+    String _name = c.getBlockName().getName();
+    _builder.append(_name);
+    _builder.append(".");
+    String _function = c.getFunction();
+    _builder.append(_function);
+    _builder.append("(");
+    _builder.newLineIfNotEmpty();
+    {
+      EList<Expression> _args = c.getArgs();
+      boolean _tripleNotEquals = (_args != null);
+      if (_tripleNotEquals) {
+        {
+          EList<Expression> _args_1 = c.getArgs();
+          boolean _hasElements = false;
+          for(final Expression x : _args_1) {
+            if (!_hasElements) {
+              _hasElements = true;
+            } else {
+              _builder.appendImmediate(",", "\t");
+            }
+            _builder.append("\t");
+            Object _compileEx = this.compileEx(x);
+            _builder.append(_compileEx, "\t");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    _builder.append(")");
+    _builder.newLine();
     return _builder;
   }
   
@@ -728,8 +765,8 @@ public class SmcGenerator extends AbstractGenerator {
       return _compileCommand((Block)c);
     } else if (c instanceof IfThenElse) {
       return _compileCommand((IfThenElse)c);
-    } else if (c instanceof Invocation) {
-      return _compileCommand((Invocation)c);
+    } else if (c instanceof InvocationVoid) {
+      return _compileCommand((InvocationVoid)c);
     } else if (c instanceof Print) {
       return _compileCommand((Print)c);
     } else if (c instanceof VariableAssignment) {
@@ -761,6 +798,8 @@ public class SmcGenerator extends AbstractGenerator {
       return _compileEx((Equality)e);
     } else if (e instanceof IntLiteral) {
       return _compileEx((IntLiteral)e);
+    } else if (e instanceof Invocation) {
+      return _compileEx((Invocation)e);
     } else if (e instanceof List) {
       return _compileEx((List)e);
     } else if (e instanceof MulOrDiv) {

@@ -23,7 +23,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Invocation extends Command, Expression
+public interface Invocation extends Expression
 {
   /**
    * Returns the value of the '<em><b>Block Name</b></em>' reference.

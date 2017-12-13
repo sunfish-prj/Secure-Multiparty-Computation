@@ -36,6 +36,8 @@ import soton.cyber.smcaas.smc.smc.DateLiteral
 import soton.cyber.smcaas.smc.smc.TimeLiteral
 import soton.cyber.smcaas.smc.smc.VariableRef
 import soton.cyber.smcaas.smc.smc.List
+import soton.cyber.smcaas.smc.smc.SecType
+import soton.cyber.smcaas.smc.smc.InvocationVoid
 
 /**
  * Generates code from your model files on save.
@@ -131,8 +133,8 @@ class SmcGenerator extends AbstractGenerator {
 			tdbOpenConnection(ds);
 			
 			if (tdbTableExists(ds, tbl)) {
-			      print("Table `" + tbl + "` already exisis, deleting...");
-			      tdbTableDelete(ds, tbl);
+				print("Table `" + tbl + "` already exisis, deleting...");
+				tdbTableDelete(ds, tbl);
 			}
 			«FOR c : mainSmc.commands»
 				«compileCommand(c)»
@@ -157,10 +159,22 @@ class SmcGenerator extends AbstractGenerator {
 	
 	//change in grammar needed to allow Sharemind PDK
 	def dispatch compileCommand(VariableDecl c)'''
-		«c.type.toSecrecType» «c.name»
+		«c.visibility.toSecrecVisibility» «c.type.toSecrecType» 
+		«IF c.array»[[1]] «ENDIF»«c.name»
 		«IF c.exp !== null» = «c.exp.compileEx»«ENDIF»
 		;
 	'''
+	
+	def getToSecrecVisibility(SecType type) {
+		switch (type) {
+			case PUBLIC: {
+				''''''
+			}
+			case PRIVATE: {
+				'''pd_shared3p'''
+			}
+		}
+	}
 	
 	def getToSecrecType(BasicType type) {
 		switch (type) {
@@ -176,17 +190,22 @@ class SmcGenerator extends AbstractGenerator {
 			case STRING: {
 				'''string'''
 			}
-			case LIST: {
-				'''[[1]]'''
-			}
-			case MATRIX: {
-				'''[[2]]'''
-			}
 		}
 	}
 	
+//	def getToArrayType(ArrayType type) {
+//		switch (type) {
+//			case LIST: {
+//				'''[[1]]'''
+//			}
+//			case MATRIX: {
+//				'''[[2]]'''
+//			}
+//		}
+//	}
+	
 	def dispatch compileCommand(VariableAssignment c)'''
-		«c.^var» = «c.exp»;
+		«c.^var.name» = «c.exp.compileEx»;
 	'''
 	
 	def dispatch compileCommand(IfThenElse c)'''
@@ -201,18 +220,11 @@ class SmcGenerator extends AbstractGenerator {
 	'''
 	
 	def dispatch compileCommand(Print c) '''
-		print("«c.value»");
+		print("«c.value.compileEx»");
 	'''
 	
-	//change in grammar needed to allow invocation on variable
-	def dispatch compileCommand(Invocation c) '''
-		«c.blockName».«c.function»(
-			«IF c.args !== null»
-				«FOR x : c.args SEPARATOR ','»
-					«x.compileEx»
-				«ENDFOR»
-			«ENDIF»
-		)
+	def dispatch compileCommand(InvocationVoid c)'''
+		«compileEx(c.call)»;
 	'''
 	
 	/* expressions */
@@ -280,7 +292,7 @@ class SmcGenerator extends AbstractGenerator {
 	'''
 	
 	def dispatch compileEx (Not e)'''
-		!«e.expression.compileEx»"
+		!(«e.expression.compileEx»)
 	'''
 	
 	def dispatch compileEx (IntLiteral e)'''
@@ -307,14 +319,23 @@ class SmcGenerator extends AbstractGenerator {
 		«e.value»
 	'''
 	
-	//to be checked
 	def dispatch compileEx (VariableRef e)'''
-		«e.variable»
+		«e.variable.name»
 	'''
 	//to be checked
-	def dispatch compileEx (List e)'''
+	def dispatch compileEx (List e)'''{
 		«FOR x : e.args SEPARATOR ','»
 			«x.compileEx»
-		«ENDFOR»
+		«ENDFOR»}
+	'''
+	
+	def dispatch compileEx(Invocation c) '''
+		«c.blockName.name».«c.function»(
+			«IF c.args !== null»
+				«FOR x : c.args SEPARATOR ','»
+					«x.compileEx»
+				«ENDFOR»
+			«ENDIF»
+		)
 	'''
 }

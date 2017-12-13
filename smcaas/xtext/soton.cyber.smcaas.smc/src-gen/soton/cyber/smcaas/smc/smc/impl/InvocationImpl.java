@@ -38,7 +38,7 @@ import soton.cyber.smcaas.smc.smc.SmcPackage;
  *
  * @generated
  */
-public class InvocationImpl extends CommandImpl implements Invocation
+public class InvocationImpl extends ExpressionImpl implements Invocation
 {
   /**
    * The cached value of the '{@link #getBlockName() <em>Block Name</em>}' reference.

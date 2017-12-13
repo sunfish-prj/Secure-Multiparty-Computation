@@ -25,7 +25,11 @@ MainSMC:
 ;
 
 Command:
-	Block | VariableDecl  | VariableAssignment | IfThenElse | While | Print | Invocation 
+	Block | VariableDecl  | VariableAssignment | IfThenElse | While | Print | InvocationVoid 
+;
+
+InvocationVoid: 
+	call=Invocation ';'
 ;
 
 Block returns Command: 
@@ -46,12 +50,20 @@ IfThenElse:
 ;
 
 VariableDecl: 
-	'var' type=BasicType name=ID ('=' exp=Expression)? ';'
+	'var' visibility=SecType type=BasicType array?=('[]')? name=ID ('=' exp=Expression)? ';'
+;
+
+enum SecType:
+	PUBLIC='public' | PRIVATE='private'
 ;
 
 enum BasicType: 
-	INT | DOUBLE | BOOLEAN | STRING | LIST='[]' | MATRIX='[[]]'
+	INT | DOUBLE | BOOLEAN | STRING
 ;
+
+//enum ArrayType:
+//	EMPTY=' ' | LIST='[]' | MATRIX='[[]]'
+//;
 
 VariableAssignment: 
 	var=[VariableDecl] '=' exp=Expression ';'

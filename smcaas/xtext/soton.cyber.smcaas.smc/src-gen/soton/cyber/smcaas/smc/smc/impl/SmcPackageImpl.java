@@ -26,6 +26,7 @@ import soton.cyber.smcaas.smc.smc.Expression;
 import soton.cyber.smcaas.smc.smc.IfThenElse;
 import soton.cyber.smcaas.smc.smc.IntLiteral;
 import soton.cyber.smcaas.smc.smc.Invocation;
+import soton.cyber.smcaas.smc.smc.InvocationVoid;
 import soton.cyber.smcaas.smc.smc.List;
 import soton.cyber.smcaas.smc.smc.MainSMC;
 import soton.cyber.smcaas.smc.smc.MulOrDiv;
@@ -33,6 +34,7 @@ import soton.cyber.smcaas.smc.smc.Not;
 import soton.cyber.smcaas.smc.smc.Or;
 import soton.cyber.smcaas.smc.smc.PlusOrMinus;
 import soton.cyber.smcaas.smc.smc.Print;
+import soton.cyber.smcaas.smc.smc.SecType;
 import soton.cyber.smcaas.smc.smc.Smc;
 import soton.cyber.smcaas.smc.smc.SmcFactory;
 import soton.cyber.smcaas.smc.smc.SmcPackage;
@@ -78,6 +80,13 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * @generated
    */
   private EClass commandEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass invocationVoidEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -246,6 +255,13 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * @generated
    */
   private EEnum blockTypeEEnum = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EEnum secTypeEEnum = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -422,6 +438,26 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getInvocationVoid()
+  {
+    return invocationVoidEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getInvocationVoid_Call()
+  {
+    return (EReference)invocationVoidEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getPrint()
   {
     return printEClass;
@@ -522,7 +558,7 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getVariableDecl_Type()
+  public EAttribute getVariableDecl_Visibility()
   {
     return (EAttribute)variableDeclEClass.getEStructuralFeatures().get(0);
   }
@@ -532,7 +568,7 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getVariableDecl_Name()
+  public EAttribute getVariableDecl_Type()
   {
     return (EAttribute)variableDeclEClass.getEStructuralFeatures().get(1);
   }
@@ -542,9 +578,29 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getVariableDecl_Array()
+  {
+    return (EAttribute)variableDeclEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getVariableDecl_Name()
+  {
+    return (EAttribute)variableDeclEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getVariableDecl_Exp()
   {
-    return (EReference)variableDeclEClass.getEStructuralFeatures().get(2);
+    return (EReference)variableDeclEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -1062,6 +1118,16 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EEnum getSecType()
+  {
+    return secTypeEEnum;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EEnum getBasicType()
   {
     return basicTypeEEnum;
@@ -1111,6 +1177,9 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
 
     commandEClass = createEClass(COMMAND);
 
+    invocationVoidEClass = createEClass(INVOCATION_VOID);
+    createEReference(invocationVoidEClass, INVOCATION_VOID__CALL);
+
     printEClass = createEClass(PRINT);
     createEReference(printEClass, PRINT__VALUE);
 
@@ -1124,7 +1193,9 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
     createEReference(ifThenElseEClass, IF_THEN_ELSE__ELSE_BRANCH);
 
     variableDeclEClass = createEClass(VARIABLE_DECL);
+    createEAttribute(variableDeclEClass, VARIABLE_DECL__VISIBILITY);
     createEAttribute(variableDeclEClass, VARIABLE_DECL__TYPE);
+    createEAttribute(variableDeclEClass, VARIABLE_DECL__ARRAY);
     createEAttribute(variableDeclEClass, VARIABLE_DECL__NAME);
     createEReference(variableDeclEClass, VARIABLE_DECL__EXP);
 
@@ -1199,6 +1270,7 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
 
     // Create enums
     blockTypeEEnum = createEEnum(BLOCK_TYPE);
+    secTypeEEnum = createEEnum(SEC_TYPE);
     basicTypeEEnum = createEEnum(BASIC_TYPE);
   }
 
@@ -1231,13 +1303,13 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    invocationVoidEClass.getESuperTypes().add(this.getCommand());
     printEClass.getESuperTypes().add(this.getCommand());
     whileEClass.getESuperTypes().add(this.getCommand());
     ifThenElseEClass.getESuperTypes().add(this.getCommand());
     variableDeclEClass.getESuperTypes().add(this.getCommand());
     variableAssignmentEClass.getESuperTypes().add(this.getCommand());
     listEClass.getESuperTypes().add(this.getExpression());
-    invocationEClass.getESuperTypes().add(this.getCommand());
     invocationEClass.getESuperTypes().add(this.getExpression());
     blockEClass.getESuperTypes().add(this.getCommand());
     orEClass.getESuperTypes().add(this.getExpression());
@@ -1270,6 +1342,9 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
 
     initEClass(commandEClass, Command.class, "Command", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+    initEClass(invocationVoidEClass, InvocationVoid.class, "InvocationVoid", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getInvocationVoid_Call(), this.getInvocation(), null, "call", null, 0, 1, InvocationVoid.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(printEClass, Print.class, "Print", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getPrint_Value(), this.getExpression(), null, "value", null, 0, 1, Print.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1283,7 +1358,9 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
     initEReference(getIfThenElse_ElseBranch(), this.getCommand(), null, "elseBranch", null, 0, 1, IfThenElse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(variableDeclEClass, VariableDecl.class, "VariableDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVariableDecl_Visibility(), this.getSecType(), "visibility", null, 0, 1, VariableDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVariableDecl_Type(), this.getBasicType(), "type", null, 0, 1, VariableDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getVariableDecl_Array(), ecorePackage.getEBoolean(), "array", null, 0, 1, VariableDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVariableDecl_Name(), ecorePackage.getEString(), "name", null, 0, 1, VariableDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVariableDecl_Exp(), this.getExpression(), null, "exp", null, 0, 1, VariableDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1365,13 +1442,15 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
     addEEnumLiteral(blockTypeEEnum, BlockType.ACCESS);
     addEEnumLiteral(blockTypeEEnum, BlockType.PERMISSION);
 
+    initEEnum(secTypeEEnum, SecType.class, "SecType");
+    addEEnumLiteral(secTypeEEnum, SecType.PUBLIC);
+    addEEnumLiteral(secTypeEEnum, SecType.PRIVATE);
+
     initEEnum(basicTypeEEnum, BasicType.class, "BasicType");
     addEEnumLiteral(basicTypeEEnum, BasicType.INT);
     addEEnumLiteral(basicTypeEEnum, BasicType.DOUBLE);
     addEEnumLiteral(basicTypeEEnum, BasicType.BOOLEAN);
     addEEnumLiteral(basicTypeEEnum, BasicType.STRING);
-    addEEnumLiteral(basicTypeEEnum, BasicType.LIST);
-    addEEnumLiteral(basicTypeEEnum, BasicType.MATRIX);
 
     // Create resource
     createResource(eNS_URI);

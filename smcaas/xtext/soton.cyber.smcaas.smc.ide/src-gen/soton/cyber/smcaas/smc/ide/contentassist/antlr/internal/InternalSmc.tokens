@@ -16,12 +16,11 @@
 '=='=15
 '>'=19
 '>='=17
-'BOOLEAN'=33
-'DOUBLE'=32
-'INT'=31
-'STRING'=34
-'[[]]'=36
-'[]'=35
+'BOOLEAN'=35
+'DOUBLE'=34
+'INT'=33
+'STRING'=36
+'[]'=57
 'access_control'=29
 'anonymization'=28
 'block'=37
@@ -34,6 +33,8 @@
 'new'=39
 'permission_release'=30
 'print'=47
+'private'=32
+'public'=31
 'search'=27
 'var'=51
 'while'=48
@@ -93,3 +94,4 @@ T__53=53
 T__54=54
 T__55=55
 T__56=56
+T__57=57

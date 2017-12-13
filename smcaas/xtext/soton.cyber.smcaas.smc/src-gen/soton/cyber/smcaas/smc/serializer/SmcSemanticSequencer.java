@@ -26,6 +26,7 @@ import soton.cyber.smcaas.smc.smc.Equality;
 import soton.cyber.smcaas.smc.smc.IfThenElse;
 import soton.cyber.smcaas.smc.smc.IntLiteral;
 import soton.cyber.smcaas.smc.smc.Invocation;
+import soton.cyber.smcaas.smc.smc.InvocationVoid;
 import soton.cyber.smcaas.smc.smc.List;
 import soton.cyber.smcaas.smc.smc.MainSMC;
 import soton.cyber.smcaas.smc.smc.MulOrDiv;
@@ -88,6 +89,9 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case SmcPackage.INVOCATION:
 				sequence_Invocation(context, (Invocation) semanticObject); 
+				return; 
+			case SmcPackage.INVOCATION_VOID:
+				sequence_InvocationVoid(context, (InvocationVoid) semanticObject); 
 				return; 
 			case SmcPackage.LIST:
 				sequence_List(context, (List) semanticObject); 
@@ -484,7 +488,25 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     Command returns Invocation
+	 *     Command returns InvocationVoid
+	 *     InvocationVoid returns InvocationVoid
+	 *
+	 * Constraint:
+	 *     call=Invocation
+	 */
+	protected void sequence_InvocationVoid(ISerializationContext context, InvocationVoid semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.INVOCATION_VOID__CALL) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.INVOCATION_VOID__CALL));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getInvocationVoidAccess().getCallInvocationParserRuleCall_0_0(), semanticObject.getCall());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Expression returns Invocation
 	 *     Or returns Invocation
 	 *     Or.Or_1_0 returns Invocation
@@ -723,7 +745,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     VariableDecl returns VariableDecl
 	 *
 	 * Constraint:
-	 *     (type=BasicType name=ID exp=Expression?)
+	 *     (visibility=SecType type=BasicType array?='[]'? name=ID exp=Expression?)
 	 */
 	protected void sequence_VariableDecl(ISerializationContext context, VariableDecl semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

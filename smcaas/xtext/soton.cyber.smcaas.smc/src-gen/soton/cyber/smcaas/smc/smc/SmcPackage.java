@@ -189,6 +189,34 @@ public interface SmcPackage extends EPackage
   int COMMAND_FEATURE_COUNT = 0;
 
   /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.InvocationVoidImpl <em>Invocation Void</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.InvocationVoidImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getInvocationVoid()
+   * @generated
+   */
+  int INVOCATION_VOID = 4;
+
+  /**
+   * The feature id for the '<em><b>Call</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INVOCATION_VOID__CALL = COMMAND_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Invocation Void</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INVOCATION_VOID_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.PrintImpl <em>Print</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -196,7 +224,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getPrint()
    * @generated
    */
-  int PRINT = 4;
+  int PRINT = 5;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -224,7 +252,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getWhile()
    * @generated
    */
-  int WHILE = 5;
+  int WHILE = 6;
 
   /**
    * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -261,7 +289,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getIfThenElse()
    * @generated
    */
-  int IF_THEN_ELSE = 6;
+  int IF_THEN_ELSE = 7;
 
   /**
    * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -307,7 +335,16 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getVariableDecl()
    * @generated
    */
-  int VARIABLE_DECL = 7;
+  int VARIABLE_DECL = 8;
+
+  /**
+   * The feature id for the '<em><b>Visibility</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DECL__VISIBILITY = COMMAND_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -316,7 +353,16 @@ public interface SmcPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIABLE_DECL__TYPE = COMMAND_FEATURE_COUNT + 0;
+  int VARIABLE_DECL__TYPE = COMMAND_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Array</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DECL__ARRAY = COMMAND_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -325,7 +371,7 @@ public interface SmcPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIABLE_DECL__NAME = COMMAND_FEATURE_COUNT + 1;
+  int VARIABLE_DECL__NAME = COMMAND_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Exp</b></em>' containment reference.
@@ -334,7 +380,7 @@ public interface SmcPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIABLE_DECL__EXP = COMMAND_FEATURE_COUNT + 2;
+  int VARIABLE_DECL__EXP = COMMAND_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Variable Decl</em>' class.
@@ -343,7 +389,7 @@ public interface SmcPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIABLE_DECL_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 3;
+  int VARIABLE_DECL_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.VariableAssignmentImpl <em>Variable Assignment</em>}' class.
@@ -353,7 +399,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getVariableAssignment()
    * @generated
    */
-  int VARIABLE_ASSIGNMENT = 8;
+  int VARIABLE_ASSIGNMENT = 9;
 
   /**
    * The feature id for the '<em><b>Var</b></em>' reference.
@@ -390,7 +436,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getExpression()
    * @generated
    */
-  int EXPRESSION = 9;
+  int EXPRESSION = 10;
 
   /**
    * The number of structural features of the '<em>Expression</em>' class.
@@ -409,7 +455,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getList()
    * @generated
    */
-  int LIST = 10;
+  int LIST = 11;
 
   /**
    * The feature id for the '<em><b>Args</b></em>' containment reference list.
@@ -437,7 +483,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getInvocation()
    * @generated
    */
-  int INVOCATION = 11;
+  int INVOCATION = 12;
 
   /**
    * The feature id for the '<em><b>Block Name</b></em>' reference.
@@ -446,7 +492,7 @@ public interface SmcPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INVOCATION__BLOCK_NAME = COMMAND_FEATURE_COUNT + 0;
+  int INVOCATION__BLOCK_NAME = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Function</b></em>' attribute.
@@ -455,7 +501,7 @@ public interface SmcPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INVOCATION__FUNCTION = COMMAND_FEATURE_COUNT + 1;
+  int INVOCATION__FUNCTION = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Args</b></em>' containment reference list.
@@ -464,7 +510,7 @@ public interface SmcPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INVOCATION__ARGS = COMMAND_FEATURE_COUNT + 2;
+  int INVOCATION__ARGS = EXPRESSION_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Invocation</em>' class.
@@ -473,7 +519,7 @@ public interface SmcPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INVOCATION_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 3;
+  int INVOCATION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.BlockImpl <em>Block</em>}' class.
@@ -483,7 +529,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getBlock()
    * @generated
    */
-  int BLOCK = 12;
+  int BLOCK = 13;
 
   /**
    * The feature id for the '<em><b>Commands</b></em>' containment reference list.
@@ -511,7 +557,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getOr()
    * @generated
    */
-  int OR = 13;
+  int OR = 14;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -548,7 +594,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getAnd()
    * @generated
    */
-  int AND = 14;
+  int AND = 15;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -585,7 +631,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getEquality()
    * @generated
    */
-  int EQUALITY = 15;
+  int EQUALITY = 16;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -631,7 +677,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getComparison()
    * @generated
    */
-  int COMPARISON = 16;
+  int COMPARISON = 17;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -677,7 +723,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getPlusOrMinus()
    * @generated
    */
-  int PLUS_OR_MINUS = 17;
+  int PLUS_OR_MINUS = 18;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -723,7 +769,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getMulOrDiv()
    * @generated
    */
-  int MUL_OR_DIV = 18;
+  int MUL_OR_DIV = 19;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -769,7 +815,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getNot()
    * @generated
    */
-  int NOT = 19;
+  int NOT = 20;
 
   /**
    * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -797,7 +843,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getIntLiteral()
    * @generated
    */
-  int INT_LITERAL = 20;
+  int INT_LITERAL = 21;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -825,7 +871,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getDoubleLiteral()
    * @generated
    */
-  int DOUBLE_LITERAL = 21;
+  int DOUBLE_LITERAL = 22;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -853,7 +899,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getBooleanLiteral()
    * @generated
    */
-  int BOOLEAN_LITERAL = 22;
+  int BOOLEAN_LITERAL = 23;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -881,7 +927,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getStringLiteral()
    * @generated
    */
-  int STRING_LITERAL = 23;
+  int STRING_LITERAL = 24;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -909,7 +955,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getDateLiteral()
    * @generated
    */
-  int DATE_LITERAL = 24;
+  int DATE_LITERAL = 25;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -937,7 +983,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getTimeLiteral()
    * @generated
    */
-  int TIME_LITERAL = 25;
+  int TIME_LITERAL = 26;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -965,7 +1011,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getVariableRef()
    * @generated
    */
-  int VARIABLE_REF = 26;
+  int VARIABLE_REF = 27;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -993,7 +1039,17 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getBlockType()
    * @generated
    */
-  int BLOCK_TYPE = 27;
+  int BLOCK_TYPE = 28;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.SecType <em>Sec Type</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.SecType
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getSecType()
+   * @generated
+   */
+  int SEC_TYPE = 29;
 
   /**
    * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.BasicType <em>Basic Type</em>}' enum.
@@ -1003,7 +1059,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getBasicType()
    * @generated
    */
-  int BASIC_TYPE = 28;
+  int BASIC_TYPE = 30;
 
 
   /**
@@ -1113,6 +1169,27 @@ public interface SmcPackage extends EPackage
   EClass getCommand();
 
   /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.InvocationVoid <em>Invocation Void</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Invocation Void</em>'.
+   * @see soton.cyber.smcaas.smc.smc.InvocationVoid
+   * @generated
+   */
+  EClass getInvocationVoid();
+
+  /**
+   * Returns the meta object for the containment reference '{@link soton.cyber.smcaas.smc.smc.InvocationVoid#getCall <em>Call</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Call</em>'.
+   * @see soton.cyber.smcaas.smc.smc.InvocationVoid#getCall()
+   * @see #getInvocationVoid()
+   * @generated
+   */
+  EReference getInvocationVoid_Call();
+
+  /**
    * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.Print <em>Print</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1219,6 +1296,17 @@ public interface SmcPackage extends EPackage
   EClass getVariableDecl();
 
   /**
+   * Returns the meta object for the attribute '{@link soton.cyber.smcaas.smc.smc.VariableDecl#getVisibility <em>Visibility</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Visibility</em>'.
+   * @see soton.cyber.smcaas.smc.smc.VariableDecl#getVisibility()
+   * @see #getVariableDecl()
+   * @generated
+   */
+  EAttribute getVariableDecl_Visibility();
+
+  /**
    * Returns the meta object for the attribute '{@link soton.cyber.smcaas.smc.smc.VariableDecl#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1228,6 +1316,17 @@ public interface SmcPackage extends EPackage
    * @generated
    */
   EAttribute getVariableDecl_Type();
+
+  /**
+   * Returns the meta object for the attribute '{@link soton.cyber.smcaas.smc.smc.VariableDecl#isArray <em>Array</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Array</em>'.
+   * @see soton.cyber.smcaas.smc.smc.VariableDecl#isArray()
+   * @see #getVariableDecl()
+   * @generated
+   */
+  EAttribute getVariableDecl_Array();
 
   /**
    * Returns the meta object for the attribute '{@link soton.cyber.smcaas.smc.smc.VariableDecl#getName <em>Name</em>}'.
@@ -1793,6 +1892,16 @@ public interface SmcPackage extends EPackage
   EEnum getBlockType();
 
   /**
+   * Returns the meta object for enum '{@link soton.cyber.smcaas.smc.smc.SecType <em>Sec Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Sec Type</em>'.
+   * @see soton.cyber.smcaas.smc.smc.SecType
+   * @generated
+   */
+  EEnum getSecType();
+
+  /**
    * Returns the meta object for enum '{@link soton.cyber.smcaas.smc.smc.BasicType <em>Basic Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1914,6 +2023,24 @@ public interface SmcPackage extends EPackage
     EClass COMMAND = eINSTANCE.getCommand();
 
     /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.InvocationVoidImpl <em>Invocation Void</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.InvocationVoidImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getInvocationVoid()
+     * @generated
+     */
+    EClass INVOCATION_VOID = eINSTANCE.getInvocationVoid();
+
+    /**
+     * The meta object literal for the '<em><b>Call</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INVOCATION_VOID__CALL = eINSTANCE.getInvocationVoid_Call();
+
+    /**
      * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.PrintImpl <em>Print</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2002,12 +2129,28 @@ public interface SmcPackage extends EPackage
     EClass VARIABLE_DECL = eINSTANCE.getVariableDecl();
 
     /**
+     * The meta object literal for the '<em><b>Visibility</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VARIABLE_DECL__VISIBILITY = eINSTANCE.getVariableDecl_Visibility();
+
+    /**
      * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EAttribute VARIABLE_DECL__TYPE = eINSTANCE.getVariableDecl_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Array</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VARIABLE_DECL__ARRAY = eINSTANCE.getVariableDecl_Array();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -2472,6 +2615,16 @@ public interface SmcPackage extends EPackage
      * @generated
      */
     EEnum BLOCK_TYPE = eINSTANCE.getBlockType();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.SecType <em>Sec Type</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.SecType
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getSecType()
+     * @generated
+     */
+    EEnum SEC_TYPE = eINSTANCE.getSecType();
 
     /**
      * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.BasicType <em>Basic Type</em>}' enum.

@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import soton.cyber.smcaas.smc.smc.BasicType;
 import soton.cyber.smcaas.smc.smc.Expression;
+import soton.cyber.smcaas.smc.smc.SecType;
 import soton.cyber.smcaas.smc.smc.SmcPackage;
 import soton.cyber.smcaas.smc.smc.VariableDecl;
 
@@ -24,7 +25,9 @@ import soton.cyber.smcaas.smc.smc.VariableDecl;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link soton.cyber.smcaas.smc.smc.impl.VariableDeclImpl#getVisibility <em>Visibility</em>}</li>
  *   <li>{@link soton.cyber.smcaas.smc.smc.impl.VariableDeclImpl#getType <em>Type</em>}</li>
+ *   <li>{@link soton.cyber.smcaas.smc.smc.impl.VariableDeclImpl#isArray <em>Array</em>}</li>
  *   <li>{@link soton.cyber.smcaas.smc.smc.impl.VariableDeclImpl#getName <em>Name</em>}</li>
  *   <li>{@link soton.cyber.smcaas.smc.smc.impl.VariableDeclImpl#getExp <em>Exp</em>}</li>
  * </ul>
@@ -33,6 +36,26 @@ import soton.cyber.smcaas.smc.smc.VariableDecl;
  */
 public class VariableDeclImpl extends CommandImpl implements VariableDecl
 {
+  /**
+   * The default value of the '{@link #getVisibility() <em>Visibility</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVisibility()
+   * @generated
+   * @ordered
+   */
+  protected static final SecType VISIBILITY_EDEFAULT = SecType.PUBLIC;
+
+  /**
+   * The cached value of the '{@link #getVisibility() <em>Visibility</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVisibility()
+   * @generated
+   * @ordered
+   */
+  protected SecType visibility = VISIBILITY_EDEFAULT;
+
   /**
    * The default value of the '{@link #getType() <em>Type</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -52,6 +75,26 @@ public class VariableDeclImpl extends CommandImpl implements VariableDecl
    * @ordered
    */
   protected BasicType type = TYPE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isArray() <em>Array</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isArray()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean ARRAY_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isArray() <em>Array</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isArray()
+   * @generated
+   * @ordered
+   */
+  protected boolean array = ARRAY_EDEFAULT;
 
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -109,6 +152,29 @@ public class VariableDeclImpl extends CommandImpl implements VariableDecl
    * <!-- end-user-doc -->
    * @generated
    */
+  public SecType getVisibility()
+  {
+    return visibility;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setVisibility(SecType newVisibility)
+  {
+    SecType oldVisibility = visibility;
+    visibility = newVisibility == null ? VISIBILITY_EDEFAULT : newVisibility;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SmcPackage.VARIABLE_DECL__VISIBILITY, oldVisibility, visibility));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public BasicType getType()
   {
     return type;
@@ -125,6 +191,29 @@ public class VariableDeclImpl extends CommandImpl implements VariableDecl
     type = newType == null ? TYPE_EDEFAULT : newType;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, SmcPackage.VARIABLE_DECL__TYPE, oldType, type));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isArray()
+  {
+    return array;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setArray(boolean newArray)
+  {
+    boolean oldArray = array;
+    array = newArray;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SmcPackage.VARIABLE_DECL__ARRAY, oldArray, array));
   }
 
   /**
@@ -224,8 +313,12 @@ public class VariableDeclImpl extends CommandImpl implements VariableDecl
   {
     switch (featureID)
     {
+      case SmcPackage.VARIABLE_DECL__VISIBILITY:
+        return getVisibility();
       case SmcPackage.VARIABLE_DECL__TYPE:
         return getType();
+      case SmcPackage.VARIABLE_DECL__ARRAY:
+        return isArray();
       case SmcPackage.VARIABLE_DECL__NAME:
         return getName();
       case SmcPackage.VARIABLE_DECL__EXP:
@@ -244,8 +337,14 @@ public class VariableDeclImpl extends CommandImpl implements VariableDecl
   {
     switch (featureID)
     {
+      case SmcPackage.VARIABLE_DECL__VISIBILITY:
+        setVisibility((SecType)newValue);
+        return;
       case SmcPackage.VARIABLE_DECL__TYPE:
         setType((BasicType)newValue);
+        return;
+      case SmcPackage.VARIABLE_DECL__ARRAY:
+        setArray((Boolean)newValue);
         return;
       case SmcPackage.VARIABLE_DECL__NAME:
         setName((String)newValue);
@@ -267,8 +366,14 @@ public class VariableDeclImpl extends CommandImpl implements VariableDecl
   {
     switch (featureID)
     {
+      case SmcPackage.VARIABLE_DECL__VISIBILITY:
+        setVisibility(VISIBILITY_EDEFAULT);
+        return;
       case SmcPackage.VARIABLE_DECL__TYPE:
         setType(TYPE_EDEFAULT);
+        return;
+      case SmcPackage.VARIABLE_DECL__ARRAY:
+        setArray(ARRAY_EDEFAULT);
         return;
       case SmcPackage.VARIABLE_DECL__NAME:
         setName(NAME_EDEFAULT);
@@ -290,8 +395,12 @@ public class VariableDeclImpl extends CommandImpl implements VariableDecl
   {
     switch (featureID)
     {
+      case SmcPackage.VARIABLE_DECL__VISIBILITY:
+        return visibility != VISIBILITY_EDEFAULT;
       case SmcPackage.VARIABLE_DECL__TYPE:
         return type != TYPE_EDEFAULT;
+      case SmcPackage.VARIABLE_DECL__ARRAY:
+        return array != ARRAY_EDEFAULT;
       case SmcPackage.VARIABLE_DECL__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case SmcPackage.VARIABLE_DECL__EXP:
@@ -311,8 +420,12 @@ public class VariableDeclImpl extends CommandImpl implements VariableDecl
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (type: ");
+    result.append(" (visibility: ");
+    result.append(visibility);
+    result.append(", type: ");
     result.append(type);
+    result.append(", array: ");
+    result.append(array);
     result.append(", name: ");
     result.append(name);
     result.append(')');

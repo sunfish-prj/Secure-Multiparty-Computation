@@ -13,7 +13,9 @@ package soton.cyber.smcaas.smc.smc;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link soton.cyber.smcaas.smc.smc.VariableDecl#getVisibility <em>Visibility</em>}</li>
  *   <li>{@link soton.cyber.smcaas.smc.smc.VariableDecl#getType <em>Type</em>}</li>
+ *   <li>{@link soton.cyber.smcaas.smc.smc.VariableDecl#isArray <em>Array</em>}</li>
  *   <li>{@link soton.cyber.smcaas.smc.smc.VariableDecl#getName <em>Name</em>}</li>
  *   <li>{@link soton.cyber.smcaas.smc.smc.VariableDecl#getExp <em>Exp</em>}</li>
  * </ul>
@@ -24,6 +26,35 @@ package soton.cyber.smcaas.smc.smc;
  */
 public interface VariableDecl extends Command
 {
+  /**
+   * Returns the value of the '<em><b>Visibility</b></em>' attribute.
+   * The literals are from the enumeration {@link soton.cyber.smcaas.smc.smc.SecType}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Visibility</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Visibility</em>' attribute.
+   * @see soton.cyber.smcaas.smc.smc.SecType
+   * @see #setVisibility(SecType)
+   * @see soton.cyber.smcaas.smc.smc.SmcPackage#getVariableDecl_Visibility()
+   * @model
+   * @generated
+   */
+  SecType getVisibility();
+
+  /**
+   * Sets the value of the '{@link soton.cyber.smcaas.smc.smc.VariableDecl#getVisibility <em>Visibility</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Visibility</em>' attribute.
+   * @see soton.cyber.smcaas.smc.smc.SecType
+   * @see #getVisibility()
+   * @generated
+   */
+  void setVisibility(SecType value);
+
   /**
    * Returns the value of the '<em><b>Type</b></em>' attribute.
    * The literals are from the enumeration {@link soton.cyber.smcaas.smc.smc.BasicType}.
@@ -52,6 +83,32 @@ public interface VariableDecl extends Command
    * @generated
    */
   void setType(BasicType value);
+
+  /**
+   * Returns the value of the '<em><b>Array</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Array</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Array</em>' attribute.
+   * @see #setArray(boolean)
+   * @see soton.cyber.smcaas.smc.smc.SmcPackage#getVariableDecl_Array()
+   * @model
+   * @generated
+   */
+  boolean isArray();
+
+  /**
+   * Sets the value of the '{@link soton.cyber.smcaas.smc.smc.VariableDecl#isArray <em>Array</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Array</em>' attribute.
+   * @see #isArray()
+   * @generated
+   */
+  void setArray(boolean value);
 
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.

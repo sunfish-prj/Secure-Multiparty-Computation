@@ -70,6 +70,7 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
       case SmcPackage.BLOCK_SMC: return createBlockSMC();
       case SmcPackage.MAIN_SMC: return createMainSMC();
       case SmcPackage.COMMAND: return createCommand();
+      case SmcPackage.INVOCATION_VOID: return createInvocationVoid();
       case SmcPackage.PRINT: return createPrint();
       case SmcPackage.WHILE: return createWhile();
       case SmcPackage.IF_THEN_ELSE: return createIfThenElse();
@@ -110,6 +111,8 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
     {
       case SmcPackage.BLOCK_TYPE:
         return createBlockTypeFromString(eDataType, initialValue);
+      case SmcPackage.SEC_TYPE:
+        return createSecTypeFromString(eDataType, initialValue);
       case SmcPackage.BASIC_TYPE:
         return createBasicTypeFromString(eDataType, initialValue);
       default:
@@ -129,6 +132,8 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
     {
       case SmcPackage.BLOCK_TYPE:
         return convertBlockTypeToString(eDataType, instanceValue);
+      case SmcPackage.SEC_TYPE:
+        return convertSecTypeToString(eDataType, instanceValue);
       case SmcPackage.BASIC_TYPE:
         return convertBasicTypeToString(eDataType, instanceValue);
       default:
@@ -178,6 +183,17 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
   {
     CommandImpl command = new CommandImpl();
     return command;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public InvocationVoid createInvocationVoid()
+  {
+    InvocationVoidImpl invocationVoid = new InvocationVoidImpl();
+    return invocationVoid;
   }
 
   /**
@@ -451,6 +467,28 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
    * @generated
    */
   public String convertBlockTypeToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SecType createSecTypeFromString(EDataType eDataType, String initialValue)
+  {
+    SecType result = SecType.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertSecTypeToString(EDataType eDataType, Object instanceValue)
   {
     return instanceValue == null ? null : instanceValue.toString();
   }
