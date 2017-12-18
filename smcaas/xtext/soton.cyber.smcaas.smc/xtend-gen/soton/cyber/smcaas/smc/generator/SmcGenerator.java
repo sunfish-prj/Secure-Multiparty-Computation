@@ -107,27 +107,27 @@ public class SmcGenerator extends AbstractGenerator {
           break;
         case COMP:
           StringConcatenation _builder_2 = new StringConcatenation();
-          _builder_2.append("comp - guarda come diverto");
+          _builder_2.append("comp - TO ADD MODULE");
           _switchResult = _builder_2;
           break;
         case SEARCH:
           StringConcatenation _builder_3 = new StringConcatenation();
-          _builder_3.append("search - guarda come diverto");
+          _builder_3.append("search - TO ADD MODULE");
           _switchResult = _builder_3;
           break;
         case ANONYMIZATION:
           StringConcatenation _builder_4 = new StringConcatenation();
-          _builder_4.append("anon - guarda come diverto");
+          _builder_4.append("anon - TO ADD MODULE");
           _switchResult = _builder_4;
           break;
         case ACCESS:
           StringConcatenation _builder_5 = new StringConcatenation();
-          _builder_5.append("access - guarda come diverto");
+          _builder_5.append("access - TO ADD MODULE");
           _switchResult = _builder_5;
           break;
         case PERMISSION:
           StringConcatenation _builder_6 = new StringConcatenation();
-          _builder_6.append("perm - guarda come diverto");
+          _builder_6.append("perm - TO ADD MODULE");
           _switchResult = _builder_6;
           break;
         default:

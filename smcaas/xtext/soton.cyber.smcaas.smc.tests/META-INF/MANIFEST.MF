@@ -6,11 +6,11 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: soton.cyber.smcaas.smc.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: soton.cyber.smcaas.smc,
- org.junit;bundle-version="4.12.0",
+ org.junit,
  org.eclipse.xtext.testing,
  org.eclipse.xtext.xbase.testing,
  org.eclipse.xtext.xbase.lib,
- org.eclipse.jdt.core;bundle-version="3.13.50"
+ org.eclipse.jdt.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: soton.cyber.smcaas.smc.tests;x-internal=true
 Import-Package: org.hamcrest.core,
