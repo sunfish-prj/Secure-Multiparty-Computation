@@ -58,7 +58,7 @@ enum SecType:
 ;
 
 enum BasicType: 
-	INT | DOUBLE | BOOLEAN | STRING
+	INT | DOUBLE | BOOLEAN | STRING | TUPLE
 ;
 
 //enum ArrayType:
@@ -136,6 +136,7 @@ terminal BOOLEAN returns ecore::EBoolean:
 	'true' | 'false';
 
 /* NB INTEGER UNSIGNED! */
+@Override
 terminal INT returns ecore::EInt:
 	('0'..'9')+;
 
@@ -148,12 +149,15 @@ terminal TIME:
 terminal REAL returns ecore::EDouble:
 	('+' | '-')? ('0'..'9')* ('.' ('0'..'9')+)?;
 
+@Override
 terminal STRING:
 	'"' ('\\' ('b' | 't' | 'n' | 'f' | 'r' | '"' | "'" | '\\') | !('\\' | '"' | '/'))* '"' |
 	"'" ('\\' ('b' | 't' | 'n' | 'f' | 'r' | '"' | "'" | '\\') | !('\\' | "'" | '/'))* "'"; 
-	
+
+@Override	
 terminal ML_COMMENT:
 	'/*'->'*/';
 
+@Override
 terminal SL_COMMENT:
 	'//' !('\n' | '\r')* ('\r'? '\n')?;

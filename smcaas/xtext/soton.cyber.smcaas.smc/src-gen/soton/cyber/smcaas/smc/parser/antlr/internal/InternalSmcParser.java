@@ -23,7 +23,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalSmcParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_REAL", "RULE_BOOLEAN", "RULE_STRING", "RULE_DATE", "RULE_TIME", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'block'", "'='", "'new'", "'('", "','", "')'", "';'", "'main'", "'{'", "'}'", "'print'", "'while'", "'if'", "'else'", "'var'", "'[]'", "'||'", "'&&'", "'=='", "'!='", "'>='", "'<='", "'>'", "'<'", "'+'", "'-'", "'*'", "'/'", "'!'", "'list('", "'.'", "'insert_data'", "'math_computation'", "'search'", "'anonymization'", "'access_control'", "'permission_release'", "'public'", "'private'", "'INT'", "'DOUBLE'", "'BOOLEAN'", "'STRING'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_REAL", "RULE_BOOLEAN", "RULE_STRING", "RULE_DATE", "RULE_TIME", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'block'", "'='", "'new'", "'('", "','", "')'", "';'", "'main'", "'{'", "'}'", "'print'", "'while'", "'if'", "'else'", "'var'", "'[]'", "'||'", "'&&'", "'=='", "'!='", "'>='", "'<='", "'>'", "'<'", "'+'", "'-'", "'*'", "'/'", "'!'", "'list('", "'.'", "'insert_data'", "'math_computation'", "'search'", "'anonymization'", "'access_control'", "'permission_release'", "'public'", "'private'", "'INT'", "'DOUBLE'", "'BOOLEAN'", "'STRING'", "'TUPLE'"
     };
     public static final int T__50=50;
     public static final int RULE_BOOLEAN=7;
@@ -36,6 +36,7 @@ public class InternalSmcParser extends AbstractInternalAntlrParser {
     public static final int T__56=56;
     public static final int RULE_TIME=10;
     public static final int T__57=57;
+    public static final int T__58=58;
     public static final int T__51=51;
     public static final int T__52=52;
     public static final int T__53=53;
@@ -5534,7 +5535,7 @@ public class InternalSmcParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBasicType"
-    // InternalSmc.g:1978:1: ruleBasicType returns [Enumerator current=null] : ( (enumLiteral_0= 'INT' ) | (enumLiteral_1= 'DOUBLE' ) | (enumLiteral_2= 'BOOLEAN' ) | (enumLiteral_3= 'STRING' ) ) ;
+    // InternalSmc.g:1978:1: ruleBasicType returns [Enumerator current=null] : ( (enumLiteral_0= 'INT' ) | (enumLiteral_1= 'DOUBLE' ) | (enumLiteral_2= 'BOOLEAN' ) | (enumLiteral_3= 'STRING' ) | (enumLiteral_4= 'TUPLE' ) ) ;
     public final Enumerator ruleBasicType() throws RecognitionException {
         Enumerator current = null;
 
@@ -5542,16 +5543,17 @@ public class InternalSmcParser extends AbstractInternalAntlrParser {
         Token enumLiteral_1=null;
         Token enumLiteral_2=null;
         Token enumLiteral_3=null;
+        Token enumLiteral_4=null;
 
 
         	enterRule();
 
         try {
-            // InternalSmc.g:1984:2: ( ( (enumLiteral_0= 'INT' ) | (enumLiteral_1= 'DOUBLE' ) | (enumLiteral_2= 'BOOLEAN' ) | (enumLiteral_3= 'STRING' ) ) )
-            // InternalSmc.g:1985:2: ( (enumLiteral_0= 'INT' ) | (enumLiteral_1= 'DOUBLE' ) | (enumLiteral_2= 'BOOLEAN' ) | (enumLiteral_3= 'STRING' ) )
+            // InternalSmc.g:1984:2: ( ( (enumLiteral_0= 'INT' ) | (enumLiteral_1= 'DOUBLE' ) | (enumLiteral_2= 'BOOLEAN' ) | (enumLiteral_3= 'STRING' ) | (enumLiteral_4= 'TUPLE' ) ) )
+            // InternalSmc.g:1985:2: ( (enumLiteral_0= 'INT' ) | (enumLiteral_1= 'DOUBLE' ) | (enumLiteral_2= 'BOOLEAN' ) | (enumLiteral_3= 'STRING' ) | (enumLiteral_4= 'TUPLE' ) )
             {
-            // InternalSmc.g:1985:2: ( (enumLiteral_0= 'INT' ) | (enumLiteral_1= 'DOUBLE' ) | (enumLiteral_2= 'BOOLEAN' ) | (enumLiteral_3= 'STRING' ) )
-            int alt28=4;
+            // InternalSmc.g:1985:2: ( (enumLiteral_0= 'INT' ) | (enumLiteral_1= 'DOUBLE' ) | (enumLiteral_2= 'BOOLEAN' ) | (enumLiteral_3= 'STRING' ) | (enumLiteral_4= 'TUPLE' ) )
+            int alt28=5;
             switch ( input.LA(1) ) {
             case 54:
                 {
@@ -5571,6 +5573,11 @@ public class InternalSmcParser extends AbstractInternalAntlrParser {
             case 57:
                 {
                 alt28=4;
+                }
+                break;
+            case 58:
+                {
+                alt28=5;
                 }
                 break;
             default:
@@ -5650,6 +5657,25 @@ public class InternalSmcParser extends AbstractInternalAntlrParser {
 
                       				current = grammarAccess.getBasicTypeAccess().getSTRINGEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
                       				newLeafNode(enumLiteral_3, grammarAccess.getBasicTypeAccess().getSTRINGEnumLiteralDeclaration_3());
+                      			
+                    }
+
+                    }
+
+
+                    }
+                    break;
+                case 5 :
+                    // InternalSmc.g:2018:3: (enumLiteral_4= 'TUPLE' )
+                    {
+                    // InternalSmc.g:2018:3: (enumLiteral_4= 'TUPLE' )
+                    // InternalSmc.g:2019:4: enumLiteral_4= 'TUPLE'
+                    {
+                    enumLiteral_4=(Token)match(input,58,FOLLOW_2); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      				current = grammarAccess.getBasicTypeAccess().getTUPLEEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+                      				newLeafNode(enumLiteral_4, grammarAccess.getBasicTypeAccess().getTUPLEEnumLiteralDeclaration_4());
                       			
                     }
 
@@ -5776,7 +5802,7 @@ public class InternalSmcParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x000018002E8407F0L});
     public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000010000002L});
     public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0030000000000000L});
-    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x03C0000000000000L});
+    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x07C0000000000000L});
     public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000040000010L});
     public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000000210000L});
     public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000080000002L});

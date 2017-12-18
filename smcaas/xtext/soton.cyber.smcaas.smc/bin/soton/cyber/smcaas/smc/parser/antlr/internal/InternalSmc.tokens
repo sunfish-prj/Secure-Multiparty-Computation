@@ -20,6 +20,7 @@
 'DOUBLE'=55
 'INT'=54
 'STRING'=57
+'TUPLE'=58
 '[]'=30
 'access_control'=50
 'anonymization'=49
@@ -95,3 +96,4 @@ T__54=54
 T__55=55
 T__56=56
 T__57=57
+T__58=58

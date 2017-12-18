@@ -3,12 +3,11 @@
  */
 package soton.cyber.smcaas.smc.validation;
 
-import soton.cyber.smcaas.smc.validation.AbstractSmcValidator;
-
 /**
  * This class contains custom validation rules.
  * 
- * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
+ * See
+ * https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 @SuppressWarnings("all")
 public class SmcValidator extends AbstractSmcValidator {

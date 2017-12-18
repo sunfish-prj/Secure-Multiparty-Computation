@@ -3,14 +3,13 @@
  */
 package soton.cyber.smcaas.smc;
 
-import soton.cyber.smcaas.smc.SmcStandaloneSetupGenerated;
-
 /**
- * Initialization support for running Xtext languages without Equinox extension registry.
+ * Initialization support for running Xtext languages without Equinox extension
+ * registry.
  */
 @SuppressWarnings("all")
 public class SmcStandaloneSetup extends SmcStandaloneSetupGenerated {
-  public static void doSetup() {
-    new SmcStandaloneSetup().createInjectorAndDoEMFRegistration();
-  }
+	public static void doSetup() {
+		new SmcStandaloneSetup().createInjectorAndDoEMFRegistration();
+	}
 }

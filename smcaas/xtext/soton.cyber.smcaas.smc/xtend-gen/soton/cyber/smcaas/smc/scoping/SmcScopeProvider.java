@@ -3,12 +3,11 @@
  */
 package soton.cyber.smcaas.smc.scoping;
 
-import soton.cyber.smcaas.smc.scoping.AbstractSmcScopeProvider;
-
 /**
  * This class contains custom scoping description.
  * 
- * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#scoping
+ * See
+ * https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#scoping
  * on how and when to use it.
  */
 @SuppressWarnings("all")

@@ -3,10 +3,9 @@
  */
 package soton.cyber.smcaas.smc;
 
-import soton.cyber.smcaas.smc.AbstractSmcRuntimeModule;
-
 /**
- * Use this class to register components to be used at runtime / without the Equinox extension registry.
+ * Use this class to register components to be used at runtime / without the
+ * Equinox extension registry.
  */
 @SuppressWarnings("all")
 public class SmcRuntimeModule extends AbstractSmcRuntimeModule {

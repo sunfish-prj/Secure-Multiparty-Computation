@@ -65,6 +65,7 @@
     <eLiterals name="DOUBLE" value="1" literal="DOUBLE"/>
     <eLiterals name="BOOLEAN" value="2" literal="BOOLEAN"/>
     <eLiterals name="STRING" value="3" literal="STRING"/>
+    <eLiterals name="TUPLE" value="4" literal="TUPLE"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VariableAssignment" eSuperTypes="#//Command">
     <eStructuralFeatures xsi:type="ecore:EReference" name="var" eType="#//VariableDecl"/>
