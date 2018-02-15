@@ -458,26 +458,7 @@ public class SmcGenerator extends AbstractGenerator {
   
   protected Object _compileCommand(final ParamDecl c) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("{");
-    _builder.newLine();
-    _builder.append("\t");
-    CharSequence _toSecrecVisibility = this.getToSecrecVisibility(c.getStype());
-    _builder.append(_toSecrecVisibility, "\t");
-    _builder.append(" ");
-    CharSequence _toSecrecType = this.getToSecrecType(c.getBtype());
-    _builder.append(_toSecrecType, "\t");
-    _builder.append(" vtype;");
-    _builder.newLineIfNotEmpty();
-    _builder.append("\t");
-    _builder.append("tdbVmapAddType(params, \"types\", vtype);");
-    _builder.newLine();
-    _builder.append("\t");
-    _builder.append("tdbVmapAddString(params, \"names\", \"");
-    String _parName = c.getParName();
-    _builder.append(_parName, "\t");
-    _builder.append("\");");
-    _builder.newLineIfNotEmpty();
-    _builder.append("}");
+    _builder.append("\t\t");
     _builder.newLine();
     return _builder;
   }
@@ -802,22 +783,37 @@ public class SmcGenerator extends AbstractGenerator {
                     _builder.newLine();
                     {
                       EList<ParamDecl> _args_1 = c.getArgs();
-                      boolean _hasElements = false;
                       for(final ParamDecl x : _args_1) {
-                        if (!_hasElements) {
-                          _hasElements = true;
-                        } else {
-                          _builder.appendImmediate(",", "");
-                        }
-                        Object _compileCommand = this.compileCommand(x);
-                        _builder.append(_compileCommand);
+                        _builder.append("{");
+                        _builder.newLine();
+                        _builder.append("\t");
+                        CharSequence _toSecrecVisibility = this.getToSecrecVisibility(x.getStype());
+                        _builder.append(_toSecrecVisibility, "\t");
+                        _builder.append(" ");
+                        CharSequence _toSecrecType = this.getToSecrecType(x.getBtype());
+                        _builder.append(_toSecrecType, "\t");
+                        _builder.append(" vtype;");
                         _builder.newLineIfNotEmpty();
+                        _builder.append("\t");
+                        _builder.append("tdbVmapAddType(params, \"types\", vtype);");
+                        _builder.newLine();
+                        _builder.append("\t");
+                        _builder.append("tdbVmapAddString(params, \"names\", \"");
+                        String _parName = x.getParName();
+                        _builder.append(_parName, "\t");
+                        _builder.append("\");");
+                        _builder.newLineIfNotEmpty();
+                        _builder.append("}");
+                        _builder.newLine();
+                        _builder.newLine();
                       }
                     }
                   }
                 }
-                _builder.newLine();
                 _builder.append("tdbTableCreate(ds, tbl, params);");
+                _builder.newLine();
+                _builder.newLine();
+                _builder.append("tdbVmapDelete(params);");
                 _builder.newLine();
                 _switchResult_1 = _builder;
                 break;
@@ -831,10 +827,10 @@ public class SmcGenerator extends AbstractGenerator {
                   if (_tripleNotEquals_1) {
                     {
                       EList<ParamDecl> _args_3 = c.getArgs();
-                      boolean _hasElements_1 = false;
+                      boolean _hasElements = false;
                       for(final ParamDecl x_1 : _args_3) {
-                        if (!_hasElements_1) {
-                          _hasElements_1 = true;
+                        if (!_hasElements) {
+                          _hasElements = true;
                         } else {
                           _builder_1.appendImmediate(",", "");
                         }

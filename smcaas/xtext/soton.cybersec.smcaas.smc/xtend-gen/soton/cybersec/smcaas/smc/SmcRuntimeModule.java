@@ -3,11 +3,9 @@
  */
 package soton.cybersec.smcaas.smc;
 
-import soton.cybersec.smcaas.smc.AbstractSmcRuntimeModule;
-
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 @SuppressWarnings("all")
-public class SmcRuntimeModule extends AbstractSmcRuntimeModule {
+public class SmcRuntimeModule /* implements AbstractSmcRuntimeModule  */{
 }

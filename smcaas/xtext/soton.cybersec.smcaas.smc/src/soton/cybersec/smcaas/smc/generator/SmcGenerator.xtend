@@ -232,11 +232,7 @@ class SmcGenerator extends AbstractGenerator {
 	'''
 	
 	def dispatch compileCommand(ParamDecl c)'''
-		{
-			«c.stype.toSecrecVisibility» «c.btype.toSecrecType» vtype;
-			tdbVmapAddType(params, "types", vtype);
-			tdbVmapAddString(params, "names", "«c.parName»");
-		}
+		
 	'''
 	/* expressions */
 	
@@ -356,6 +352,7 @@ class SmcGenerator extends AbstractGenerator {
 				switch (c.funcName){
 					case CREATE_DB: {
 						'''
+«««						modificare la grammatica per prendere la tbl corretta
 						if (tdbTableExists(ds, tbl)) {
 							print("Table `" + tbl + "` already exists, deleting...");
 							tdbTableDelete(ds, tbl);
@@ -364,12 +361,18 @@ class SmcGenerator extends AbstractGenerator {
 						«IF c.args !== null»
 							uint params = tdbVmapNew();
 							
-							«FOR x : c.args SEPARATOR ','»
-								«x.compileCommand»
-							«ENDFOR»
+							«FOR x : c.args»
+								{
+									«x.stype.toSecrecVisibility» «x.btype.toSecrecType» vtype;
+									tdbVmapAddType(params, "types", vtype);
+									tdbVmapAddString(params, "names", "«x.parName»");
+								}
+								
+							«ENDFOR»	
 						«ENDIF»
-						
 						tdbTableCreate(ds, tbl, params);
+						
+						tdbVmapDelete(params);
 						'''
 					}
 					case ADD_VALUES: {
