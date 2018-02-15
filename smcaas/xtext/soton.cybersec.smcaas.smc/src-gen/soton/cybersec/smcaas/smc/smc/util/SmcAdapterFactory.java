@@ -96,6 +96,11 @@ public class SmcAdapterFactory extends AdapterFactoryImpl
         return createCommandAdapter();
       }
       @Override
+      public Adapter caseParamDecl(ParamDecl object)
+      {
+        return createParamDeclAdapter();
+      }
+      @Override
       public Adapter caseInvocationVoid(InvocationVoid object)
       {
         return createInvocationVoidAdapter();
@@ -126,14 +131,34 @@ public class SmcAdapterFactory extends AdapterFactoryImpl
         return createVariableAssignmentAdapter();
       }
       @Override
+      public Adapter caseAbstractAssignment(AbstractAssignment object)
+      {
+        return createAbstractAssignmentAdapter();
+      }
+      @Override
+      public Adapter caseDownload(Download object)
+      {
+        return createDownloadAdapter();
+      }
+      @Override
       public Adapter caseExpression(Expression object)
       {
         return createExpressionAdapter();
       }
       @Override
+      public Adapter caseTuple(Tuple object)
+      {
+        return createTupleAdapter();
+      }
+      @Override
       public Adapter caseList(List object)
       {
         return createListAdapter();
+      }
+      @Override
+      public Adapter caseDict(Dict object)
+      {
+        return createDictAdapter();
       }
       @Override
       public Adapter caseInvocation(Invocation object)
@@ -298,6 +323,21 @@ public class SmcAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link soton.cybersec.smcaas.smc.smc.ParamDecl <em>Param Decl</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cybersec.smcaas.smc.smc.ParamDecl
+   * @generated
+   */
+  public Adapter createParamDeclAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link soton.cybersec.smcaas.smc.smc.InvocationVoid <em>Invocation Void</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -388,6 +428,36 @@ public class SmcAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link soton.cybersec.smcaas.smc.smc.AbstractAssignment <em>Abstract Assignment</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cybersec.smcaas.smc.smc.AbstractAssignment
+   * @generated
+   */
+  public Adapter createAbstractAssignmentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cybersec.smcaas.smc.smc.Download <em>Download</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cybersec.smcaas.smc.smc.Download
+   * @generated
+   */
+  public Adapter createDownloadAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link soton.cybersec.smcaas.smc.smc.Expression <em>Expression</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -403,6 +473,21 @@ public class SmcAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link soton.cybersec.smcaas.smc.smc.Tuple <em>Tuple</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cybersec.smcaas.smc.smc.Tuple
+   * @generated
+   */
+  public Adapter createTupleAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link soton.cybersec.smcaas.smc.smc.List <em>List</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -413,6 +498,21 @@ public class SmcAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createListAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cybersec.smcaas.smc.smc.Dict <em>Dict</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cybersec.smcaas.smc.smc.Dict
+   * @generated
+   */
+  public Adapter createDictAdapter()
   {
     return null;
   }

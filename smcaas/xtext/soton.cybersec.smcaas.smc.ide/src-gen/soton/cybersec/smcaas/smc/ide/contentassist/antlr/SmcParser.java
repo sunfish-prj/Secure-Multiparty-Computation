@@ -32,6 +32,7 @@ public class SmcParser extends AbstractContentAssistParser {
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getCommandAccess().getAlternatives(), "rule__Command__Alternatives");
+					put(grammarAccess.getAbstractAssignmentAccess().getAlternatives(), "rule__AbstractAssignment__Alternatives");
 					put(grammarAccess.getEqualityAccess().getOpAlternatives_1_1_0(), "rule__Equality__OpAlternatives_1_1_0");
 					put(grammarAccess.getComparisonAccess().getOpAlternatives_1_1_0(), "rule__Comparison__OpAlternatives_1_1_0");
 					put(grammarAccess.getPlusOrMinusAccess().getOpAlternatives_1_1_0(), "rule__PlusOrMinus__OpAlternatives_1_1_0");
@@ -41,10 +42,10 @@ public class SmcParser extends AbstractContentAssistParser {
 					put(grammarAccess.getBlockTypeAccess().getAlternatives(), "rule__BlockType__Alternatives");
 					put(grammarAccess.getSecTypeAccess().getAlternatives(), "rule__SecType__Alternatives");
 					put(grammarAccess.getBasicTypeAccess().getAlternatives(), "rule__BasicType__Alternatives");
+					put(grammarAccess.getFunctionsAccess().getAlternatives(), "rule__Functions__Alternatives");
 					put(grammarAccess.getBlockSMCAccess().getGroup(), "rule__BlockSMC__Group__0");
-					put(grammarAccess.getBlockSMCAccess().getGroup_6(), "rule__BlockSMC__Group_6__0");
-					put(grammarAccess.getBlockSMCAccess().getGroup_6_1(), "rule__BlockSMC__Group_6_1__0");
 					put(grammarAccess.getMainSMCAccess().getGroup(), "rule__MainSMC__Group__0");
+					put(grammarAccess.getParamDeclAccess().getGroup(), "rule__ParamDecl__Group__0");
 					put(grammarAccess.getInvocationVoidAccess().getGroup(), "rule__InvocationVoid__Group__0");
 					put(grammarAccess.getBlockAccess().getGroup(), "rule__Block__Group__0");
 					put(grammarAccess.getPrintAccess().getGroup(), "rule__Print__Group__0");
@@ -54,6 +55,7 @@ public class SmcParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVariableDeclAccess().getGroup(), "rule__VariableDecl__Group__0");
 					put(grammarAccess.getVariableDeclAccess().getGroup_5(), "rule__VariableDecl__Group_5__0");
 					put(grammarAccess.getVariableAssignmentAccess().getGroup(), "rule__VariableAssignment__Group__0");
+					put(grammarAccess.getDownloadAccess().getGroup(), "rule__Download__Group__0");
 					put(grammarAccess.getOrAccess().getGroup(), "rule__Or__Group__0");
 					put(grammarAccess.getOrAccess().getGroup_1(), "rule__Or__Group_1__0");
 					put(grammarAccess.getAndAccess().getGroup(), "rule__And__Group__0");
@@ -75,9 +77,11 @@ public class SmcParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAtomicAccess().getGroup_4(), "rule__Atomic__Group_4__0");
 					put(grammarAccess.getAtomicAccess().getGroup_5(), "rule__Atomic__Group_5__0");
 					put(grammarAccess.getAtomicAccess().getGroup_6(), "rule__Atomic__Group_6__0");
+					put(grammarAccess.getTupleAccess().getGroup(), "rule__Tuple__Group__0");
 					put(grammarAccess.getListAccess().getGroup(), "rule__List__Group__0");
-					put(grammarAccess.getListAccess().getGroup_1(), "rule__List__Group_1__0");
-					put(grammarAccess.getListAccess().getGroup_1_1(), "rule__List__Group_1_1__0");
+					put(grammarAccess.getListAccess().getGroup_2(), "rule__List__Group_2__0");
+					put(grammarAccess.getListAccess().getGroup_2_1(), "rule__List__Group_2_1__0");
+					put(grammarAccess.getDictAccess().getGroup(), "rule__Dict__Group__0");
 					put(grammarAccess.getInvocationAccess().getGroup(), "rule__Invocation__Group__0");
 					put(grammarAccess.getInvocationAccess().getGroup_4(), "rule__Invocation__Group_4__0");
 					put(grammarAccess.getInvocationAccess().getGroup_4_1(), "rule__Invocation__Group_4_1__0");
@@ -85,9 +89,11 @@ public class SmcParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSmcAccess().getMainAssignment_1(), "rule__Smc__MainAssignment_1");
 					put(grammarAccess.getBlockSMCAccess().getTypeAssignment_1(), "rule__BlockSMC__TypeAssignment_1");
 					put(grammarAccess.getBlockSMCAccess().getNameAssignment_2(), "rule__BlockSMC__NameAssignment_2");
-					put(grammarAccess.getBlockSMCAccess().getParametersAssignment_6_0(), "rule__BlockSMC__ParametersAssignment_6_0");
-					put(grammarAccess.getBlockSMCAccess().getParametersAssignment_6_1_1(), "rule__BlockSMC__ParametersAssignment_6_1_1");
 					put(grammarAccess.getMainSMCAccess().getCommandsAssignment_3(), "rule__MainSMC__CommandsAssignment_3");
+					put(grammarAccess.getParamDeclAccess().getNameAssignment_1(), "rule__ParamDecl__NameAssignment_1");
+					put(grammarAccess.getParamDeclAccess().getStypeAssignment_4(), "rule__ParamDecl__StypeAssignment_4");
+					put(grammarAccess.getParamDeclAccess().getBtypeAssignment_5(), "rule__ParamDecl__BtypeAssignment_5");
+					put(grammarAccess.getParamDeclAccess().getParNameAssignment_7(), "rule__ParamDecl__ParNameAssignment_7");
 					put(grammarAccess.getInvocationVoidAccess().getCallAssignment_0(), "rule__InvocationVoid__CallAssignment_0");
 					put(grammarAccess.getBlockAccess().getCommandsAssignment_2(), "rule__Block__CommandsAssignment_2");
 					put(grammarAccess.getPrintAccess().getValueAssignment_2(), "rule__Print__ValueAssignment_2");
@@ -100,9 +106,10 @@ public class SmcParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVariableDeclAccess().getTypeAssignment_2(), "rule__VariableDecl__TypeAssignment_2");
 					put(grammarAccess.getVariableDeclAccess().getArrayAssignment_3(), "rule__VariableDecl__ArrayAssignment_3");
 					put(grammarAccess.getVariableDeclAccess().getNameAssignment_4(), "rule__VariableDecl__NameAssignment_4");
-					put(grammarAccess.getVariableDeclAccess().getExpAssignment_5_1(), "rule__VariableDecl__ExpAssignment_5_1");
+					put(grammarAccess.getVariableDeclAccess().getOptionAssignment_5_1(), "rule__VariableDecl__OptionAssignment_5_1");
 					put(grammarAccess.getVariableAssignmentAccess().getVarAssignment_0(), "rule__VariableAssignment__VarAssignment_0");
-					put(grammarAccess.getVariableAssignmentAccess().getExpAssignment_2(), "rule__VariableAssignment__ExpAssignment_2");
+					put(grammarAccess.getVariableAssignmentAccess().getOptionAssignment_2(), "rule__VariableAssignment__OptionAssignment_2");
+					put(grammarAccess.getDownloadAccess().getArgAssignment_2(), "rule__Download__ArgAssignment_2");
 					put(grammarAccess.getOrAccess().getRightAssignment_1_2(), "rule__Or__RightAssignment_1_2");
 					put(grammarAccess.getAndAccess().getRightAssignment_1_2(), "rule__And__RightAssignment_1_2");
 					put(grammarAccess.getEqualityAccess().getOpAssignment_1_1(), "rule__Equality__OpAssignment_1_1");
@@ -121,10 +128,14 @@ public class SmcParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAtomicAccess().getValueAssignment_4_1(), "rule__Atomic__ValueAssignment_4_1");
 					put(grammarAccess.getAtomicAccess().getValueAssignment_5_1(), "rule__Atomic__ValueAssignment_5_1");
 					put(grammarAccess.getAtomicAccess().getVariableAssignment_6_1(), "rule__Atomic__VariableAssignment_6_1");
-					put(grammarAccess.getListAccess().getArgsAssignment_1_0(), "rule__List__ArgsAssignment_1_0");
-					put(grammarAccess.getListAccess().getArgsAssignment_1_1_1(), "rule__List__ArgsAssignment_1_1_1");
+					put(grammarAccess.getTupleAccess().getArg1Assignment_2(), "rule__Tuple__Arg1Assignment_2");
+					put(grammarAccess.getTupleAccess().getArg2Assignment_4(), "rule__Tuple__Arg2Assignment_4");
+					put(grammarAccess.getListAccess().getArgsAssignment_2_0(), "rule__List__ArgsAssignment_2_0");
+					put(grammarAccess.getListAccess().getArgsAssignment_2_1_1(), "rule__List__ArgsAssignment_2_1_1");
+					put(grammarAccess.getDictAccess().getKeyAssignment_2(), "rule__Dict__KeyAssignment_2");
+					put(grammarAccess.getDictAccess().getValueAssignment_4(), "rule__Dict__ValueAssignment_4");
 					put(grammarAccess.getInvocationAccess().getBlockNameAssignment_0(), "rule__Invocation__BlockNameAssignment_0");
-					put(grammarAccess.getInvocationAccess().getFunctionAssignment_2(), "rule__Invocation__FunctionAssignment_2");
+					put(grammarAccess.getInvocationAccess().getFuncNameAssignment_2(), "rule__Invocation__FuncNameAssignment_2");
 					put(grammarAccess.getInvocationAccess().getArgsAssignment_4_0(), "rule__Invocation__ArgsAssignment_4_0");
 					put(grammarAccess.getInvocationAccess().getArgsAssignment_4_1_1(), "rule__Invocation__ArgsAssignment_4_1_1");
 					put(grammarAccess.getSmcAccess().getUnorderedGroup(), "rule__Smc__UnorderedGroup");

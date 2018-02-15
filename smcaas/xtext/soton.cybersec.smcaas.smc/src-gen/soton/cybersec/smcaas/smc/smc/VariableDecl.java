@@ -17,7 +17,7 @@ package soton.cybersec.smcaas.smc.smc;
  *   <li>{@link soton.cybersec.smcaas.smc.smc.VariableDecl#getType <em>Type</em>}</li>
  *   <li>{@link soton.cybersec.smcaas.smc.smc.VariableDecl#isArray <em>Array</em>}</li>
  *   <li>{@link soton.cybersec.smcaas.smc.smc.VariableDecl#getName <em>Name</em>}</li>
- *   <li>{@link soton.cybersec.smcaas.smc.smc.VariableDecl#getExp <em>Exp</em>}</li>
+ *   <li>{@link soton.cybersec.smcaas.smc.smc.VariableDecl#getOption <em>Option</em>}</li>
  * </ul>
  *
  * @see soton.cybersec.smcaas.smc.smc.SmcPackage#getVariableDecl()
@@ -137,29 +137,29 @@ public interface VariableDecl extends Command
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Exp</b></em>' containment reference.
+   * Returns the value of the '<em><b>Option</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Exp</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Option</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Exp</em>' containment reference.
-   * @see #setExp(Expression)
-   * @see soton.cybersec.smcaas.smc.smc.SmcPackage#getVariableDecl_Exp()
+   * @return the value of the '<em>Option</em>' containment reference.
+   * @see #setOption(AbstractAssignment)
+   * @see soton.cybersec.smcaas.smc.smc.SmcPackage#getVariableDecl_Option()
    * @model containment="true"
    * @generated
    */
-  Expression getExp();
+  AbstractAssignment getOption();
 
   /**
-   * Sets the value of the '{@link soton.cybersec.smcaas.smc.smc.VariableDecl#getExp <em>Exp</em>}' containment reference.
+   * Sets the value of the '{@link soton.cybersec.smcaas.smc.smc.VariableDecl#getOption <em>Option</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Exp</em>' containment reference.
-   * @see #getExp()
+   * @param value the new value of the '<em>Option</em>' containment reference.
+   * @see #getOption()
    * @generated
    */
-  void setExp(Expression value);
+  void setOption(AbstractAssignment value);
 
 } // VariableDecl

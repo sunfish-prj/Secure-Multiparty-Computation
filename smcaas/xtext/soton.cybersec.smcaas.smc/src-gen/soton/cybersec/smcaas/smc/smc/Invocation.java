@@ -15,7 +15,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link soton.cybersec.smcaas.smc.smc.Invocation#getBlockName <em>Block Name</em>}</li>
- *   <li>{@link soton.cybersec.smcaas.smc.smc.Invocation#getFunction <em>Function</em>}</li>
+ *   <li>{@link soton.cybersec.smcaas.smc.smc.Invocation#getFuncName <em>Func Name</em>}</li>
  *   <li>{@link soton.cybersec.smcaas.smc.smc.Invocation#getArgs <em>Args</em>}</li>
  * </ul>
  *
@@ -52,45 +52,48 @@ public interface Invocation extends Expression
   void setBlockName(BlockSMC value);
 
   /**
-   * Returns the value of the '<em><b>Function</b></em>' attribute.
+   * Returns the value of the '<em><b>Func Name</b></em>' attribute.
+   * The literals are from the enumeration {@link soton.cybersec.smcaas.smc.smc.Functions}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Function</em>' attribute isn't clear,
+   * If the meaning of the '<em>Func Name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Function</em>' attribute.
-   * @see #setFunction(String)
-   * @see soton.cybersec.smcaas.smc.smc.SmcPackage#getInvocation_Function()
+   * @return the value of the '<em>Func Name</em>' attribute.
+   * @see soton.cybersec.smcaas.smc.smc.Functions
+   * @see #setFuncName(Functions)
+   * @see soton.cybersec.smcaas.smc.smc.SmcPackage#getInvocation_FuncName()
    * @model
    * @generated
    */
-  String getFunction();
+  Functions getFuncName();
 
   /**
-   * Sets the value of the '{@link soton.cybersec.smcaas.smc.smc.Invocation#getFunction <em>Function</em>}' attribute.
+   * Sets the value of the '{@link soton.cybersec.smcaas.smc.smc.Invocation#getFuncName <em>Func Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Function</em>' attribute.
-   * @see #getFunction()
+   * @param value the new value of the '<em>Func Name</em>' attribute.
+   * @see soton.cybersec.smcaas.smc.smc.Functions
+   * @see #getFuncName()
    * @generated
    */
-  void setFunction(String value);
+  void setFuncName(Functions value);
 
   /**
-   * Returns the value of the '<em><b>Args</b></em>' containment reference list.
-   * The list contents are of type {@link soton.cybersec.smcaas.smc.smc.Expression}.
+   * Returns the value of the '<em><b>Args</b></em>' reference list.
+   * The list contents are of type {@link soton.cybersec.smcaas.smc.smc.ParamDecl}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Args</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Args</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Args</em>' containment reference list.
+   * @return the value of the '<em>Args</em>' reference list.
    * @see soton.cybersec.smcaas.smc.smc.SmcPackage#getInvocation_Args()
-   * @model containment="true"
+   * @model
    * @generated
    */
-  EList<Expression> getArgs();
+  EList<ParamDecl> getArgs();
 
 } // Invocation

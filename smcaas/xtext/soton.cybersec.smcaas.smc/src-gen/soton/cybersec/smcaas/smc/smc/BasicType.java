@@ -61,14 +61,14 @@ public enum BasicType implements Enumerator
   STRING(3, "STRING", "STRING"),
 
   /**
-   * The '<em><b>TUPLE</b></em>' literal object.
+   * The '<em><b>ENCRYPTED</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #TUPLE_VALUE
+   * @see #ENCRYPTED_VALUE
    * @generated
    * @ordered
    */
-  TUPLE(4, "TUPLE", "TUPLE");
+  ENCRYPTED(4, "ENCRYPTED", "ENCRYPTED");
 
   /**
    * The '<em><b>INT</b></em>' literal value.
@@ -131,19 +131,19 @@ public enum BasicType implements Enumerator
   public static final int STRING_VALUE = 3;
 
   /**
-   * The '<em><b>TUPLE</b></em>' literal value.
+   * The '<em><b>ENCRYPTED</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>TUPLE</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>ENCRYPTED</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #TUPLE
+   * @see #ENCRYPTED
    * @model
    * @generated
    * @ordered
    */
-  public static final int TUPLE_VALUE = 4;
+  public static final int ENCRYPTED_VALUE = 4;
 
   /**
    * An array of all the '<em><b>Basic Type</b></em>' enumerators.
@@ -158,7 +158,7 @@ public enum BasicType implements Enumerator
       DOUBLE,
       BOOLEAN,
       STRING,
-      TUPLE,
+      ENCRYPTED,
     };
 
   /**
@@ -227,7 +227,7 @@ public enum BasicType implements Enumerator
       case DOUBLE_VALUE: return DOUBLE;
       case BOOLEAN_VALUE: return BOOLEAN;
       case STRING_VALUE: return STRING;
-      case TUPLE_VALUE: return TUPLE;
+      case ENCRYPTED_VALUE: return ENCRYPTED;
     }
     return null;
   }

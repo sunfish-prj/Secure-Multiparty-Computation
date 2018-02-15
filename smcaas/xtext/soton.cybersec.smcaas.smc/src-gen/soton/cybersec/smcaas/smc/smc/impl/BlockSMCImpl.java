@@ -3,25 +3,15 @@
  */
 package soton.cybersec.smcaas.smc.smc.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
 import soton.cybersec.smcaas.smc.smc.BlockSMC;
 import soton.cybersec.smcaas.smc.smc.BlockType;
-import soton.cybersec.smcaas.smc.smc.Expression;
 import soton.cybersec.smcaas.smc.smc.SmcPackage;
 
 /**
@@ -34,7 +24,6 @@ import soton.cybersec.smcaas.smc.smc.SmcPackage;
  * <ul>
  *   <li>{@link soton.cybersec.smcaas.smc.smc.impl.BlockSMCImpl#getType <em>Type</em>}</li>
  *   <li>{@link soton.cybersec.smcaas.smc.smc.impl.BlockSMCImpl#getName <em>Name</em>}</li>
- *   <li>{@link soton.cybersec.smcaas.smc.smc.impl.BlockSMCImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
  *
  * @generated
@@ -80,16 +69,6 @@ public class BlockSMCImpl extends MinimalEObjectImpl.Container implements BlockS
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getParameters()
-   * @generated
-   * @ordered
-   */
-  protected EList<Expression> parameters;
 
   /**
    * <!-- begin-user-doc -->
@@ -163,36 +142,6 @@ public class BlockSMCImpl extends MinimalEObjectImpl.Container implements BlockS
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Expression> getParameters()
-  {
-    if (parameters == null)
-    {
-      parameters = new EObjectContainmentEList<Expression>(Expression.class, this, SmcPackage.BLOCK_SMC__PARAMETERS);
-    }
-    return parameters;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case SmcPackage.BLOCK_SMC__PARAMETERS:
-        return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -202,8 +151,6 @@ public class BlockSMCImpl extends MinimalEObjectImpl.Container implements BlockS
         return getType();
       case SmcPackage.BLOCK_SMC__NAME:
         return getName();
-      case SmcPackage.BLOCK_SMC__PARAMETERS:
-        return getParameters();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -213,7 +160,6 @@ public class BlockSMCImpl extends MinimalEObjectImpl.Container implements BlockS
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -224,10 +170,6 @@ public class BlockSMCImpl extends MinimalEObjectImpl.Container implements BlockS
         return;
       case SmcPackage.BLOCK_SMC__NAME:
         setName((String)newValue);
-        return;
-      case SmcPackage.BLOCK_SMC__PARAMETERS:
-        getParameters().clear();
-        getParameters().addAll((Collection<? extends Expression>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -249,9 +191,6 @@ public class BlockSMCImpl extends MinimalEObjectImpl.Container implements BlockS
       case SmcPackage.BLOCK_SMC__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case SmcPackage.BLOCK_SMC__PARAMETERS:
-        getParameters().clear();
-        return;
     }
     super.eUnset(featureID);
   }
@@ -270,8 +209,6 @@ public class BlockSMCImpl extends MinimalEObjectImpl.Container implements BlockS
         return type != TYPE_EDEFAULT;
       case SmcPackage.BLOCK_SMC__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case SmcPackage.BLOCK_SMC__PARAMETERS:
-        return parameters != null && !parameters.isEmpty();
     }
     return super.eIsSet(featureID);
   }

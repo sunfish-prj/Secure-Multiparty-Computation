@@ -60,6 +60,15 @@ public interface SmcFactory extends EFactory
   Command createCommand();
 
   /**
+   * Returns a new object of class '<em>Param Decl</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Param Decl</em>'.
+   * @generated
+   */
+  ParamDecl createParamDecl();
+
+  /**
    * Returns a new object of class '<em>Invocation Void</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -114,6 +123,24 @@ public interface SmcFactory extends EFactory
   VariableAssignment createVariableAssignment();
 
   /**
+   * Returns a new object of class '<em>Abstract Assignment</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Abstract Assignment</em>'.
+   * @generated
+   */
+  AbstractAssignment createAbstractAssignment();
+
+  /**
+   * Returns a new object of class '<em>Download</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Download</em>'.
+   * @generated
+   */
+  Download createDownload();
+
+  /**
    * Returns a new object of class '<em>Expression</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -123,6 +150,15 @@ public interface SmcFactory extends EFactory
   Expression createExpression();
 
   /**
+   * Returns a new object of class '<em>Tuple</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Tuple</em>'.
+   * @generated
+   */
+  Tuple createTuple();
+
+  /**
    * Returns a new object of class '<em>List</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -130,6 +166,15 @@ public interface SmcFactory extends EFactory
    * @generated
    */
   List createList();
+
+  /**
+   * Returns a new object of class '<em>Dict</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Dict</em>'.
+   * @generated
+   */
+  Dict createDict();
 
   /**
    * Returns a new object of class '<em>Invocation</em>'.

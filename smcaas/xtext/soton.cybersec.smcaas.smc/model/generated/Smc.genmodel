@@ -23,7 +23,11 @@
       <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//BasicType/DOUBLE"/>
       <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//BasicType/BOOLEAN"/>
       <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//BasicType/STRING"/>
-      <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//BasicType/TUPLE"/>
+      <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//BasicType/ENCRYPTED"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Smc.ecore#//Functions">
+      <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//Functions/CREATE_DB"/>
+      <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//Functions/ADD_VALUES"/>
     </genEnums>
     <genClasses ecoreClass="Smc.ecore#//Smc">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//Smc/blocks"/>
@@ -32,12 +36,17 @@
     <genClasses ecoreClass="Smc.ecore#//BlockSMC">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//BlockSMC/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//BlockSMC/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//BlockSMC/parameters"/>
     </genClasses>
     <genClasses ecoreClass="Smc.ecore#//MainSMC">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//MainSMC/commands"/>
     </genClasses>
     <genClasses ecoreClass="Smc.ecore#//Command"/>
+    <genClasses ecoreClass="Smc.ecore#//ParamDecl">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//ParamDecl/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//ParamDecl/stype"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//ParamDecl/btype"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//ParamDecl/parName"/>
+    </genClasses>
     <genClasses ecoreClass="Smc.ecore#//InvocationVoid">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//InvocationVoid/call"/>
     </genClasses>
@@ -58,20 +67,32 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//VariableDecl/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//VariableDecl/array"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//VariableDecl/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//VariableDecl/exp"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//VariableDecl/option"/>
     </genClasses>
     <genClasses ecoreClass="Smc.ecore#//VariableAssignment">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//VariableAssignment/var"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//VariableAssignment/exp"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//VariableAssignment/option"/>
+    </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//AbstractAssignment"/>
+    <genClasses ecoreClass="Smc.ecore#//Download">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//Download/arg"/>
     </genClasses>
     <genClasses ecoreClass="Smc.ecore#//Expression"/>
+    <genClasses ecoreClass="Smc.ecore#//Tuple">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//Tuple/arg1"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//Tuple/arg2"/>
+    </genClasses>
     <genClasses ecoreClass="Smc.ecore#//List">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//List/args"/>
     </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//Dict">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//Dict/key"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//Dict/value"/>
+    </genClasses>
     <genClasses ecoreClass="Smc.ecore#//Invocation">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//Invocation/blockName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//Invocation/function"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//Invocation/args"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//Invocation/funcName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//Invocation/args"/>
     </genClasses>
     <genClasses ecoreClass="Smc.ecore#//Block">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//Block/commands"/>

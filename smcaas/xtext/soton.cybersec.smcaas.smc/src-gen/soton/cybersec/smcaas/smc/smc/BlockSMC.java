@@ -3,8 +3,6 @@
  */
 package soton.cybersec.smcaas.smc.smc;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -18,7 +16,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link soton.cybersec.smcaas.smc.smc.BlockSMC#getType <em>Type</em>}</li>
  *   <li>{@link soton.cybersec.smcaas.smc.smc.BlockSMC#getName <em>Name</em>}</li>
- *   <li>{@link soton.cybersec.smcaas.smc.smc.BlockSMC#getParameters <em>Parameters</em>}</li>
  * </ul>
  *
  * @see soton.cybersec.smcaas.smc.smc.SmcPackage#getBlockSMC()
@@ -81,21 +78,5 @@ public interface BlockSMC extends EObject
    * @generated
    */
   void setName(String value);
-
-  /**
-   * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
-   * The list contents are of type {@link soton.cybersec.smcaas.smc.smc.Expression}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Parameters</em>' containment reference list.
-   * @see soton.cybersec.smcaas.smc.smc.SmcPackage#getBlockSMC_Parameters()
-   * @model containment="true"
-   * @generated
-   */
-  EList<Expression> getParameters();
 
 } // BlockSMC

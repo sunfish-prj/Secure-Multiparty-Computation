@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import soton.cybersec.smcaas.smc.smc.Expression;
+import soton.cybersec.smcaas.smc.smc.AbstractAssignment;
 import soton.cybersec.smcaas.smc.smc.SmcPackage;
 import soton.cybersec.smcaas.smc.smc.VariableAssignment;
 import soton.cybersec.smcaas.smc.smc.VariableDecl;
@@ -25,7 +25,7 @@ import soton.cybersec.smcaas.smc.smc.VariableDecl;
  * </p>
  * <ul>
  *   <li>{@link soton.cybersec.smcaas.smc.smc.impl.VariableAssignmentImpl#getVar <em>Var</em>}</li>
- *   <li>{@link soton.cybersec.smcaas.smc.smc.impl.VariableAssignmentImpl#getExp <em>Exp</em>}</li>
+ *   <li>{@link soton.cybersec.smcaas.smc.smc.impl.VariableAssignmentImpl#getOption <em>Option</em>}</li>
  * </ul>
  *
  * @generated
@@ -43,14 +43,14 @@ public class VariableAssignmentImpl extends CommandImpl implements VariableAssig
   protected VariableDecl var;
 
   /**
-   * The cached value of the '{@link #getExp() <em>Exp</em>}' containment reference.
+   * The cached value of the '{@link #getOption() <em>Option</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getExp()
+   * @see #getOption()
    * @generated
    * @ordered
    */
-  protected Expression exp;
+  protected AbstractAssignment option;
 
   /**
    * <!-- begin-user-doc -->
@@ -121,9 +121,9 @@ public class VariableAssignmentImpl extends CommandImpl implements VariableAssig
    * <!-- end-user-doc -->
    * @generated
    */
-  public Expression getExp()
+  public AbstractAssignment getOption()
   {
-    return exp;
+    return option;
   }
 
   /**
@@ -131,13 +131,13 @@ public class VariableAssignmentImpl extends CommandImpl implements VariableAssig
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetExp(Expression newExp, NotificationChain msgs)
+  public NotificationChain basicSetOption(AbstractAssignment newOption, NotificationChain msgs)
   {
-    Expression oldExp = exp;
-    exp = newExp;
+    AbstractAssignment oldOption = option;
+    option = newOption;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SmcPackage.VARIABLE_ASSIGNMENT__EXP, oldExp, newExp);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SmcPackage.VARIABLE_ASSIGNMENT__OPTION, oldOption, newOption);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -148,20 +148,20 @@ public class VariableAssignmentImpl extends CommandImpl implements VariableAssig
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setExp(Expression newExp)
+  public void setOption(AbstractAssignment newOption)
   {
-    if (newExp != exp)
+    if (newOption != option)
     {
       NotificationChain msgs = null;
-      if (exp != null)
-        msgs = ((InternalEObject)exp).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SmcPackage.VARIABLE_ASSIGNMENT__EXP, null, msgs);
-      if (newExp != null)
-        msgs = ((InternalEObject)newExp).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SmcPackage.VARIABLE_ASSIGNMENT__EXP, null, msgs);
-      msgs = basicSetExp(newExp, msgs);
+      if (option != null)
+        msgs = ((InternalEObject)option).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SmcPackage.VARIABLE_ASSIGNMENT__OPTION, null, msgs);
+      if (newOption != null)
+        msgs = ((InternalEObject)newOption).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SmcPackage.VARIABLE_ASSIGNMENT__OPTION, null, msgs);
+      msgs = basicSetOption(newOption, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SmcPackage.VARIABLE_ASSIGNMENT__EXP, newExp, newExp));
+      eNotify(new ENotificationImpl(this, Notification.SET, SmcPackage.VARIABLE_ASSIGNMENT__OPTION, newOption, newOption));
   }
 
   /**
@@ -174,8 +174,8 @@ public class VariableAssignmentImpl extends CommandImpl implements VariableAssig
   {
     switch (featureID)
     {
-      case SmcPackage.VARIABLE_ASSIGNMENT__EXP:
-        return basicSetExp(null, msgs);
+      case SmcPackage.VARIABLE_ASSIGNMENT__OPTION:
+        return basicSetOption(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -193,8 +193,8 @@ public class VariableAssignmentImpl extends CommandImpl implements VariableAssig
       case SmcPackage.VARIABLE_ASSIGNMENT__VAR:
         if (resolve) return getVar();
         return basicGetVar();
-      case SmcPackage.VARIABLE_ASSIGNMENT__EXP:
-        return getExp();
+      case SmcPackage.VARIABLE_ASSIGNMENT__OPTION:
+        return getOption();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -212,8 +212,8 @@ public class VariableAssignmentImpl extends CommandImpl implements VariableAssig
       case SmcPackage.VARIABLE_ASSIGNMENT__VAR:
         setVar((VariableDecl)newValue);
         return;
-      case SmcPackage.VARIABLE_ASSIGNMENT__EXP:
-        setExp((Expression)newValue);
+      case SmcPackage.VARIABLE_ASSIGNMENT__OPTION:
+        setOption((AbstractAssignment)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -232,8 +232,8 @@ public class VariableAssignmentImpl extends CommandImpl implements VariableAssig
       case SmcPackage.VARIABLE_ASSIGNMENT__VAR:
         setVar((VariableDecl)null);
         return;
-      case SmcPackage.VARIABLE_ASSIGNMENT__EXP:
-        setExp((Expression)null);
+      case SmcPackage.VARIABLE_ASSIGNMENT__OPTION:
+        setOption((AbstractAssignment)null);
         return;
     }
     super.eUnset(featureID);
@@ -251,8 +251,8 @@ public class VariableAssignmentImpl extends CommandImpl implements VariableAssig
     {
       case SmcPackage.VARIABLE_ASSIGNMENT__VAR:
         return var != null;
-      case SmcPackage.VARIABLE_ASSIGNMENT__EXP:
-        return exp != null;
+      case SmcPackage.VARIABLE_ASSIGNMENT__OPTION:
+        return option != null;
     }
     return super.eIsSet(featureID);
   }

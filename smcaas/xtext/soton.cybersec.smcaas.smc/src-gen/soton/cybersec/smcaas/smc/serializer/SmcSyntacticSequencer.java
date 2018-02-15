@@ -56,7 +56,9 @@ public class SmcSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '!' expression=Primary
-	 *     (rule start) (ambiguity) 'list(' args+=Atomic
+	 *     (rule start) (ambiguity) 'dict' '(' key+=Atomic
+	 *     (rule start) (ambiguity) 'list' '(' args+=Atomic
+	 *     (rule start) (ambiguity) 'tuple' '<' arg1+=Atomic
 	 *     (rule start) (ambiguity) blockName=[BlockSMC|ID]
 	 *     (rule start) (ambiguity) value=BOOLEAN
 	 *     (rule start) (ambiguity) value=DATE

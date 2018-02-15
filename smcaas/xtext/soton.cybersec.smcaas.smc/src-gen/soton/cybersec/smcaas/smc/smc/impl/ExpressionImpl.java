@@ -5,8 +5,6 @@ package soton.cybersec.smcaas.smc.smc.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import soton.cybersec.smcaas.smc.smc.Expression;
 import soton.cybersec.smcaas.smc.smc.SmcPackage;
 
@@ -17,7 +15,7 @@ import soton.cybersec.smcaas.smc.smc.SmcPackage;
  *
  * @generated
  */
-public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expression
+public class ExpressionImpl extends AbstractAssignmentImpl implements Expression
 {
   /**
    * <!-- begin-user-doc -->

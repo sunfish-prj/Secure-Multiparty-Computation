@@ -101,6 +101,14 @@ public class SmcSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case SmcPackage.PARAM_DECL:
+      {
+        ParamDecl paramDecl = (ParamDecl)theEObject;
+        T result = caseParamDecl(paramDecl);
+        if (result == null) result = caseCommand(paramDecl);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case SmcPackage.INVOCATION_VOID:
       {
         InvocationVoid invocationVoid = (InvocationVoid)theEObject;
@@ -149,10 +157,35 @@ public class SmcSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case SmcPackage.ABSTRACT_ASSIGNMENT:
+      {
+        AbstractAssignment abstractAssignment = (AbstractAssignment)theEObject;
+        T result = caseAbstractAssignment(abstractAssignment);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.DOWNLOAD:
+      {
+        Download download = (Download)theEObject;
+        T result = caseDownload(download);
+        if (result == null) result = caseAbstractAssignment(download);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case SmcPackage.EXPRESSION:
       {
         Expression expression = (Expression)theEObject;
         T result = caseExpression(expression);
+        if (result == null) result = caseAbstractAssignment(expression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.TUPLE:
+      {
+        Tuple tuple = (Tuple)theEObject;
+        T result = caseTuple(tuple);
+        if (result == null) result = caseExpression(tuple);
+        if (result == null) result = caseAbstractAssignment(tuple);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -161,6 +194,16 @@ public class SmcSwitch<T> extends Switch<T>
         List list = (List)theEObject;
         T result = caseList(list);
         if (result == null) result = caseExpression(list);
+        if (result == null) result = caseAbstractAssignment(list);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.DICT:
+      {
+        Dict dict = (Dict)theEObject;
+        T result = caseDict(dict);
+        if (result == null) result = caseExpression(dict);
+        if (result == null) result = caseAbstractAssignment(dict);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -169,6 +212,7 @@ public class SmcSwitch<T> extends Switch<T>
         Invocation invocation = (Invocation)theEObject;
         T result = caseInvocation(invocation);
         if (result == null) result = caseExpression(invocation);
+        if (result == null) result = caseAbstractAssignment(invocation);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -185,6 +229,7 @@ public class SmcSwitch<T> extends Switch<T>
         Or or = (Or)theEObject;
         T result = caseOr(or);
         if (result == null) result = caseExpression(or);
+        if (result == null) result = caseAbstractAssignment(or);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -193,6 +238,7 @@ public class SmcSwitch<T> extends Switch<T>
         And and = (And)theEObject;
         T result = caseAnd(and);
         if (result == null) result = caseExpression(and);
+        if (result == null) result = caseAbstractAssignment(and);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -201,6 +247,7 @@ public class SmcSwitch<T> extends Switch<T>
         Equality equality = (Equality)theEObject;
         T result = caseEquality(equality);
         if (result == null) result = caseExpression(equality);
+        if (result == null) result = caseAbstractAssignment(equality);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -209,6 +256,7 @@ public class SmcSwitch<T> extends Switch<T>
         Comparison comparison = (Comparison)theEObject;
         T result = caseComparison(comparison);
         if (result == null) result = caseExpression(comparison);
+        if (result == null) result = caseAbstractAssignment(comparison);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -217,6 +265,7 @@ public class SmcSwitch<T> extends Switch<T>
         PlusOrMinus plusOrMinus = (PlusOrMinus)theEObject;
         T result = casePlusOrMinus(plusOrMinus);
         if (result == null) result = caseExpression(plusOrMinus);
+        if (result == null) result = caseAbstractAssignment(plusOrMinus);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -225,6 +274,7 @@ public class SmcSwitch<T> extends Switch<T>
         MulOrDiv mulOrDiv = (MulOrDiv)theEObject;
         T result = caseMulOrDiv(mulOrDiv);
         if (result == null) result = caseExpression(mulOrDiv);
+        if (result == null) result = caseAbstractAssignment(mulOrDiv);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -233,6 +283,7 @@ public class SmcSwitch<T> extends Switch<T>
         Not not = (Not)theEObject;
         T result = caseNot(not);
         if (result == null) result = caseExpression(not);
+        if (result == null) result = caseAbstractAssignment(not);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -241,6 +292,7 @@ public class SmcSwitch<T> extends Switch<T>
         IntLiteral intLiteral = (IntLiteral)theEObject;
         T result = caseIntLiteral(intLiteral);
         if (result == null) result = caseExpression(intLiteral);
+        if (result == null) result = caseAbstractAssignment(intLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -249,6 +301,7 @@ public class SmcSwitch<T> extends Switch<T>
         DoubleLiteral doubleLiteral = (DoubleLiteral)theEObject;
         T result = caseDoubleLiteral(doubleLiteral);
         if (result == null) result = caseExpression(doubleLiteral);
+        if (result == null) result = caseAbstractAssignment(doubleLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -257,6 +310,7 @@ public class SmcSwitch<T> extends Switch<T>
         BooleanLiteral booleanLiteral = (BooleanLiteral)theEObject;
         T result = caseBooleanLiteral(booleanLiteral);
         if (result == null) result = caseExpression(booleanLiteral);
+        if (result == null) result = caseAbstractAssignment(booleanLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -265,6 +319,7 @@ public class SmcSwitch<T> extends Switch<T>
         StringLiteral stringLiteral = (StringLiteral)theEObject;
         T result = caseStringLiteral(stringLiteral);
         if (result == null) result = caseExpression(stringLiteral);
+        if (result == null) result = caseAbstractAssignment(stringLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -273,6 +328,7 @@ public class SmcSwitch<T> extends Switch<T>
         DateLiteral dateLiteral = (DateLiteral)theEObject;
         T result = caseDateLiteral(dateLiteral);
         if (result == null) result = caseExpression(dateLiteral);
+        if (result == null) result = caseAbstractAssignment(dateLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -281,6 +337,7 @@ public class SmcSwitch<T> extends Switch<T>
         TimeLiteral timeLiteral = (TimeLiteral)theEObject;
         T result = caseTimeLiteral(timeLiteral);
         if (result == null) result = caseExpression(timeLiteral);
+        if (result == null) result = caseAbstractAssignment(timeLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -289,6 +346,7 @@ public class SmcSwitch<T> extends Switch<T>
         VariableRef variableRef = (VariableRef)theEObject;
         T result = caseVariableRef(variableRef);
         if (result == null) result = caseExpression(variableRef);
+        if (result == null) result = caseAbstractAssignment(variableRef);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -356,6 +414,22 @@ public class SmcSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseCommand(Command object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Param Decl</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Param Decl</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseParamDecl(ParamDecl object)
   {
     return null;
   }
@@ -457,6 +531,38 @@ public class SmcSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Abstract Assignment</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Abstract Assignment</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAbstractAssignment(AbstractAssignment object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Download</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Download</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDownload(Download object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Expression</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -473,6 +579,22 @@ public class SmcSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Tuple</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Tuple</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTuple(Tuple object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>List</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -484,6 +606,22 @@ public class SmcSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseList(List object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Dict</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Dict</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDict(Dict object)
   {
     return null;
   }

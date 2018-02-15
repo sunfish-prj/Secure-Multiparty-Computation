@@ -19,7 +19,6 @@ import soton.cybersec.smcaas.smc.smc.VariableDecl
 import soton.cybersec.smcaas.smc.smc.VariableAssignment
 import soton.cybersec.smcaas.smc.smc.IfThenElse
 import soton.cybersec.smcaas.smc.smc.While
-import soton.cybersec.smcaas.smc.smc.BasicType
 import soton.cybersec.smcaas.smc.smc.Or
 import soton.cybersec.smcaas.smc.smc.And
 import soton.cybersec.smcaas.smc.smc.StringLiteral
@@ -38,6 +37,13 @@ import soton.cybersec.smcaas.smc.smc.VariableRef
 import soton.cybersec.smcaas.smc.smc.List
 import soton.cybersec.smcaas.smc.smc.SecType
 import soton.cybersec.smcaas.smc.smc.InvocationVoid
+import soton.cybersec.smcaas.smc.smc.BasicType
+import soton.cybersec.smcaas.smc.smc.ParamDecl
+import soton.cybersec.smcaas.smc.smc.AbstractAssignment
+import soton.cybersec.smcaas.smc.smc.Download
+import javax.xml.ws.Dispatch
+import soton.cybersec.smcaas.smc.smc.Tuple
+import soton.cybersec.smcaas.smc.smc.Dict
 
 /**
  * Generates code from your model files on save.
@@ -57,6 +63,9 @@ class SmcGenerator extends AbstractGenerator {
 		import shared3p_table_database;
 		import stdlib;
 		import table_database;
+		import shared3p_bloom;
+		import shared3p_random;
+		import shared3p_aes;
 		
 		domain pd_shared3p shared3p;
 		
@@ -70,7 +79,7 @@ class SmcGenerator extends AbstractGenerator {
 	def compile(BlockSMC block)'''
 		«switch (block.type) {
 			case INSERT: {
-				'''«addDataset»'''
+				''''''
 			}
 			case COMP: {
 				'''comp - TO ADD MODULE'''
@@ -128,18 +137,14 @@ class SmcGenerator extends AbstractGenerator {
 		void main() {
 			
 			string ds = "DS1";
-			string tbl = argument("UC3");
 			
 			tdbOpenConnection(ds);
 			
-			if (tdbTableExists(ds, tbl)) {
-				print("Table `" + tbl + "` already exisis, deleting...");
-				tdbTableDelete(ds, tbl);
-			}
 			«FOR c : mainSmc.commands»
 				«compileCommand(c)»
 			«ENDFOR»
 			
+			tdbCloseConnection(ds);
 		}
 	'''
 	
@@ -157,12 +162,19 @@ class SmcGenerator extends AbstractGenerator {
 		}
 	'''
 	
-	//change in grammar needed to allow Sharemind PDK
 	def dispatch compileCommand(VariableDecl c)'''
 		«c.visibility.toSecrecVisibility» «c.type.toSecrecType» 
 		«IF c.array»[[1]] «ENDIF»«c.name»
-		«IF c.exp !== null» = «c.exp.compileEx»«ENDIF»
+		«IF c.option !== null» = «c.option.compileAssignment»«ENDIF»
 		;
+	'''
+	
+	def dispatch compileAssignment(Expression a)'''
+		«a.compileEx»
+	'''
+	
+	def dispatch compileAssignment(Download a)'''
+		argument("«a.arg»")
 	'''
 	
 	def getToSecrecVisibility(SecType type) {
@@ -182,7 +194,7 @@ class SmcGenerator extends AbstractGenerator {
 				'''uint64'''
 			}
 			case DOUBLE: {
-				'''uint64'''
+				'''float64'''
 			}
 			case BOOLEAN: {
 				'''bool'''
@@ -190,22 +202,14 @@ class SmcGenerator extends AbstractGenerator {
 			case STRING: {
 				'''string'''
 			}
+			case ENCRYPTED: {
+				'''xor_uint64'''
+			}
 		}
 	}
 	
-//	def getToArrayType(ArrayType type) {
-//		switch (type) {
-//			case LIST: {
-//				'''[[1]]'''
-//			}
-//			case MATRIX: {
-//				'''[[2]]'''
-//			}
-//		}
-//	}
-	
 	def dispatch compileCommand(VariableAssignment c)'''
-		«c.^var.name» = «c.exp.compileEx»;
+		«c.^var.name» = «c.option.compileAssignment»;
 	'''
 	
 	def dispatch compileCommand(IfThenElse c)'''
@@ -227,6 +231,13 @@ class SmcGenerator extends AbstractGenerator {
 		«compileEx(c.call)»;
 	'''
 	
+	def dispatch compileCommand(ParamDecl c)'''
+		{
+			«c.stype.toSecrecVisibility» «c.btype.toSecrecType» vtype;
+			tdbVmapAddType(params, "types", vtype);
+			tdbVmapAddString(params, "names", "«c.parName»");
+		}
+	'''
 	/* expressions */
 	
 	def dispatch compileEx (Expression e){
@@ -322,20 +333,71 @@ class SmcGenerator extends AbstractGenerator {
 	def dispatch compileEx (VariableRef e)'''
 		«e.variable.name»
 	'''
-	//to be checked
+	
+	//not useful for secreC
+//	def dispatch compileEx (Tuple e)'''
+//		
+//	'''
+	
 	def dispatch compileEx (List e)'''{
 		«FOR x : e.args SEPARATOR ','»
 			«x.compileEx»
 		«ENDFOR»}
 	'''
 	
-	def dispatch compileEx(Invocation c) '''
-		«c.blockName.name».«c.function»(
-			«IF c.args !== null»
-				«FOR x : c.args SEPARATOR ','»
-					«x.compileEx»
-				«ENDFOR»
-			«ENDIF»
-		)
-	'''
+	//not useful for secreC
+//	def dispatch compileEx (Dict e)'''
+//		
+//	'''
+	
+	def dispatch compileEx(Invocation c){
+		switch (c.blockName.type){
+			case INSERT: {
+				switch (c.funcName){
+					case CREATE_DB: {
+						'''
+						if (tdbTableExists(ds, tbl)) {
+							print("Table `" + tbl + "` already exists, deleting...");
+							tdbTableDelete(ds, tbl);
+						}
+						
+						«IF c.args !== null»
+							uint params = tdbVmapNew();
+							
+							«FOR x : c.args SEPARATOR ','»
+								«x.compileCommand»
+							«ENDFOR»
+						«ENDIF»
+						
+						tdbTableCreate(ds, tbl, params);
+						'''
+					}
+					case ADD_VALUES: {
+						'''
+						tdbVmapClear(params);
+«««						bisogna inserire qualcosa che non sia solo una tupla ma qualcos'altro, tipo la variabile ma proveniente da argument
+						«IF c.args !== null»
+							«FOR x : c.args SEPARATOR ','»
+								tdbVmapAddValue(params, "values", «x.name»);
+							«ENDFOR»
+						«ENDIF»
+						tdbInsertRow(ds, tbl, params);
+						tdbVmapDelete(params);
+						'''
+					}
+				}		
+			}
+			case ACCESS: {
+			}
+			case ANONYMIZATION: {
+			}
+			case COMP: {
+			}
+			case PERMISSION: {
+			}
+			case SEARCH: {
+			}
+		}
+	}
+	
 }

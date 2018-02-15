@@ -70,14 +70,19 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
       case SmcPackage.BLOCK_SMC: return createBlockSMC();
       case SmcPackage.MAIN_SMC: return createMainSMC();
       case SmcPackage.COMMAND: return createCommand();
+      case SmcPackage.PARAM_DECL: return createParamDecl();
       case SmcPackage.INVOCATION_VOID: return createInvocationVoid();
       case SmcPackage.PRINT: return createPrint();
       case SmcPackage.WHILE: return createWhile();
       case SmcPackage.IF_THEN_ELSE: return createIfThenElse();
       case SmcPackage.VARIABLE_DECL: return createVariableDecl();
       case SmcPackage.VARIABLE_ASSIGNMENT: return createVariableAssignment();
+      case SmcPackage.ABSTRACT_ASSIGNMENT: return createAbstractAssignment();
+      case SmcPackage.DOWNLOAD: return createDownload();
       case SmcPackage.EXPRESSION: return createExpression();
+      case SmcPackage.TUPLE: return createTuple();
       case SmcPackage.LIST: return createList();
+      case SmcPackage.DICT: return createDict();
       case SmcPackage.INVOCATION: return createInvocation();
       case SmcPackage.BLOCK: return createBlock();
       case SmcPackage.OR: return createOr();
@@ -115,6 +120,8 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
         return createSecTypeFromString(eDataType, initialValue);
       case SmcPackage.BASIC_TYPE:
         return createBasicTypeFromString(eDataType, initialValue);
+      case SmcPackage.FUNCTIONS:
+        return createFunctionsFromString(eDataType, initialValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -136,6 +143,8 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
         return convertSecTypeToString(eDataType, instanceValue);
       case SmcPackage.BASIC_TYPE:
         return convertBasicTypeToString(eDataType, instanceValue);
+      case SmcPackage.FUNCTIONS:
+        return convertFunctionsToString(eDataType, instanceValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -183,6 +192,17 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
   {
     CommandImpl command = new CommandImpl();
     return command;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ParamDecl createParamDecl()
+  {
+    ParamDeclImpl paramDecl = new ParamDeclImpl();
+    return paramDecl;
   }
 
   /**
@@ -256,6 +276,28 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public AbstractAssignment createAbstractAssignment()
+  {
+    AbstractAssignmentImpl abstractAssignment = new AbstractAssignmentImpl();
+    return abstractAssignment;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Download createDownload()
+  {
+    DownloadImpl download = new DownloadImpl();
+    return download;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Expression createExpression()
   {
     ExpressionImpl expression = new ExpressionImpl();
@@ -267,10 +309,32 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public Tuple createTuple()
+  {
+    TupleImpl tuple = new TupleImpl();
+    return tuple;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public List createList()
   {
     ListImpl list = new ListImpl();
     return list;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Dict createDict()
+  {
+    DictImpl dict = new DictImpl();
+    return dict;
   }
 
   /**
@@ -511,6 +575,28 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
    * @generated
    */
   public String convertBasicTypeToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Functions createFunctionsFromString(EDataType eDataType, String initialValue)
+  {
+    Functions result = Functions.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertFunctionsToString(EDataType eDataType, Object instanceValue)
   {
     return instanceValue == null ? null : instanceValue.toString();
   }

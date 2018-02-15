@@ -21,7 +21,9 @@ import soton.cybersec.smcaas.smc.smc.BlockSMC;
 import soton.cybersec.smcaas.smc.smc.BooleanLiteral;
 import soton.cybersec.smcaas.smc.smc.Comparison;
 import soton.cybersec.smcaas.smc.smc.DateLiteral;
+import soton.cybersec.smcaas.smc.smc.Dict;
 import soton.cybersec.smcaas.smc.smc.DoubleLiteral;
+import soton.cybersec.smcaas.smc.smc.Download;
 import soton.cybersec.smcaas.smc.smc.Equality;
 import soton.cybersec.smcaas.smc.smc.IfThenElse;
 import soton.cybersec.smcaas.smc.smc.IntLiteral;
@@ -32,12 +34,14 @@ import soton.cybersec.smcaas.smc.smc.MainSMC;
 import soton.cybersec.smcaas.smc.smc.MulOrDiv;
 import soton.cybersec.smcaas.smc.smc.Not;
 import soton.cybersec.smcaas.smc.smc.Or;
+import soton.cybersec.smcaas.smc.smc.ParamDecl;
 import soton.cybersec.smcaas.smc.smc.PlusOrMinus;
 import soton.cybersec.smcaas.smc.smc.Print;
 import soton.cybersec.smcaas.smc.smc.Smc;
 import soton.cybersec.smcaas.smc.smc.SmcPackage;
 import soton.cybersec.smcaas.smc.smc.StringLiteral;
 import soton.cybersec.smcaas.smc.smc.TimeLiteral;
+import soton.cybersec.smcaas.smc.smc.Tuple;
 import soton.cybersec.smcaas.smc.smc.VariableAssignment;
 import soton.cybersec.smcaas.smc.smc.VariableDecl;
 import soton.cybersec.smcaas.smc.smc.VariableRef;
@@ -75,8 +79,14 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case SmcPackage.DATE_LITERAL:
 				sequence_Atomic(context, (DateLiteral) semanticObject); 
 				return; 
+			case SmcPackage.DICT:
+				sequence_Dict(context, (Dict) semanticObject); 
+				return; 
 			case SmcPackage.DOUBLE_LITERAL:
 				sequence_Atomic(context, (DoubleLiteral) semanticObject); 
+				return; 
+			case SmcPackage.DOWNLOAD:
+				sequence_Download(context, (Download) semanticObject); 
 				return; 
 			case SmcPackage.EQUALITY:
 				sequence_Equality(context, (Equality) semanticObject); 
@@ -108,6 +118,9 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case SmcPackage.OR:
 				sequence_Or(context, (Or) semanticObject); 
 				return; 
+			case SmcPackage.PARAM_DECL:
+				sequence_ParamDecl(context, (ParamDecl) semanticObject); 
+				return; 
 			case SmcPackage.PLUS_OR_MINUS:
 				sequence_PlusOrMinus(context, (PlusOrMinus) semanticObject); 
 				return; 
@@ -122,6 +135,9 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case SmcPackage.TIME_LITERAL:
 				sequence_Atomic(context, (TimeLiteral) semanticObject); 
+				return; 
+			case SmcPackage.TUPLE:
+				sequence_Tuple(context, (Tuple) semanticObject); 
 				return; 
 			case SmcPackage.VARIABLE_ASSIGNMENT:
 				sequence_VariableAssignment(context, (VariableAssignment) semanticObject); 
@@ -142,6 +158,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     AbstractAssignment returns And
 	 *     Expression returns And
 	 *     Or returns And
 	 *     Or.Or_1_0 returns And
@@ -176,6 +193,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     AbstractAssignment returns BooleanLiteral
 	 *     Expression returns BooleanLiteral
 	 *     Or returns BooleanLiteral
 	 *     Or.Or_1_0 returns BooleanLiteral
@@ -208,6 +226,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     AbstractAssignment returns DateLiteral
 	 *     Expression returns DateLiteral
 	 *     Or returns DateLiteral
 	 *     Or.Or_1_0 returns DateLiteral
@@ -240,6 +259,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     AbstractAssignment returns DoubleLiteral
 	 *     Expression returns DoubleLiteral
 	 *     Or returns DoubleLiteral
 	 *     Or.Or_1_0 returns DoubleLiteral
@@ -272,6 +292,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     AbstractAssignment returns IntLiteral
 	 *     Expression returns IntLiteral
 	 *     Or returns IntLiteral
 	 *     Or.Or_1_0 returns IntLiteral
@@ -304,6 +325,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     AbstractAssignment returns StringLiteral
 	 *     Expression returns StringLiteral
 	 *     Or returns StringLiteral
 	 *     Or.Or_1_0 returns StringLiteral
@@ -336,6 +358,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     AbstractAssignment returns TimeLiteral
 	 *     Expression returns TimeLiteral
 	 *     Or returns TimeLiteral
 	 *     Or.Or_1_0 returns TimeLiteral
@@ -368,6 +391,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     AbstractAssignment returns VariableRef
 	 *     Expression returns VariableRef
 	 *     Or returns VariableRef
 	 *     Or.Or_1_0 returns VariableRef
@@ -403,10 +427,19 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     BlockSMC returns BlockSMC
 	 *
 	 * Constraint:
-	 *     (type=BlockType name=ID (parameters+=Expression parameters+=Expression*)?)
+	 *     (type=BlockType name=ID)
 	 */
 	protected void sequence_BlockSMC(ISerializationContext context, BlockSMC semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.BLOCK_SMC__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.BLOCK_SMC__TYPE));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.BLOCK_SMC__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.BLOCK_SMC__NAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getBlockSMCAccess().getTypeBlockTypeEnumRuleCall_1_0(), semanticObject.getType());
+		feeder.accept(grammarAccess.getBlockSMCAccess().getNameIDTerminalRuleCall_2_0(), semanticObject.getName());
+		feeder.finish();
 	}
 	
 	
@@ -425,6 +458,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     AbstractAssignment returns Comparison
 	 *     Expression returns Comparison
 	 *     Or returns Comparison
 	 *     Or.Or_1_0 returns Comparison
@@ -450,6 +484,54 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     AbstractAssignment returns Dict
+	 *     Expression returns Dict
+	 *     Or returns Dict
+	 *     Or.Or_1_0 returns Dict
+	 *     And returns Dict
+	 *     And.And_1_0 returns Dict
+	 *     Equality returns Dict
+	 *     Equality.Equality_1_0 returns Dict
+	 *     Comparison returns Dict
+	 *     Comparison.Comparison_1_0 returns Dict
+	 *     PlusOrMinus returns Dict
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns Dict
+	 *     MulOrDiv returns Dict
+	 *     MulOrDiv.MulOrDiv_1_0 returns Dict
+	 *     Primary returns Dict
+	 *     Atomic returns Dict
+	 *     Dict returns Dict
+	 *
+	 * Constraint:
+	 *     (key+=Atomic value=[List|ID])
+	 */
+	protected void sequence_Dict(ISerializationContext context, Dict semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AbstractAssignment returns Download
+	 *     Download returns Download
+	 *
+	 * Constraint:
+	 *     arg=STRING
+	 */
+	protected void sequence_Download(ISerializationContext context, Download semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.DOWNLOAD__ARG) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.DOWNLOAD__ARG));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getDownloadAccess().getArgSTRINGTerminalRuleCall_2_0(), semanticObject.getArg());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AbstractAssignment returns Equality
 	 *     Expression returns Equality
 	 *     Or returns Equality
 	 *     Or.Or_1_0 returns Equality
@@ -507,6 +589,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     AbstractAssignment returns Invocation
 	 *     Expression returns Invocation
 	 *     Or returns Invocation
 	 *     Or.Or_1_0 returns Invocation
@@ -525,7 +608,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Invocation returns Invocation
 	 *
 	 * Constraint:
-	 *     (blockName=[BlockSMC|ID] function=ID (args+=Expression args+=Expression*)?)
+	 *     (blockName=[BlockSMC|ID] funcName=Functions (args+=[ParamDecl|ID] args+=[ParamDecl|ID]*)?)
 	 */
 	protected void sequence_Invocation(ISerializationContext context, Invocation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -534,6 +617,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     AbstractAssignment returns List
 	 *     Expression returns List
 	 *     Or returns List
 	 *     Or.Or_1_0 returns List
@@ -573,6 +657,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     AbstractAssignment returns MulOrDiv
 	 *     Expression returns MulOrDiv
 	 *     Or returns MulOrDiv
 	 *     Or.Or_1_0 returns MulOrDiv
@@ -598,6 +683,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     AbstractAssignment returns Or
 	 *     Expression returns Or
 	 *     Or returns Or
 	 *     Or.Or_1_0 returns Or
@@ -632,6 +718,35 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     Command returns ParamDecl
+	 *     ParamDecl returns ParamDecl
+	 *
+	 * Constraint:
+	 *     (name=ID stype=SecType btype=BasicType parName=STRING)
+	 */
+	protected void sequence_ParamDecl(ISerializationContext context, ParamDecl semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.PARAM_DECL__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.PARAM_DECL__NAME));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.PARAM_DECL__STYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.PARAM_DECL__STYPE));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.PARAM_DECL__BTYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.PARAM_DECL__BTYPE));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.PARAM_DECL__PAR_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.PARAM_DECL__PAR_NAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getParamDeclAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getParamDeclAccess().getStypeSecTypeEnumRuleCall_4_0(), semanticObject.getStype());
+		feeder.accept(grammarAccess.getParamDeclAccess().getBtypeBasicTypeEnumRuleCall_5_0(), semanticObject.getBtype());
+		feeder.accept(grammarAccess.getParamDeclAccess().getParNameSTRINGTerminalRuleCall_7_0(), semanticObject.getParName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AbstractAssignment returns PlusOrMinus
 	 *     Expression returns PlusOrMinus
 	 *     Or returns PlusOrMinus
 	 *     Or.Or_1_0 returns PlusOrMinus
@@ -657,6 +772,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     AbstractAssignment returns Not
 	 *     Expression returns Not
 	 *     Or returns Not
 	 *     Or.Or_1_0 returns Not
@@ -719,22 +835,50 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     AbstractAssignment returns Tuple
+	 *     Expression returns Tuple
+	 *     Or returns Tuple
+	 *     Or.Or_1_0 returns Tuple
+	 *     And returns Tuple
+	 *     And.And_1_0 returns Tuple
+	 *     Equality returns Tuple
+	 *     Equality.Equality_1_0 returns Tuple
+	 *     Comparison returns Tuple
+	 *     Comparison.Comparison_1_0 returns Tuple
+	 *     PlusOrMinus returns Tuple
+	 *     PlusOrMinus.PlusOrMinus_1_0 returns Tuple
+	 *     MulOrDiv returns Tuple
+	 *     MulOrDiv.MulOrDiv_1_0 returns Tuple
+	 *     Primary returns Tuple
+	 *     Atomic returns Tuple
+	 *     Tuple returns Tuple
+	 *
+	 * Constraint:
+	 *     (arg1+=Atomic arg2+=Atomic)
+	 */
+	protected void sequence_Tuple(ISerializationContext context, Tuple semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Command returns VariableAssignment
 	 *     VariableAssignment returns VariableAssignment
 	 *
 	 * Constraint:
-	 *     (var=[VariableDecl|ID] exp=Expression)
+	 *     (var=[VariableDecl|ID] option=AbstractAssignment)
 	 */
 	protected void sequence_VariableAssignment(ISerializationContext context, VariableAssignment semanticObject) {
 		if (errorAcceptor != null) {
 			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.VARIABLE_ASSIGNMENT__VAR) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.VARIABLE_ASSIGNMENT__VAR));
-			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.VARIABLE_ASSIGNMENT__EXP) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.VARIABLE_ASSIGNMENT__EXP));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.VARIABLE_ASSIGNMENT__OPTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.VARIABLE_ASSIGNMENT__OPTION));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getVariableAssignmentAccess().getVarVariableDeclIDTerminalRuleCall_0_0_1(), semanticObject.eGet(SmcPackage.Literals.VARIABLE_ASSIGNMENT__VAR, false));
-		feeder.accept(grammarAccess.getVariableAssignmentAccess().getExpExpressionParserRuleCall_2_0(), semanticObject.getExp());
+		feeder.accept(grammarAccess.getVariableAssignmentAccess().getOptionAbstractAssignmentParserRuleCall_2_0(), semanticObject.getOption());
 		feeder.finish();
 	}
 	
@@ -745,7 +889,7 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     VariableDecl returns VariableDecl
 	 *
 	 * Constraint:
-	 *     (visibility=SecType type=BasicType array?='[]'? name=ID exp=Expression?)
+	 *     (visibility=SecType type=BasicType array?='[]'? name=ID option=AbstractAssignment?)
 	 */
 	protected void sequence_VariableDecl(ISerializationContext context, VariableDecl semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

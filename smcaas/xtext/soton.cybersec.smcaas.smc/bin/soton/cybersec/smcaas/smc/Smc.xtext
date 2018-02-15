@@ -9,7 +9,8 @@ Smc:
 ;
 	
 BlockSMC:
-	'block' type=BlockType name=ID '=' 'new' '('(parameters+=Expression (',' parameters+=Expression)*)? ')'';'
+//	'block' type=BlockType name=ID '=' 'new' '('(parameters+=Expression (',' parameters+=Expression)*)? ')'';'
+	'block' type=BlockType name=ID '=' 'new' '(' ')'';'
 ;
 
 
@@ -25,7 +26,15 @@ MainSMC:
 ;
 
 Command:
-	Block | VariableDecl  | VariableAssignment | IfThenElse | While | Print | InvocationVoid 
+	Block | VariableDecl  | VariableAssignment | IfThenElse | While | Print | InvocationVoid | ParamDecl
+;
+
+//BlockFunction:
+//	
+//;
+
+ParamDecl:
+	'parameter' name=ID '=' '<' stype=SecType btype=BasicType '>' parName=STRING ';'
 ;
 
 InvocationVoid: 
@@ -49,8 +58,9 @@ IfThenElse:
 	'if' '(' condition=Expression ')' thenBrach=Command (=> 'else' elseBranch=Command )?
 ;
 
+//can be added array length inside []
 VariableDecl: 
-	'var' visibility=SecType type=BasicType array?=('[]')? name=ID ('=' exp=Expression)? ';'
+	'var' visibility=SecType type=BasicType array?=('[]')? name=ID ('=' option=AbstractAssignment)? ';'
 ;
 
 enum SecType:
@@ -58,15 +68,19 @@ enum SecType:
 ;
 
 enum BasicType: 
-	INT | DOUBLE | BOOLEAN | STRING | TUPLE
+	INT | DOUBLE | BOOLEAN | STRING | ENCRYPTED
 ;
 
-//enum ArrayType:
-//	EMPTY=' ' | LIST='[]' | MATRIX='[[]]'
-//;
-
 VariableAssignment: 
-	var=[VariableDecl] '=' exp=Expression ';'
+	var=[VariableDecl] '=' option=AbstractAssignment ';'
+;
+
+AbstractAssignment:
+	Expression | Download
+;
+
+Download:
+	'retrieveFromClient' '(' arg=STRING ')'
 ;
 
 Expression:
@@ -119,16 +133,30 @@ Atomic returns Expression:
 	| {DateLiteral} value=DATE
 	| {TimeLiteral} value=TIME
 	| {VariableRef} variable=[VariableDecl]
+	| Tuple
 	| List
+	| Dict
 	| Invocation
 ;
 
+Tuple:
+	'tuple' '<' arg1+=Atomic ',' arg2+=Atomic '>'
+;
+
 List:
-	'list(' (args+=Atomic (',' args+=Atomic)*) ')'
+	'list' '(' (args+=Atomic (',' args+=Atomic)*) ')'
+;
+
+Dict:
+	'dict' '(' key+=Atomic ',' value=[List] ')'
 ;
 
 Invocation: 
-	blockName=[BlockSMC] '.' function=ID '(' (args+=Expression (',' args+=Expression)*)? ')'
+	blockName=[BlockSMC] '.' funcName=Functions '(' (args+=[ParamDecl] (',' args+=[ParamDecl])*)? ')'
+;
+
+enum Functions:
+	CREATE_DB = 'createDataset' | ADD_VALUES = 'addValues'
 ;
 
 //Standard types
