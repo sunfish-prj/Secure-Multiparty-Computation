@@ -1,0 +1,191 @@
+grammar soton.cyber.smcaas.smc.Smc with org.eclipse.xtext.common.Terminals
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+generate smc "http://www.cyber.soton/smcaas/smc/Smc"
+
+Smc:
+	blocks+=BlockSMC* &
+	main=MainSMC?
+;
+	
+BlockSMC:
+//	'block' type=BlockType name=ID '=' 'new' '('(parameters+=Expression (',' parameters+=Expression)*)? ')'';'
+	'block' type=BlockType name=ID '=' 'new' '(' ')'';'
+;
+
+
+enum BlockType:
+	INSERT = 'insert_data' | COMP = 'math_computation' | SEARCH = 'search' | ANONYMIZATION = 'anonymization' | 
+	ACCESS = 'access_control' | PERMISSION = 'permission_release'
+;
+
+MainSMC:
+	'main' {MainSMC} '{'
+		commands+=Command*
+	'}'
+;
+
+Command:
+	Block | VariableDecl  | VariableAssignment | IfThenElse | While | Print | InvocationVoid | ParamDecl
+;
+
+//BlockFunction:
+//	
+//;
+
+ParamDecl:
+	'parameter' name=ID '=' '<' stype=SecType btype=BasicType '>' parName=STRING ';'
+;
+
+InvocationVoid: 
+	call=Invocation ';'
+;
+
+Block returns Command: 
+	{Block} '{' ( commands+=Command )* '}'
+;
+
+
+Print:
+	'print' '(' value = Expression ')' ';'
+;
+
+While:
+	'while' '(' condition=Expression ')' body=Command
+;
+
+IfThenElse:
+	'if' '(' condition=Expression ')' thenBrach=Command (=> 'else' elseBranch=Command )?
+;
+
+//can be added array length inside []
+VariableDecl: 
+	'var' visibility=SecType type=BasicType array?=('[]')? name=ID ('=' option=AbstractAssignment)? ';'
+;
+
+enum SecType:
+	PUBLIC='public' | PRIVATE='private'
+;
+
+enum BasicType: 
+	INT | DOUBLE | BOOLEAN | STRING | ENCRYPTED
+;
+
+VariableAssignment: 
+	var=[VariableDecl] '=' option=AbstractAssignment ';'
+;
+
+AbstractAssignment:
+	Expression | Download
+;
+
+Download:
+	'retrieveFromClient' '(' arg=STRING ')'
+;
+
+Expression:
+	Or 
+;
+
+Or returns Expression:
+  And ({Or.left=current} "||" right=And)* ;
+
+And returns Expression:
+  Equality ({And.left=current} "&&" right=Equality)* ;
+
+Equality returns Expression:
+  Comparison (
+    {Equality.left=current} op=("=="|"!=")
+    right=Comparison
+  )* ;
+
+Comparison returns Expression:
+  PlusOrMinus (
+    {Comparison.left=current} op=(">="|"<="|">"|"<")
+    right=PlusOrMinus
+  )* ;
+
+PlusOrMinus returns Expression:
+  MulOrDiv (
+    {PlusOrMinus.left=current} op=('+'|'-')
+    right=MulOrDiv
+  )* ;
+
+MulOrDiv returns Expression:
+  Primary (
+    {MulOrDiv.left=current} op=('*'|'/')
+    right=Primary
+  )*
+;
+
+Primary returns Expression:
+  '(' Expression ')' |
+  {Not} "!" expression=Primary |
+  Atomic
+;
+
+
+Atomic returns Expression:
+	{IntLiteral} value=INT
+	| {DoubleLiteral} value=REAL
+	| {BooleanLiteral} value=BOOLEAN
+	| {StringLiteral} value=STRING
+	| {DateLiteral} value=DATE
+	| {TimeLiteral} value=TIME
+	| {VariableRef} variable=[VariableDecl]
+	| Tuple
+	| List
+	| Dict
+	| Invocation
+;
+
+Tuple:
+	'tuple' '<' arg1+=Atomic ',' arg2+=Atomic '>'
+;
+
+List:
+	'list' '(' (args+=Atomic (',' args+=Atomic)*) ')'
+;
+
+Dict:
+	'dict' '(' key+=Atomic ',' value=[List] ')'
+;
+
+Invocation: 
+	blockName=[BlockSMC] '.' funcName=Functions '(' (args+=[ParamDecl] (',' args+=[ParamDecl])*)? ')'
+;
+
+enum Functions:
+	CREATE_DB = 'createDataset' | ADD_VALUES = 'addValues'
+;
+
+//Standard types
+terminal BOOLEAN returns ecore::EBoolean:
+	'true' | 'false';
+
+/* NB INTEGER UNSIGNED! */
+@Override
+terminal INT returns ecore::EInt:
+	('0'..'9')+;
+
+terminal DATE:
+	(INT '/' INT '/' INT);
+
+terminal TIME:
+	(INT ':' INT ':' INT);
+
+terminal REAL returns ecore::EDouble:
+	('+' | '-')? ('0'..'9')* ('.' ('0'..'9')+)?;
+
+@Override
+terminal STRING:
+	'"' ('\\' ('b' | 't' | 'n' | 'f' | 'r' | '"' | "'" | '\\') | !('\\' | '"' | '/'))* '"' |
+	"'" ('\\' ('b' | 't' | 'n' | 'f' | 'r' | '"' | "'" | '\\') | !('\\' | "'" | '/'))* "'"; 
+
+@Override	
+terminal ML_COMMENT:
+	'/*'->'*/';
+
+@Override
+terminal SL_COMMENT:
+	'//' !('\n' | '\r')* ('\r'? '\n')?;
