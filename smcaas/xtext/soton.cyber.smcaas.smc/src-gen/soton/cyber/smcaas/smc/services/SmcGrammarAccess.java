@@ -69,15 +69,13 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
-		//BlockSMC: //	'block' type=BlockType name=ID '=' 'new' '('(parameters+=Expression (',' parameters+=Expression)*)? ')'';'
+		//BlockSMC:
 		//	'block' type=BlockType name=ID '=' 'new' '(' ')' ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		////	'block' type=BlockType name=ID '=' 'new' '('(parameters+=Expression (',' parameters+=Expression)*)? ')'';'
 		//'block' type=BlockType name=ID '=' 'new' '(' ')' ';'
 		public Group getGroup() { return cGroup; }
 		
-		////	'block' type=BlockType name=ID '=' 'new' '('(parameters+=Expression (',' parameters+=Expression)*)? ')'';'
 		//'block'
 		public Keyword getBlockKeyword_0() { return cBlockKeyword_0; }
 		
@@ -156,12 +154,13 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cPrintParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		private final RuleCall cInvocationVoidParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		private final RuleCall cParamDeclParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cReturnParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
 		
-		//Command:
-		//	Block | VariableDecl | VariableAssignment | IfThenElse | While | Print | InvocationVoid | ParamDecl;
+		///* Command */ Command:
+		//	Block | VariableDecl | VariableAssignment | IfThenElse | While | Print | InvocationVoid | ParamDecl | Return;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//Block | VariableDecl | VariableAssignment | IfThenElse | While | Print | InvocationVoid | ParamDecl
+		//Block | VariableDecl | VariableAssignment | IfThenElse | While | Print | InvocationVoid | ParamDecl | Return
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//Block
@@ -187,6 +186,32 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ParamDecl
 		public RuleCall getParamDeclParserRuleCall_7() { return cParamDeclParserRuleCall_7; }
+		
+		//Return
+		public RuleCall getReturnParserRuleCall_8() { return cReturnParserRuleCall_8; }
+	}
+	public class ReturnElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.Return");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cReturnAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cReturnKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		
+		//Return Command:
+		//	{Return} 'return' ';';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{Return} 'return' ';'
+		public Group getGroup() { return cGroup; }
+		
+		//{Return}
+		public Action getReturnAction_0() { return cReturnAction_0; }
+		
+		//'return'
+		public Keyword getReturnKeyword_1() { return cReturnKeyword_1; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
 	}
 	public class ParamDeclElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.ParamDecl");
@@ -205,9 +230,6 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cParNameSTRINGTerminalRuleCall_7_0 = (RuleCall)cParNameAssignment_7.eContents().get(0);
 		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
-		////BlockFunction:
-		////	
-		////;
 		//ParamDecl:
 		//	'parameter' name=ID '=' '<' stype=SecType btype=BasicType '>' parName=STRING ';';
 		@Override public ParserRule getRule() { return rule; }
@@ -445,8 +467,12 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVisibilitySecTypeEnumRuleCall_1_0 = (RuleCall)cVisibilityAssignment_1.eContents().get(0);
 		private final Assignment cTypeAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cTypeBasicTypeEnumRuleCall_2_0 = (RuleCall)cTypeAssignment_2.eContents().get(0);
-		private final Assignment cArrayAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final Keyword cArrayLeftSquareBracketRightSquareBracketKeyword_3_0 = (Keyword)cArrayAssignment_3.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Assignment cArrayAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final Keyword cArrayLeftSquareBracketKeyword_3_0_0 = (Keyword)cArrayAssignment_3_0.eContents().get(0);
+		private final Assignment cLengthAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cLengthINTTerminalRuleCall_3_1_0 = (RuleCall)cLengthAssignment_3_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
 		private final Assignment cNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cNameIDTerminalRuleCall_4_0 = (RuleCall)cNameAssignment_4.eContents().get(0);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
@@ -455,12 +481,11 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOptionAbstractAssignmentParserRuleCall_5_1_0 = (RuleCall)cOptionAssignment_5_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		////can be added array length inside []
 		//VariableDecl:
-		//	'var' visibility=SecType type=BasicType array?='[]'? name=ID ('=' option=AbstractAssignment)? ';';
+		//	'var' visibility=SecType type=BasicType (array?='[' length=INT? ']')? name=ID ('=' option=AbstractAssignment)? ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'var' visibility=SecType type=BasicType array?='[]'? name=ID ('=' option=AbstractAssignment)? ';'
+		//'var' visibility=SecType type=BasicType (array?='[' length=INT? ']')? name=ID ('=' option=AbstractAssignment)? ';'
 		public Group getGroup() { return cGroup; }
 		
 		//'var'
@@ -478,11 +503,23 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		//BasicType
 		public RuleCall getTypeBasicTypeEnumRuleCall_2_0() { return cTypeBasicTypeEnumRuleCall_2_0; }
 		
-		//array?='[]'?
-		public Assignment getArrayAssignment_3() { return cArrayAssignment_3; }
+		//(array?='[' length=INT? ']')?
+		public Group getGroup_3() { return cGroup_3; }
 		
-		//'[]'
-		public Keyword getArrayLeftSquareBracketRightSquareBracketKeyword_3_0() { return cArrayLeftSquareBracketRightSquareBracketKeyword_3_0; }
+		//array?='['
+		public Assignment getArrayAssignment_3_0() { return cArrayAssignment_3_0; }
+		
+		//'['
+		public Keyword getArrayLeftSquareBracketKeyword_3_0_0() { return cArrayLeftSquareBracketKeyword_3_0_0; }
+		
+		//length=INT?
+		public Assignment getLengthAssignment_3_1() { return cLengthAssignment_3_1; }
+		
+		//INT
+		public RuleCall getLengthINTTerminalRuleCall_3_1_0() { return cLengthINTTerminalRuleCall_3_1_0; }
+		
+		//']'
+		public Keyword getRightSquareBracketKeyword_3_2() { return cRightSquareBracketKeyword_3_2; }
 		
 		//name=ID
 		public Assignment getNameAssignment_4() { return cNameAssignment_4; }
@@ -565,6 +602,68 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	public class DownloadElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.Download");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cClientParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cDatabaseParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//Download:
+		//	Client | Database;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//Client | Database
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//Client
+		public RuleCall getClientParserRuleCall_0() { return cClientParserRuleCall_0; }
+		
+		//Database
+		public RuleCall getDatabaseParserRuleCall_1() { return cDatabaseParserRuleCall_1; }
+	}
+	public class DatabaseElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.Database");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cRetrieveFromDBKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cTblAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cTblAtomicParserRuleCall_2_0 = (RuleCall)cTblAssignment_2.eContents().get(0);
+		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cClmAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cClmSTRINGTerminalRuleCall_4_0 = (RuleCall)cClmAssignment_4.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		//Database:
+		//	'retrieveFromDB' '(' tbl=Atomic ',' clm=STRING ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'retrieveFromDB' '(' tbl=Atomic ',' clm=STRING ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'retrieveFromDB'
+		public Keyword getRetrieveFromDBKeyword_0() { return cRetrieveFromDBKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//tbl=Atomic
+		public Assignment getTblAssignment_2() { return cTblAssignment_2; }
+		
+		//Atomic
+		public RuleCall getTblAtomicParserRuleCall_2_0() { return cTblAtomicParserRuleCall_2_0; }
+		
+		//','
+		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
+		
+		//clm=STRING
+		public Assignment getClmAssignment_4() { return cClmAssignment_4; }
+		
+		//STRING
+		public RuleCall getClmSTRINGTerminalRuleCall_4_0() { return cClmSTRINGTerminalRuleCall_4_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
+	}
+	public class ClientElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.Client");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cRetrieveFromClientKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
@@ -572,7 +671,7 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cArgSTRINGTerminalRuleCall_2_0 = (RuleCall)cArgAssignment_2.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
-		//Download:
+		//Client:
 		//	'retrieveFromClient' '(' arg=STRING ')';
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -598,7 +697,7 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.Expression");
 		private final RuleCall cOrParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		//Expression:
+		///* Expression */ Expression:
 		//	Or;
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -1089,10 +1188,10 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cGreaterThanSignKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//Tuple:
-		//	'tuple' '<' arg1+=Atomic ',' arg2+=Atomic '>';
+		//	'tuple' '<' arg1=Atomic ',' arg2=Atomic '>';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'tuple' '<' arg1+=Atomic ',' arg2+=Atomic '>'
+		//'tuple' '<' arg1=Atomic ',' arg2=Atomic '>'
 		public Group getGroup() { return cGroup; }
 		
 		//'tuple'
@@ -1101,7 +1200,7 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		//'<'
 		public Keyword getLessThanSignKeyword_1() { return cLessThanSignKeyword_1; }
 		
-		//arg1+=Atomic
+		//arg1=Atomic
 		public Assignment getArg1Assignment_2() { return cArg1Assignment_2; }
 		
 		//Atomic
@@ -1110,7 +1209,7 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		//','
 		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
 		
-		//arg2+=Atomic
+		//arg2=Atomic
 		public Assignment getArg2Assignment_4() { return cArg2Assignment_4; }
 		
 		//Atomic
@@ -1184,10 +1283,10 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//Dict:
-		//	'dict' '(' key+=Atomic ',' value=[List] ')';
+		//	'dict' '(' key=Atomic ',' value=[List] ')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'dict' '(' key+=Atomic ',' value=[List] ')'
+		//'dict' '(' key=Atomic ',' value=[List] ')'
 		public Group getGroup() { return cGroup; }
 		
 		//'dict'
@@ -1196,7 +1295,7 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		//'('
 		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
 		
-		//key+=Atomic
+		//key=Atomic
 		public Assignment getKeyAssignment_2() { return cKeyAssignment_2; }
 		
 		//Atomic
@@ -1225,24 +1324,13 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cBlockNameBlockSMCIDTerminalRuleCall_0_0_1 = (RuleCall)cBlockNameBlockSMCCrossReference_0_0.eContents().get(1);
 		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cFuncNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cFuncNameFunctionsEnumRuleCall_2_0 = (RuleCall)cFuncNameAssignment_2.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Assignment cArgsAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
-		private final CrossReference cArgsParamDeclCrossReference_4_0_0 = (CrossReference)cArgsAssignment_4_0.eContents().get(0);
-		private final RuleCall cArgsParamDeclIDTerminalRuleCall_4_0_0_1 = (RuleCall)cArgsParamDeclCrossReference_4_0_0.eContents().get(1);
-		private final Group cGroup_4_1 = (Group)cGroup_4.eContents().get(1);
-		private final Keyword cCommaKeyword_4_1_0 = (Keyword)cGroup_4_1.eContents().get(0);
-		private final Assignment cArgsAssignment_4_1_1 = (Assignment)cGroup_4_1.eContents().get(1);
-		private final CrossReference cArgsParamDeclCrossReference_4_1_1_0 = (CrossReference)cArgsAssignment_4_1_1.eContents().get(0);
-		private final RuleCall cArgsParamDeclIDTerminalRuleCall_4_1_1_0_1 = (RuleCall)cArgsParamDeclCrossReference_4_1_1_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final RuleCall cFuncNameFunctionsParserRuleCall_2_0 = (RuleCall)cFuncNameAssignment_2.eContents().get(0);
 		
 		//Invocation:
-		//	blockName=[BlockSMC] '.' funcName=Functions '(' (args+=[ParamDecl] (',' args+=[ParamDecl])*)? ')';
+		//	blockName=[BlockSMC] '.' funcName=Functions;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//blockName=[BlockSMC] '.' funcName=Functions '(' (args+=[ParamDecl] (',' args+=[ParamDecl])*)? ')'
+		//blockName=[BlockSMC] '.' funcName=Functions
 		public Group getGroup() { return cGroup; }
 		
 		//blockName=[BlockSMC]
@@ -1261,40 +1349,770 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		public Assignment getFuncNameAssignment_2() { return cFuncNameAssignment_2; }
 		
 		//Functions
-		public RuleCall getFuncNameFunctionsEnumRuleCall_2_0() { return cFuncNameFunctionsEnumRuleCall_2_0; }
+		public RuleCall getFuncNameFunctionsParserRuleCall_2_0() { return cFuncNameFunctionsParserRuleCall_2_0; }
+	}
+	public class FunctionsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.Functions");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cCreateTableParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cCheckTableParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cAddValuesParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cBloomFilterParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cSearchParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cAccessControlParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cComputationParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		
+		//Functions:
+		//	CreateTable | CheckTable | AddValues | BloomFilter | Search | AccessControl | Computation;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//CreateTable | CheckTable | AddValues | BloomFilter | Search | AccessControl | Computation
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//CreateTable
+		public RuleCall getCreateTableParserRuleCall_0() { return cCreateTableParserRuleCall_0; }
+		
+		//CheckTable
+		public RuleCall getCheckTableParserRuleCall_1() { return cCheckTableParserRuleCall_1; }
+		
+		//AddValues
+		public RuleCall getAddValuesParserRuleCall_2() { return cAddValuesParserRuleCall_2; }
+		
+		//BloomFilter
+		public RuleCall getBloomFilterParserRuleCall_3() { return cBloomFilterParserRuleCall_3; }
+		
+		//Search
+		public RuleCall getSearchParserRuleCall_4() { return cSearchParserRuleCall_4; }
+		
+		//AccessControl
+		public RuleCall getAccessControlParserRuleCall_5() { return cAccessControlParserRuleCall_5; }
+		
+		//Computation
+		public RuleCall getComputationParserRuleCall_6() { return cComputationParserRuleCall_6; }
+	}
+	public class ComputationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.Computation");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cCountParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cAverageParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cWeightedAvgParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cMedianParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cMultiplicationParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		
+		///* Block Computation */ Computation:
+		//	Count | Average | WeightedAvg | Median | Multiplication;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//Count | Average | WeightedAvg | Median | Multiplication
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//Count
+		public RuleCall getCountParserRuleCall_0() { return cCountParserRuleCall_0; }
+		
+		//Average
+		public RuleCall getAverageParserRuleCall_1() { return cAverageParserRuleCall_1; }
+		
+		//WeightedAvg
+		public RuleCall getWeightedAvgParserRuleCall_2() { return cWeightedAvgParserRuleCall_2; }
+		
+		//Median
+		public RuleCall getMedianParserRuleCall_3() { return cMedianParserRuleCall_3; }
+		
+		//Multiplication
+		public RuleCall getMultiplicationParserRuleCall_4() { return cMultiplicationParserRuleCall_4; }
+	}
+	public class MultiplicationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.Multiplication");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cMultiplicationKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cXAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cXVariableDeclCrossReference_2_0 = (CrossReference)cXAssignment_2.eContents().get(0);
+		private final RuleCall cXVariableDeclIDTerminalRuleCall_2_0_1 = (RuleCall)cXVariableDeclCrossReference_2_0.eContents().get(1);
+		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cYAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cYVariableDeclCrossReference_4_0 = (CrossReference)cYAssignment_4.eContents().get(0);
+		private final RuleCall cYVariableDeclIDTerminalRuleCall_4_0_1 = (RuleCall)cYVariableDeclCrossReference_4_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		//Multiplication:
+		//	'multiplication' '(' x=[VariableDecl] ',' y=[VariableDecl] ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'multiplication' '(' x=[VariableDecl] ',' y=[VariableDecl] ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'multiplication'
+		public Keyword getMultiplicationKeyword_0() { return cMultiplicationKeyword_0; }
 		
 		//'('
-		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
 		
-		//(args+=[ParamDecl] (',' args+=[ParamDecl])*)?
-		public Group getGroup_4() { return cGroup_4; }
+		//x=[VariableDecl]
+		public Assignment getXAssignment_2() { return cXAssignment_2; }
 		
-		//args+=[ParamDecl]
-		public Assignment getArgsAssignment_4_0() { return cArgsAssignment_4_0; }
-		
-		//[ParamDecl]
-		public CrossReference getArgsParamDeclCrossReference_4_0_0() { return cArgsParamDeclCrossReference_4_0_0; }
+		//[VariableDecl]
+		public CrossReference getXVariableDeclCrossReference_2_0() { return cXVariableDeclCrossReference_2_0; }
 		
 		//ID
-		public RuleCall getArgsParamDeclIDTerminalRuleCall_4_0_0_1() { return cArgsParamDeclIDTerminalRuleCall_4_0_0_1; }
-		
-		//(',' args+=[ParamDecl])*
-		public Group getGroup_4_1() { return cGroup_4_1; }
+		public RuleCall getXVariableDeclIDTerminalRuleCall_2_0_1() { return cXVariableDeclIDTerminalRuleCall_2_0_1; }
 		
 		//','
-		public Keyword getCommaKeyword_4_1_0() { return cCommaKeyword_4_1_0; }
+		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
 		
-		//args+=[ParamDecl]
-		public Assignment getArgsAssignment_4_1_1() { return cArgsAssignment_4_1_1; }
+		//y=[VariableDecl]
+		public Assignment getYAssignment_4() { return cYAssignment_4; }
 		
-		//[ParamDecl]
-		public CrossReference getArgsParamDeclCrossReference_4_1_1_0() { return cArgsParamDeclCrossReference_4_1_1_0; }
+		//[VariableDecl]
+		public CrossReference getYVariableDeclCrossReference_4_0() { return cYVariableDeclCrossReference_4_0; }
 		
 		//ID
-		public RuleCall getArgsParamDeclIDTerminalRuleCall_4_1_1_0_1() { return cArgsParamDeclIDTerminalRuleCall_4_1_1_0_1; }
+		public RuleCall getYVariableDeclIDTerminalRuleCall_4_0_1() { return cYVariableDeclIDTerminalRuleCall_4_0_1; }
 		
 		//')'
 		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
+	}
+	public class MedianElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.Median");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cMedianKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cArrayAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cArrayVariableDeclCrossReference_2_0 = (CrossReference)cArrayAssignment_2.eContents().get(0);
+		private final RuleCall cArrayVariableDeclIDTerminalRuleCall_2_0_1 = (RuleCall)cArrayVariableDeclCrossReference_2_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//Median:
+		//	'median' '(' array=[VariableDecl] ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'median' '(' array=[VariableDecl] ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'median'
+		public Keyword getMedianKeyword_0() { return cMedianKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//array=[VariableDecl]
+		public Assignment getArrayAssignment_2() { return cArrayAssignment_2; }
+		
+		//[VariableDecl]
+		public CrossReference getArrayVariableDeclCrossReference_2_0() { return cArrayVariableDeclCrossReference_2_0; }
+		
+		//ID
+		public RuleCall getArrayVariableDeclIDTerminalRuleCall_2_0_1() { return cArrayVariableDeclIDTerminalRuleCall_2_0_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+	}
+	public class WeightedAvgElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.WeightedAvg");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cW_avgKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cWeightsAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cWeightsVariableDeclCrossReference_2_0 = (CrossReference)cWeightsAssignment_2.eContents().get(0);
+		private final RuleCall cWeightsVariableDeclIDTerminalRuleCall_2_0_1 = (RuleCall)cWeightsVariableDeclCrossReference_2_0.eContents().get(1);
+		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cElemsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cElemsVariableDeclCrossReference_4_0 = (CrossReference)cElemsAssignment_4.eContents().get(0);
+		private final RuleCall cElemsVariableDeclIDTerminalRuleCall_4_0_1 = (RuleCall)cElemsVariableDeclCrossReference_4_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		//WeightedAvg:
+		//	'w_avg' '(' weights=[VariableDecl] ',' elems=[VariableDecl] ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'w_avg' '(' weights=[VariableDecl] ',' elems=[VariableDecl] ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'w_avg'
+		public Keyword getW_avgKeyword_0() { return cW_avgKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//weights=[VariableDecl]
+		public Assignment getWeightsAssignment_2() { return cWeightsAssignment_2; }
+		
+		//[VariableDecl]
+		public CrossReference getWeightsVariableDeclCrossReference_2_0() { return cWeightsVariableDeclCrossReference_2_0; }
+		
+		//ID
+		public RuleCall getWeightsVariableDeclIDTerminalRuleCall_2_0_1() { return cWeightsVariableDeclIDTerminalRuleCall_2_0_1; }
+		
+		//','
+		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
+		
+		//elems=[VariableDecl]
+		public Assignment getElemsAssignment_4() { return cElemsAssignment_4; }
+		
+		//[VariableDecl]
+		public CrossReference getElemsVariableDeclCrossReference_4_0() { return cElemsVariableDeclCrossReference_4_0; }
+		
+		//ID
+		public RuleCall getElemsVariableDeclIDTerminalRuleCall_4_0_1() { return cElemsVariableDeclIDTerminalRuleCall_4_0_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
+	}
+	public class AverageElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.Average");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cAvgKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cArrayAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cArrayVariableDeclCrossReference_2_0 = (CrossReference)cArrayAssignment_2.eContents().get(0);
+		private final RuleCall cArrayVariableDeclIDTerminalRuleCall_2_0_1 = (RuleCall)cArrayVariableDeclCrossReference_2_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//Average:
+		//	'avg' '(' array=[VariableDecl] ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'avg' '(' array=[VariableDecl] ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'avg'
+		public Keyword getAvgKeyword_0() { return cAvgKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//array=[VariableDecl]
+		public Assignment getArrayAssignment_2() { return cArrayAssignment_2; }
+		
+		//[VariableDecl]
+		public CrossReference getArrayVariableDeclCrossReference_2_0() { return cArrayVariableDeclCrossReference_2_0; }
+		
+		//ID
+		public RuleCall getArrayVariableDeclIDTerminalRuleCall_2_0_1() { return cArrayVariableDeclIDTerminalRuleCall_2_0_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+	}
+	public class CountElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.Count");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cCountKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cArrayAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cArrayVariableDeclCrossReference_2_0 = (CrossReference)cArrayAssignment_2.eContents().get(0);
+		private final RuleCall cArrayVariableDeclIDTerminalRuleCall_2_0_1 = (RuleCall)cArrayVariableDeclCrossReference_2_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//Count:
+		//	'count' '(' array=[VariableDecl] ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'count' '(' array=[VariableDecl] ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'count'
+		public Keyword getCountKeyword_0() { return cCountKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//array=[VariableDecl]
+		public Assignment getArrayAssignment_2() { return cArrayAssignment_2; }
+		
+		//[VariableDecl]
+		public CrossReference getArrayVariableDeclCrossReference_2_0() { return cArrayVariableDeclCrossReference_2_0; }
+		
+		//ID
+		public RuleCall getArrayVariableDeclIDTerminalRuleCall_2_0_1() { return cArrayVariableDeclIDTerminalRuleCall_2_0_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+	}
+	public class AccessControlElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.AccessControl");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cCoveredParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cBellLapadulaParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		///* Block Access Control */ AccessControl:
+		//	Covered | BellLapadula;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//Covered | BellLapadula
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//Covered
+		public RuleCall getCoveredParserRuleCall_0() { return cCoveredParserRuleCall_0; }
+		
+		//BellLapadula
+		public RuleCall getBellLapadulaParserRuleCall_1() { return cBellLapadulaParserRuleCall_1; }
+	}
+	public class BellLapadulaElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.BellLapadula");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cAccessControlBLPKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Assignment cCurAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final CrossReference cCurVariableDeclCrossReference_2_0_0 = (CrossReference)cCurAssignment_2_0.eContents().get(0);
+		private final RuleCall cCurVariableDeclIDTerminalRuleCall_2_0_0_1 = (RuleCall)cCurVariableDeclCrossReference_2_0_0.eContents().get(1);
+		private final Keyword cCommaKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
+		private final Assignment cModeAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cModeSTRINGTerminalRuleCall_3_0 = (RuleCall)cModeAssignment_3.eContents().get(0);
+		private final Keyword cCommaKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cC_lvlsAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final CrossReference cC_lvlsVariableDeclCrossReference_5_0 = (CrossReference)cC_lvlsAssignment_5.eContents().get(0);
+		private final RuleCall cC_lvlsVariableDeclIDTerminalRuleCall_5_0_1 = (RuleCall)cC_lvlsVariableDeclCrossReference_5_0.eContents().get(1);
+		private final Keyword cCommaKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Assignment cV_lvlAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final CrossReference cV_lvlVariableDeclCrossReference_7_0 = (CrossReference)cV_lvlAssignment_7.eContents().get(0);
+		private final RuleCall cV_lvlVariableDeclIDTerminalRuleCall_7_0_1 = (RuleCall)cV_lvlVariableDeclCrossReference_7_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		
+		//BellLapadula:
+		//	'accessControlBLP' '(' (cur=[VariableDecl] ',')? mode=STRING ',' c_lvls=[VariableDecl] ',' v_lvl=[VariableDecl] ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'accessControlBLP' '(' (cur=[VariableDecl] ',')? mode=STRING ',' c_lvls=[VariableDecl] ',' v_lvl=[VariableDecl] ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'accessControlBLP'
+		public Keyword getAccessControlBLPKeyword_0() { return cAccessControlBLPKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//(cur=[VariableDecl] ',')?
+		public Group getGroup_2() { return cGroup_2; }
+		
+		//cur=[VariableDecl]
+		public Assignment getCurAssignment_2_0() { return cCurAssignment_2_0; }
+		
+		//[VariableDecl]
+		public CrossReference getCurVariableDeclCrossReference_2_0_0() { return cCurVariableDeclCrossReference_2_0_0; }
+		
+		//ID
+		public RuleCall getCurVariableDeclIDTerminalRuleCall_2_0_0_1() { return cCurVariableDeclIDTerminalRuleCall_2_0_0_1; }
+		
+		//','
+		public Keyword getCommaKeyword_2_1() { return cCommaKeyword_2_1; }
+		
+		//mode=STRING
+		public Assignment getModeAssignment_3() { return cModeAssignment_3; }
+		
+		//STRING
+		public RuleCall getModeSTRINGTerminalRuleCall_3_0() { return cModeSTRINGTerminalRuleCall_3_0; }
+		
+		//','
+		public Keyword getCommaKeyword_4() { return cCommaKeyword_4; }
+		
+		//c_lvls=[VariableDecl]
+		public Assignment getC_lvlsAssignment_5() { return cC_lvlsAssignment_5; }
+		
+		//[VariableDecl]
+		public CrossReference getC_lvlsVariableDeclCrossReference_5_0() { return cC_lvlsVariableDeclCrossReference_5_0; }
+		
+		//ID
+		public RuleCall getC_lvlsVariableDeclIDTerminalRuleCall_5_0_1() { return cC_lvlsVariableDeclIDTerminalRuleCall_5_0_1; }
+		
+		//','
+		public Keyword getCommaKeyword_6() { return cCommaKeyword_6; }
+		
+		//v_lvl=[VariableDecl]
+		public Assignment getV_lvlAssignment_7() { return cV_lvlAssignment_7; }
+		
+		//[VariableDecl]
+		public CrossReference getV_lvlVariableDeclCrossReference_7_0() { return cV_lvlVariableDeclCrossReference_7_0; }
+		
+		//ID
+		public RuleCall getV_lvlVariableDeclIDTerminalRuleCall_7_0_1() { return cV_lvlVariableDeclIDTerminalRuleCall_7_0_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_8() { return cRightParenthesisKeyword_8; }
+	}
+	public class CoveredElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.Covered");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cAccessControlCoveredKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cMatchAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cMatchVariableDeclCrossReference_2_0 = (CrossReference)cMatchAssignment_2.eContents().get(0);
+		private final RuleCall cMatchVariableDeclIDTerminalRuleCall_2_0_1 = (RuleCall)cMatchVariableDeclCrossReference_2_0.eContents().get(1);
+		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cCoveredAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cCoveredVariableDeclCrossReference_4_0 = (CrossReference)cCoveredAssignment_4.eContents().get(0);
+		private final RuleCall cCoveredVariableDeclIDTerminalRuleCall_4_0_1 = (RuleCall)cCoveredVariableDeclCrossReference_4_0.eContents().get(1);
+		private final Keyword cCommaKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cC_lvlsAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final CrossReference cC_lvlsVariableDeclCrossReference_6_0 = (CrossReference)cC_lvlsAssignment_6.eContents().get(0);
+		private final RuleCall cC_lvlsVariableDeclIDTerminalRuleCall_6_0_1 = (RuleCall)cC_lvlsVariableDeclCrossReference_6_0.eContents().get(1);
+		private final Keyword cCommaKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Assignment cV_lvlAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final CrossReference cV_lvlVariableDeclCrossReference_8_0 = (CrossReference)cV_lvlAssignment_8.eContents().get(0);
+		private final RuleCall cV_lvlVariableDeclIDTerminalRuleCall_8_0_1 = (RuleCall)cV_lvlVariableDeclCrossReference_8_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_9 = (Keyword)cGroup.eContents().get(9);
+		
+		//Covered:
+		//	'accessControlCovered' '(' match=[VariableDecl] ',' covered=[VariableDecl] ',' c_lvls=[VariableDecl] ','
+		//	v_lvl=[VariableDecl] ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'accessControlCovered' '(' match=[VariableDecl] ',' covered=[VariableDecl] ',' c_lvls=[VariableDecl] ','
+		//v_lvl=[VariableDecl] ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'accessControlCovered'
+		public Keyword getAccessControlCoveredKeyword_0() { return cAccessControlCoveredKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//match=[VariableDecl]
+		public Assignment getMatchAssignment_2() { return cMatchAssignment_2; }
+		
+		//[VariableDecl]
+		public CrossReference getMatchVariableDeclCrossReference_2_0() { return cMatchVariableDeclCrossReference_2_0; }
+		
+		//ID
+		public RuleCall getMatchVariableDeclIDTerminalRuleCall_2_0_1() { return cMatchVariableDeclIDTerminalRuleCall_2_0_1; }
+		
+		//','
+		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
+		
+		//covered=[VariableDecl]
+		public Assignment getCoveredAssignment_4() { return cCoveredAssignment_4; }
+		
+		//[VariableDecl]
+		public CrossReference getCoveredVariableDeclCrossReference_4_0() { return cCoveredVariableDeclCrossReference_4_0; }
+		
+		//ID
+		public RuleCall getCoveredVariableDeclIDTerminalRuleCall_4_0_1() { return cCoveredVariableDeclIDTerminalRuleCall_4_0_1; }
+		
+		//','
+		public Keyword getCommaKeyword_5() { return cCommaKeyword_5; }
+		
+		//c_lvls=[VariableDecl]
+		public Assignment getC_lvlsAssignment_6() { return cC_lvlsAssignment_6; }
+		
+		//[VariableDecl]
+		public CrossReference getC_lvlsVariableDeclCrossReference_6_0() { return cC_lvlsVariableDeclCrossReference_6_0; }
+		
+		//ID
+		public RuleCall getC_lvlsVariableDeclIDTerminalRuleCall_6_0_1() { return cC_lvlsVariableDeclIDTerminalRuleCall_6_0_1; }
+		
+		//','
+		public Keyword getCommaKeyword_7() { return cCommaKeyword_7; }
+		
+		//v_lvl=[VariableDecl]
+		public Assignment getV_lvlAssignment_8() { return cV_lvlAssignment_8; }
+		
+		//[VariableDecl]
+		public CrossReference getV_lvlVariableDeclCrossReference_8_0() { return cV_lvlVariableDeclCrossReference_8_0; }
+		
+		//ID
+		public RuleCall getV_lvlVariableDeclIDTerminalRuleCall_8_0_1() { return cV_lvlVariableDeclIDTerminalRuleCall_8_0_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_9() { return cRightParenthesisKeyword_9; }
+	}
+	public class SearchElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.Search");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cSearchKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cTblnameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cTblnameVariableDeclCrossReference_2_0 = (CrossReference)cTblnameAssignment_2.eContents().get(0);
+		private final RuleCall cTblnameVariableDeclIDTerminalRuleCall_2_0_1 = (RuleCall)cTblnameVariableDeclCrossReference_2_0.eContents().get(1);
+		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cColumnAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cColumnSTRINGTerminalRuleCall_4_0 = (RuleCall)cColumnAssignment_4.eContents().get(0);
+		private final Keyword cCommaKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cKeywordAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final CrossReference cKeywordVariableDeclCrossReference_6_0 = (CrossReference)cKeywordAssignment_6.eContents().get(0);
+		private final RuleCall cKeywordVariableDeclIDTerminalRuleCall_6_0_1 = (RuleCall)cKeywordVariableDeclCrossReference_6_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		
+		///* Block Search */ Search:
+		//	'search' '(' tblname=[VariableDecl] ',' column=STRING ',' keyword=[VariableDecl] ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'search' '(' tblname=[VariableDecl] ',' column=STRING ',' keyword=[VariableDecl] ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'search'
+		public Keyword getSearchKeyword_0() { return cSearchKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//tblname=[VariableDecl]
+		public Assignment getTblnameAssignment_2() { return cTblnameAssignment_2; }
+		
+		//[VariableDecl]
+		public CrossReference getTblnameVariableDeclCrossReference_2_0() { return cTblnameVariableDeclCrossReference_2_0; }
+		
+		//ID
+		public RuleCall getTblnameVariableDeclIDTerminalRuleCall_2_0_1() { return cTblnameVariableDeclIDTerminalRuleCall_2_0_1; }
+		
+		//','
+		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
+		
+		//column=STRING
+		public Assignment getColumnAssignment_4() { return cColumnAssignment_4; }
+		
+		//STRING
+		public RuleCall getColumnSTRINGTerminalRuleCall_4_0() { return cColumnSTRINGTerminalRuleCall_4_0; }
+		
+		//','
+		public Keyword getCommaKeyword_5() { return cCommaKeyword_5; }
+		
+		//keyword=[VariableDecl]
+		public Assignment getKeywordAssignment_6() { return cKeywordAssignment_6; }
+		
+		//[VariableDecl]
+		public CrossReference getKeywordVariableDeclCrossReference_6_0() { return cKeywordVariableDeclCrossReference_6_0; }
+		
+		//ID
+		public RuleCall getKeywordVariableDeclIDTerminalRuleCall_6_0_1() { return cKeywordVariableDeclIDTerminalRuleCall_6_0_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_7() { return cRightParenthesisKeyword_7; }
+	}
+	public class BloomFilterElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.BloomFilter");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cBloomFilterKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cPreAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cPreVariableDeclCrossReference_2_0 = (CrossReference)cPreAssignment_2.eContents().get(0);
+		private final RuleCall cPreVariableDeclIDTerminalRuleCall_2_0_1 = (RuleCall)cPreVariableDeclCrossReference_2_0.eContents().get(1);
+		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cPostAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cPostVariableDeclCrossReference_4_0 = (CrossReference)cPostAssignment_4.eContents().get(0);
+		private final RuleCall cPostVariableDeclIDTerminalRuleCall_4_0_1 = (RuleCall)cPostVariableDeclCrossReference_4_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		//BloomFilter:
+		//	'bloomFilter' '(' pre=[VariableDecl] ',' post=[VariableDecl] ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'bloomFilter' '(' pre=[VariableDecl] ',' post=[VariableDecl] ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'bloomFilter'
+		public Keyword getBloomFilterKeyword_0() { return cBloomFilterKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//pre=[VariableDecl]
+		public Assignment getPreAssignment_2() { return cPreAssignment_2; }
+		
+		//[VariableDecl]
+		public CrossReference getPreVariableDeclCrossReference_2_0() { return cPreVariableDeclCrossReference_2_0; }
+		
+		//ID
+		public RuleCall getPreVariableDeclIDTerminalRuleCall_2_0_1() { return cPreVariableDeclIDTerminalRuleCall_2_0_1; }
+		
+		//','
+		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
+		
+		//post=[VariableDecl]
+		public Assignment getPostAssignment_4() { return cPostAssignment_4; }
+		
+		//[VariableDecl]
+		public CrossReference getPostVariableDeclCrossReference_4_0() { return cPostVariableDeclCrossReference_4_0; }
+		
+		//ID
+		public RuleCall getPostVariableDeclIDTerminalRuleCall_4_0_1() { return cPostVariableDeclIDTerminalRuleCall_4_0_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
+	}
+	public class CheckTableElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.CheckTable");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cCheckDatasetKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cTblnameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cTblnameVariableDeclCrossReference_2_0 = (CrossReference)cTblnameAssignment_2.eContents().get(0);
+		private final RuleCall cTblnameVariableDeclIDTerminalRuleCall_2_0_1 = (RuleCall)cTblnameVariableDeclCrossReference_2_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		///* Block Insert Data */ CheckTable:
+		//	'checkDataset' '(' tblname=[VariableDecl] ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'checkDataset' '(' tblname=[VariableDecl] ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'checkDataset'
+		public Keyword getCheckDatasetKeyword_0() { return cCheckDatasetKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//tblname=[VariableDecl]
+		public Assignment getTblnameAssignment_2() { return cTblnameAssignment_2; }
+		
+		//[VariableDecl]
+		public CrossReference getTblnameVariableDeclCrossReference_2_0() { return cTblnameVariableDeclCrossReference_2_0; }
+		
+		//ID
+		public RuleCall getTblnameVariableDeclIDTerminalRuleCall_2_0_1() { return cTblnameVariableDeclIDTerminalRuleCall_2_0_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+	}
+	public class AddValuesElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.AddValues");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cAddValuesKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cTblnameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cTblnameVariableDeclCrossReference_2_0 = (CrossReference)cTblnameAssignment_2.eContents().get(0);
+		private final RuleCall cTblnameVariableDeclIDTerminalRuleCall_2_0_1 = (RuleCall)cTblnameVariableDeclCrossReference_2_0.eContents().get(1);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cCommaKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cArgsAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final CrossReference cArgsVariableDeclCrossReference_3_1_0 = (CrossReference)cArgsAssignment_3_1.eContents().get(0);
+		private final RuleCall cArgsVariableDeclIDTerminalRuleCall_3_1_0_1 = (RuleCall)cArgsVariableDeclCrossReference_3_1_0.eContents().get(1);
+		private final Group cGroup_3_2 = (Group)cGroup_3.eContents().get(2);
+		private final Keyword cCommaKeyword_3_2_0 = (Keyword)cGroup_3_2.eContents().get(0);
+		private final Assignment cArgsAssignment_3_2_1 = (Assignment)cGroup_3_2.eContents().get(1);
+		private final CrossReference cArgsVariableDeclCrossReference_3_2_1_0 = (CrossReference)cArgsAssignment_3_2_1.eContents().get(0);
+		private final RuleCall cArgsVariableDeclIDTerminalRuleCall_3_2_1_0_1 = (RuleCall)cArgsVariableDeclCrossReference_3_2_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//AddValues:
+		//	'addValues' '(' tblname=[VariableDecl] (',' args+=[VariableDecl] (',' args+=[VariableDecl])*)+ ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'addValues' '(' tblname=[VariableDecl] (',' args+=[VariableDecl] (',' args+=[VariableDecl])*)+ ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'addValues'
+		public Keyword getAddValuesKeyword_0() { return cAddValuesKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//tblname=[VariableDecl]
+		public Assignment getTblnameAssignment_2() { return cTblnameAssignment_2; }
+		
+		//[VariableDecl]
+		public CrossReference getTblnameVariableDeclCrossReference_2_0() { return cTblnameVariableDeclCrossReference_2_0; }
+		
+		//ID
+		public RuleCall getTblnameVariableDeclIDTerminalRuleCall_2_0_1() { return cTblnameVariableDeclIDTerminalRuleCall_2_0_1; }
+		
+		//(',' args+=[VariableDecl] (',' args+=[VariableDecl])*)+
+		public Group getGroup_3() { return cGroup_3; }
+		
+		//','
+		public Keyword getCommaKeyword_3_0() { return cCommaKeyword_3_0; }
+		
+		//args+=[VariableDecl]
+		public Assignment getArgsAssignment_3_1() { return cArgsAssignment_3_1; }
+		
+		//[VariableDecl]
+		public CrossReference getArgsVariableDeclCrossReference_3_1_0() { return cArgsVariableDeclCrossReference_3_1_0; }
+		
+		//ID
+		public RuleCall getArgsVariableDeclIDTerminalRuleCall_3_1_0_1() { return cArgsVariableDeclIDTerminalRuleCall_3_1_0_1; }
+		
+		//(',' args+=[VariableDecl])*
+		public Group getGroup_3_2() { return cGroup_3_2; }
+		
+		//','
+		public Keyword getCommaKeyword_3_2_0() { return cCommaKeyword_3_2_0; }
+		
+		//args+=[VariableDecl]
+		public Assignment getArgsAssignment_3_2_1() { return cArgsAssignment_3_2_1; }
+		
+		//[VariableDecl]
+		public CrossReference getArgsVariableDeclCrossReference_3_2_1_0() { return cArgsVariableDeclCrossReference_3_2_1_0; }
+		
+		//ID
+		public RuleCall getArgsVariableDeclIDTerminalRuleCall_3_2_1_0_1() { return cArgsVariableDeclIDTerminalRuleCall_3_2_1_0_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
+	}
+	public class CreateTableElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.CreateTable");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cCreateDatasetKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cTblnameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cTblnameVariableDeclCrossReference_2_0 = (CrossReference)cTblnameAssignment_2.eContents().get(0);
+		private final RuleCall cTblnameVariableDeclIDTerminalRuleCall_2_0_1 = (RuleCall)cTblnameVariableDeclCrossReference_2_0.eContents().get(1);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cCommaKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cParamsAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final CrossReference cParamsParamDeclCrossReference_3_1_0 = (CrossReference)cParamsAssignment_3_1.eContents().get(0);
+		private final RuleCall cParamsParamDeclIDTerminalRuleCall_3_1_0_1 = (RuleCall)cParamsParamDeclCrossReference_3_1_0.eContents().get(1);
+		private final Group cGroup_3_2 = (Group)cGroup_3.eContents().get(2);
+		private final Keyword cCommaKeyword_3_2_0 = (Keyword)cGroup_3_2.eContents().get(0);
+		private final Assignment cParamsAssignment_3_2_1 = (Assignment)cGroup_3_2.eContents().get(1);
+		private final CrossReference cParamsParamDeclCrossReference_3_2_1_0 = (CrossReference)cParamsAssignment_3_2_1.eContents().get(0);
+		private final RuleCall cParamsParamDeclIDTerminalRuleCall_3_2_1_0_1 = (RuleCall)cParamsParamDeclCrossReference_3_2_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//CreateTable:
+		//	'createDataset' '(' tblname=[VariableDecl] (',' params+=[ParamDecl] (',' params+=[ParamDecl])*)+ ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'createDataset' '(' tblname=[VariableDecl] (',' params+=[ParamDecl] (',' params+=[ParamDecl])*)+ ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'createDataset'
+		public Keyword getCreateDatasetKeyword_0() { return cCreateDatasetKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//tblname=[VariableDecl]
+		public Assignment getTblnameAssignment_2() { return cTblnameAssignment_2; }
+		
+		//[VariableDecl]
+		public CrossReference getTblnameVariableDeclCrossReference_2_0() { return cTblnameVariableDeclCrossReference_2_0; }
+		
+		//ID
+		public RuleCall getTblnameVariableDeclIDTerminalRuleCall_2_0_1() { return cTblnameVariableDeclIDTerminalRuleCall_2_0_1; }
+		
+		//(',' params+=[ParamDecl] (',' params+=[ParamDecl])*)+
+		public Group getGroup_3() { return cGroup_3; }
+		
+		//','
+		public Keyword getCommaKeyword_3_0() { return cCommaKeyword_3_0; }
+		
+		//params+=[ParamDecl]
+		public Assignment getParamsAssignment_3_1() { return cParamsAssignment_3_1; }
+		
+		//[ParamDecl]
+		public CrossReference getParamsParamDeclCrossReference_3_1_0() { return cParamsParamDeclCrossReference_3_1_0; }
+		
+		//ID
+		public RuleCall getParamsParamDeclIDTerminalRuleCall_3_1_0_1() { return cParamsParamDeclIDTerminalRuleCall_3_1_0_1; }
+		
+		//(',' params+=[ParamDecl])*
+		public Group getGroup_3_2() { return cGroup_3_2; }
+		
+		//','
+		public Keyword getCommaKeyword_3_2_0() { return cCommaKeyword_3_2_0; }
+		
+		//params+=[ParamDecl]
+		public Assignment getParamsAssignment_3_2_1() { return cParamsAssignment_3_2_1; }
+		
+		//[ParamDecl]
+		public CrossReference getParamsParamDeclCrossReference_3_2_1_0() { return cParamsParamDeclCrossReference_3_2_1_0; }
+		
+		//ID
+		public RuleCall getParamsParamDeclIDTerminalRuleCall_3_2_1_0_1() { return cParamsParamDeclIDTerminalRuleCall_3_2_1_0_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
 	}
 	
 	public class BlockTypeElements extends AbstractEnumRuleElementFinder {
@@ -1436,39 +2254,13 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		//"ENCRYPTED"
 		public Keyword getENCRYPTEDENCRYPTEDKeyword_4_0() { return cENCRYPTEDENCRYPTEDKeyword_4_0; }
 	}
-	public class FunctionsElements extends AbstractEnumRuleElementFinder {
-		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.Functions");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final EnumLiteralDeclaration cCREATE_DBEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
-		private final Keyword cCREATE_DBCreateDatasetKeyword_0_0 = (Keyword)cCREATE_DBEnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cADD_VALUESEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cADD_VALUESAddValuesKeyword_1_0 = (Keyword)cADD_VALUESEnumLiteralDeclaration_1.eContents().get(0);
-		
-		//enum Functions:
-		//	CREATE_DB='createDataset' | ADD_VALUES='addValues';
-		public EnumRule getRule() { return rule; }
-		
-		//CREATE_DB='createDataset' | ADD_VALUES='addValues'
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
-		//CREATE_DB='createDataset'
-		public EnumLiteralDeclaration getCREATE_DBEnumLiteralDeclaration_0() { return cCREATE_DBEnumLiteralDeclaration_0; }
-		
-		//'createDataset'
-		public Keyword getCREATE_DBCreateDatasetKeyword_0_0() { return cCREATE_DBCreateDatasetKeyword_0_0; }
-		
-		//ADD_VALUES='addValues'
-		public EnumLiteralDeclaration getADD_VALUESEnumLiteralDeclaration_1() { return cADD_VALUESEnumLiteralDeclaration_1; }
-		
-		//'addValues'
-		public Keyword getADD_VALUESAddValuesKeyword_1_0() { return cADD_VALUESAddValuesKeyword_1_0; }
-	}
 	
 	private final SmcElements pSmc;
 	private final BlockSMCElements pBlockSMC;
 	private final BlockTypeElements eBlockType;
 	private final MainSMCElements pMainSMC;
 	private final CommandElements pCommand;
+	private final ReturnElements pReturn;
 	private final ParamDeclElements pParamDecl;
 	private final InvocationVoidElements pInvocationVoid;
 	private final BlockElements pBlock;
@@ -1481,6 +2273,8 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 	private final VariableAssignmentElements pVariableAssignment;
 	private final AbstractAssignmentElements pAbstractAssignment;
 	private final DownloadElements pDownload;
+	private final DatabaseElements pDatabase;
+	private final ClientElements pClient;
 	private final ExpressionElements pExpression;
 	private final OrElements pOr;
 	private final AndElements pAnd;
@@ -1494,7 +2288,21 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 	private final ListElements pList;
 	private final DictElements pDict;
 	private final InvocationElements pInvocation;
-	private final FunctionsElements eFunctions;
+	private final FunctionsElements pFunctions;
+	private final ComputationElements pComputation;
+	private final MultiplicationElements pMultiplication;
+	private final MedianElements pMedian;
+	private final WeightedAvgElements pWeightedAvg;
+	private final AverageElements pAverage;
+	private final CountElements pCount;
+	private final AccessControlElements pAccessControl;
+	private final BellLapadulaElements pBellLapadula;
+	private final CoveredElements pCovered;
+	private final SearchElements pSearch;
+	private final BloomFilterElements pBloomFilter;
+	private final CheckTableElements pCheckTable;
+	private final AddValuesElements pAddValues;
+	private final CreateTableElements pCreateTable;
 	private final TerminalRule tBOOLEAN;
 	private final TerminalRule tINT;
 	private final TerminalRule tDATE;
@@ -1518,6 +2326,7 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		this.eBlockType = new BlockTypeElements();
 		this.pMainSMC = new MainSMCElements();
 		this.pCommand = new CommandElements();
+		this.pReturn = new ReturnElements();
 		this.pParamDecl = new ParamDeclElements();
 		this.pInvocationVoid = new InvocationVoidElements();
 		this.pBlock = new BlockElements();
@@ -1530,6 +2339,8 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		this.pVariableAssignment = new VariableAssignmentElements();
 		this.pAbstractAssignment = new AbstractAssignmentElements();
 		this.pDownload = new DownloadElements();
+		this.pDatabase = new DatabaseElements();
+		this.pClient = new ClientElements();
 		this.pExpression = new ExpressionElements();
 		this.pOr = new OrElements();
 		this.pAnd = new AndElements();
@@ -1543,7 +2354,21 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		this.pList = new ListElements();
 		this.pDict = new DictElements();
 		this.pInvocation = new InvocationElements();
-		this.eFunctions = new FunctionsElements();
+		this.pFunctions = new FunctionsElements();
+		this.pComputation = new ComputationElements();
+		this.pMultiplication = new MultiplicationElements();
+		this.pMedian = new MedianElements();
+		this.pWeightedAvg = new WeightedAvgElements();
+		this.pAverage = new AverageElements();
+		this.pCount = new CountElements();
+		this.pAccessControl = new AccessControlElements();
+		this.pBellLapadula = new BellLapadulaElements();
+		this.pCovered = new CoveredElements();
+		this.pSearch = new SearchElements();
+		this.pBloomFilter = new BloomFilterElements();
+		this.pCheckTable = new CheckTableElements();
+		this.pAddValues = new AddValuesElements();
+		this.pCreateTable = new CreateTableElements();
 		this.tBOOLEAN = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.BOOLEAN");
 		this.tINT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.INT");
 		this.tDATE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "soton.cyber.smcaas.smc.Smc.DATE");
@@ -1591,7 +2416,7 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		return getSmcAccess().getRule();
 	}
 	
-	//BlockSMC: //	'block' type=BlockType name=ID '=' 'new' '('(parameters+=Expression (',' parameters+=Expression)*)? ')'';'
+	//BlockSMC:
 	//	'block' type=BlockType name=ID '=' 'new' '(' ')' ';';
 	public BlockSMCElements getBlockSMCAccess() {
 		return pBlockSMC;
@@ -1624,8 +2449,8 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		return getMainSMCAccess().getRule();
 	}
 	
-	//Command:
-	//	Block | VariableDecl | VariableAssignment | IfThenElse | While | Print | InvocationVoid | ParamDecl;
+	///* Command */ Command:
+	//	Block | VariableDecl | VariableAssignment | IfThenElse | While | Print | InvocationVoid | ParamDecl | Return;
 	public CommandElements getCommandAccess() {
 		return pCommand;
 	}
@@ -1634,9 +2459,16 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		return getCommandAccess().getRule();
 	}
 	
-	////BlockFunction:
-	////	
-	////;
+	//Return Command:
+	//	{Return} 'return' ';';
+	public ReturnElements getReturnAccess() {
+		return pReturn;
+	}
+	
+	public ParserRule getReturnRule() {
+		return getReturnAccess().getRule();
+	}
+	
 	//ParamDecl:
 	//	'parameter' name=ID '=' '<' stype=SecType btype=BasicType '>' parName=STRING ';';
 	public ParamDeclElements getParamDeclAccess() {
@@ -1697,9 +2529,8 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		return getIfThenElseAccess().getRule();
 	}
 	
-	////can be added array length inside []
 	//VariableDecl:
-	//	'var' visibility=SecType type=BasicType array?='[]'? name=ID ('=' option=AbstractAssignment)? ';';
+	//	'var' visibility=SecType type=BasicType (array?='[' length=INT? ']')? name=ID ('=' option=AbstractAssignment)? ';';
 	public VariableDeclElements getVariableDeclAccess() {
 		return pVariableDecl;
 	}
@@ -1749,7 +2580,7 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Download:
-	//	'retrieveFromClient' '(' arg=STRING ')';
+	//	Client | Database;
 	public DownloadElements getDownloadAccess() {
 		return pDownload;
 	}
@@ -1758,7 +2589,27 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		return getDownloadAccess().getRule();
 	}
 	
-	//Expression:
+	//Database:
+	//	'retrieveFromDB' '(' tbl=Atomic ',' clm=STRING ')';
+	public DatabaseElements getDatabaseAccess() {
+		return pDatabase;
+	}
+	
+	public ParserRule getDatabaseRule() {
+		return getDatabaseAccess().getRule();
+	}
+	
+	//Client:
+	//	'retrieveFromClient' '(' arg=STRING ')';
+	public ClientElements getClientAccess() {
+		return pClient;
+	}
+	
+	public ParserRule getClientRule() {
+		return getClientAccess().getRule();
+	}
+	
+	///* Expression */ Expression:
 	//	Or;
 	public ExpressionElements getExpressionAccess() {
 		return pExpression;
@@ -1858,7 +2709,7 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Tuple:
-	//	'tuple' '<' arg1+=Atomic ',' arg2+=Atomic '>';
+	//	'tuple' '<' arg1=Atomic ',' arg2=Atomic '>';
 	public TupleElements getTupleAccess() {
 		return pTuple;
 	}
@@ -1878,7 +2729,7 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Dict:
-	//	'dict' '(' key+=Atomic ',' value=[List] ')';
+	//	'dict' '(' key=Atomic ',' value=[List] ')';
 	public DictElements getDictAccess() {
 		return pDict;
 	}
@@ -1888,7 +2739,7 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Invocation:
-	//	blockName=[BlockSMC] '.' funcName=Functions '(' (args+=[ParamDecl] (',' args+=[ParamDecl])*)? ')';
+	//	blockName=[BlockSMC] '.' funcName=Functions;
 	public InvocationElements getInvocationAccess() {
 		return pInvocation;
 	}
@@ -1897,14 +2748,155 @@ public class SmcGrammarAccess extends AbstractGrammarElementFinder {
 		return getInvocationAccess().getRule();
 	}
 	
-	//enum Functions:
-	//	CREATE_DB='createDataset' | ADD_VALUES='addValues';
+	//Functions:
+	//	CreateTable | CheckTable | AddValues | BloomFilter | Search | AccessControl | Computation;
 	public FunctionsElements getFunctionsAccess() {
-		return eFunctions;
+		return pFunctions;
 	}
 	
-	public EnumRule getFunctionsRule() {
+	public ParserRule getFunctionsRule() {
 		return getFunctionsAccess().getRule();
+	}
+	
+	///* Block Computation */ Computation:
+	//	Count | Average | WeightedAvg | Median | Multiplication;
+	public ComputationElements getComputationAccess() {
+		return pComputation;
+	}
+	
+	public ParserRule getComputationRule() {
+		return getComputationAccess().getRule();
+	}
+	
+	//Multiplication:
+	//	'multiplication' '(' x=[VariableDecl] ',' y=[VariableDecl] ')';
+	public MultiplicationElements getMultiplicationAccess() {
+		return pMultiplication;
+	}
+	
+	public ParserRule getMultiplicationRule() {
+		return getMultiplicationAccess().getRule();
+	}
+	
+	//Median:
+	//	'median' '(' array=[VariableDecl] ')';
+	public MedianElements getMedianAccess() {
+		return pMedian;
+	}
+	
+	public ParserRule getMedianRule() {
+		return getMedianAccess().getRule();
+	}
+	
+	//WeightedAvg:
+	//	'w_avg' '(' weights=[VariableDecl] ',' elems=[VariableDecl] ')';
+	public WeightedAvgElements getWeightedAvgAccess() {
+		return pWeightedAvg;
+	}
+	
+	public ParserRule getWeightedAvgRule() {
+		return getWeightedAvgAccess().getRule();
+	}
+	
+	//Average:
+	//	'avg' '(' array=[VariableDecl] ')';
+	public AverageElements getAverageAccess() {
+		return pAverage;
+	}
+	
+	public ParserRule getAverageRule() {
+		return getAverageAccess().getRule();
+	}
+	
+	//Count:
+	//	'count' '(' array=[VariableDecl] ')';
+	public CountElements getCountAccess() {
+		return pCount;
+	}
+	
+	public ParserRule getCountRule() {
+		return getCountAccess().getRule();
+	}
+	
+	///* Block Access Control */ AccessControl:
+	//	Covered | BellLapadula;
+	public AccessControlElements getAccessControlAccess() {
+		return pAccessControl;
+	}
+	
+	public ParserRule getAccessControlRule() {
+		return getAccessControlAccess().getRule();
+	}
+	
+	//BellLapadula:
+	//	'accessControlBLP' '(' (cur=[VariableDecl] ',')? mode=STRING ',' c_lvls=[VariableDecl] ',' v_lvl=[VariableDecl] ')';
+	public BellLapadulaElements getBellLapadulaAccess() {
+		return pBellLapadula;
+	}
+	
+	public ParserRule getBellLapadulaRule() {
+		return getBellLapadulaAccess().getRule();
+	}
+	
+	//Covered:
+	//	'accessControlCovered' '(' match=[VariableDecl] ',' covered=[VariableDecl] ',' c_lvls=[VariableDecl] ','
+	//	v_lvl=[VariableDecl] ')';
+	public CoveredElements getCoveredAccess() {
+		return pCovered;
+	}
+	
+	public ParserRule getCoveredRule() {
+		return getCoveredAccess().getRule();
+	}
+	
+	///* Block Search */ Search:
+	//	'search' '(' tblname=[VariableDecl] ',' column=STRING ',' keyword=[VariableDecl] ')';
+	public SearchElements getSearchAccess() {
+		return pSearch;
+	}
+	
+	public ParserRule getSearchRule() {
+		return getSearchAccess().getRule();
+	}
+	
+	//BloomFilter:
+	//	'bloomFilter' '(' pre=[VariableDecl] ',' post=[VariableDecl] ')';
+	public BloomFilterElements getBloomFilterAccess() {
+		return pBloomFilter;
+	}
+	
+	public ParserRule getBloomFilterRule() {
+		return getBloomFilterAccess().getRule();
+	}
+	
+	///* Block Insert Data */ CheckTable:
+	//	'checkDataset' '(' tblname=[VariableDecl] ')';
+	public CheckTableElements getCheckTableAccess() {
+		return pCheckTable;
+	}
+	
+	public ParserRule getCheckTableRule() {
+		return getCheckTableAccess().getRule();
+	}
+	
+	//AddValues:
+	//	'addValues' '(' tblname=[VariableDecl] (',' args+=[VariableDecl] (',' args+=[VariableDecl])*)+ ')';
+	public AddValuesElements getAddValuesAccess() {
+		return pAddValues;
+	}
+	
+	public ParserRule getAddValuesRule() {
+		return getAddValuesAccess().getRule();
+	}
+	
+	//CreateTable:
+	//	'createDataset' '(' tblname=[VariableDecl] (',' params+=[ParamDecl] (',' params+=[ParamDecl])*)+ ')';
+	public CreateTableElements getCreateTableAccess() {
+		return pCreateTable;
+	}
+	
+	public ParserRule getCreateTableRule() {
+		return getCreateTableAccess().getRule();
 	}
 	
 	//terminal BOOLEAN returns ecore::EBoolean:

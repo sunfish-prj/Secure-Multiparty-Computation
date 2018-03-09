@@ -3,17 +3,13 @@
  */
 package soton.cyber.smcaas.smc.smc.impl;
 
-import java.util.Collection;
-
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import soton.cyber.smcaas.smc.smc.Expression;
 import soton.cyber.smcaas.smc.smc.SmcPackage;
@@ -36,24 +32,24 @@ import soton.cyber.smcaas.smc.smc.Tuple;
 public class TupleImpl extends ExpressionImpl implements Tuple
 {
   /**
-   * The cached value of the '{@link #getArg1() <em>Arg1</em>}' containment reference list.
+   * The cached value of the '{@link #getArg1() <em>Arg1</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getArg1()
    * @generated
    * @ordered
    */
-  protected EList<Expression> arg1;
+  protected Expression arg1;
 
   /**
-   * The cached value of the '{@link #getArg2() <em>Arg2</em>}' containment reference list.
+   * The cached value of the '{@link #getArg2() <em>Arg2</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getArg2()
    * @generated
    * @ordered
    */
-  protected EList<Expression> arg2;
+  protected Expression arg2;
 
   /**
    * <!-- begin-user-doc -->
@@ -81,12 +77,8 @@ public class TupleImpl extends ExpressionImpl implements Tuple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Expression> getArg1()
+  public Expression getArg1()
   {
-    if (arg1 == null)
-    {
-      arg1 = new EObjectContainmentEList<Expression>(Expression.class, this, SmcPackage.TUPLE__ARG1);
-    }
     return arg1;
   }
 
@@ -95,13 +87,85 @@ public class TupleImpl extends ExpressionImpl implements Tuple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Expression> getArg2()
+  public NotificationChain basicSetArg1(Expression newArg1, NotificationChain msgs)
   {
-    if (arg2 == null)
+    Expression oldArg1 = arg1;
+    arg1 = newArg1;
+    if (eNotificationRequired())
     {
-      arg2 = new EObjectContainmentEList<Expression>(Expression.class, this, SmcPackage.TUPLE__ARG2);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SmcPackage.TUPLE__ARG1, oldArg1, newArg1);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
     }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setArg1(Expression newArg1)
+  {
+    if (newArg1 != arg1)
+    {
+      NotificationChain msgs = null;
+      if (arg1 != null)
+        msgs = ((InternalEObject)arg1).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SmcPackage.TUPLE__ARG1, null, msgs);
+      if (newArg1 != null)
+        msgs = ((InternalEObject)newArg1).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SmcPackage.TUPLE__ARG1, null, msgs);
+      msgs = basicSetArg1(newArg1, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SmcPackage.TUPLE__ARG1, newArg1, newArg1));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Expression getArg2()
+  {
     return arg2;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetArg2(Expression newArg2, NotificationChain msgs)
+  {
+    Expression oldArg2 = arg2;
+    arg2 = newArg2;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SmcPackage.TUPLE__ARG2, oldArg2, newArg2);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setArg2(Expression newArg2)
+  {
+    if (newArg2 != arg2)
+    {
+      NotificationChain msgs = null;
+      if (arg2 != null)
+        msgs = ((InternalEObject)arg2).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SmcPackage.TUPLE__ARG2, null, msgs);
+      if (newArg2 != null)
+        msgs = ((InternalEObject)newArg2).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SmcPackage.TUPLE__ARG2, null, msgs);
+      msgs = basicSetArg2(newArg2, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SmcPackage.TUPLE__ARG2, newArg2, newArg2));
   }
 
   /**
@@ -115,9 +179,9 @@ public class TupleImpl extends ExpressionImpl implements Tuple
     switch (featureID)
     {
       case SmcPackage.TUPLE__ARG1:
-        return ((InternalEList<?>)getArg1()).basicRemove(otherEnd, msgs);
+        return basicSetArg1(null, msgs);
       case SmcPackage.TUPLE__ARG2:
-        return ((InternalEList<?>)getArg2()).basicRemove(otherEnd, msgs);
+        return basicSetArg2(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -145,19 +209,16 @@ public class TupleImpl extends ExpressionImpl implements Tuple
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
       case SmcPackage.TUPLE__ARG1:
-        getArg1().clear();
-        getArg1().addAll((Collection<? extends Expression>)newValue);
+        setArg1((Expression)newValue);
         return;
       case SmcPackage.TUPLE__ARG2:
-        getArg2().clear();
-        getArg2().addAll((Collection<? extends Expression>)newValue);
+        setArg2((Expression)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -174,10 +235,10 @@ public class TupleImpl extends ExpressionImpl implements Tuple
     switch (featureID)
     {
       case SmcPackage.TUPLE__ARG1:
-        getArg1().clear();
+        setArg1((Expression)null);
         return;
       case SmcPackage.TUPLE__ARG2:
-        getArg2().clear();
+        setArg2((Expression)null);
         return;
     }
     super.eUnset(featureID);
@@ -194,9 +255,9 @@ public class TupleImpl extends ExpressionImpl implements Tuple
     switch (featureID)
     {
       case SmcPackage.TUPLE__ARG1:
-        return arg1 != null && !arg1.isEmpty();
+        return arg1 != null;
       case SmcPackage.TUPLE__ARG2:
-        return arg2 != null && !arg2.isEmpty();
+        return arg2 != null;
     }
     return super.eIsSet(featureID);
   }

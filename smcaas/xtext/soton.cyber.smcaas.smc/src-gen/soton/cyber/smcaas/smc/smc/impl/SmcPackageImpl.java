@@ -12,14 +12,26 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import soton.cyber.smcaas.smc.smc.AbstractAssignment;
+import soton.cyber.smcaas.smc.smc.AccessControl;
+import soton.cyber.smcaas.smc.smc.AddValues;
 import soton.cyber.smcaas.smc.smc.And;
+import soton.cyber.smcaas.smc.smc.Average;
 import soton.cyber.smcaas.smc.smc.BasicType;
+import soton.cyber.smcaas.smc.smc.BellLapadula;
 import soton.cyber.smcaas.smc.smc.Block;
 import soton.cyber.smcaas.smc.smc.BlockSMC;
 import soton.cyber.smcaas.smc.smc.BlockType;
+import soton.cyber.smcaas.smc.smc.BloomFilter;
 import soton.cyber.smcaas.smc.smc.BooleanLiteral;
+import soton.cyber.smcaas.smc.smc.CheckTable;
+import soton.cyber.smcaas.smc.smc.Client;
 import soton.cyber.smcaas.smc.smc.Command;
 import soton.cyber.smcaas.smc.smc.Comparison;
+import soton.cyber.smcaas.smc.smc.Computation;
+import soton.cyber.smcaas.smc.smc.Count;
+import soton.cyber.smcaas.smc.smc.Covered;
+import soton.cyber.smcaas.smc.smc.CreateTable;
+import soton.cyber.smcaas.smc.smc.Database;
 import soton.cyber.smcaas.smc.smc.DateLiteral;
 import soton.cyber.smcaas.smc.smc.Dict;
 import soton.cyber.smcaas.smc.smc.DoubleLiteral;
@@ -33,12 +45,16 @@ import soton.cyber.smcaas.smc.smc.Invocation;
 import soton.cyber.smcaas.smc.smc.InvocationVoid;
 import soton.cyber.smcaas.smc.smc.List;
 import soton.cyber.smcaas.smc.smc.MainSMC;
+import soton.cyber.smcaas.smc.smc.Median;
 import soton.cyber.smcaas.smc.smc.MulOrDiv;
+import soton.cyber.smcaas.smc.smc.Multiplication;
 import soton.cyber.smcaas.smc.smc.Not;
 import soton.cyber.smcaas.smc.smc.Or;
 import soton.cyber.smcaas.smc.smc.ParamDecl;
 import soton.cyber.smcaas.smc.smc.PlusOrMinus;
 import soton.cyber.smcaas.smc.smc.Print;
+import soton.cyber.smcaas.smc.smc.Return;
+import soton.cyber.smcaas.smc.smc.Search;
 import soton.cyber.smcaas.smc.smc.SecType;
 import soton.cyber.smcaas.smc.smc.Smc;
 import soton.cyber.smcaas.smc.smc.SmcFactory;
@@ -49,6 +65,7 @@ import soton.cyber.smcaas.smc.smc.Tuple;
 import soton.cyber.smcaas.smc.smc.VariableAssignment;
 import soton.cyber.smcaas.smc.smc.VariableDecl;
 import soton.cyber.smcaas.smc.smc.VariableRef;
+import soton.cyber.smcaas.smc.smc.WeightedAvg;
 import soton.cyber.smcaas.smc.smc.While;
 
 /**
@@ -155,6 +172,20 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass databaseEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass clientEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass expressionEClass = null;
 
   /**
@@ -184,6 +215,118 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * @generated
    */
   private EClass invocationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass functionsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass computationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass multiplicationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass medianEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass weightedAvgEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass averageEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass countEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass accessControlEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass bellLapadulaEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass coveredEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass searchEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass bloomFilterEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass checkTableEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass addValuesEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass createTableEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass returnEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -310,13 +453,6 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * @generated
    */
   private EEnum basicTypeEEnum = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EEnum functionsEEnum = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -676,7 +812,7 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getVariableDecl_Name()
+  public EAttribute getVariableDecl_Length()
   {
     return (EAttribute)variableDeclEClass.getEStructuralFeatures().get(3);
   }
@@ -686,9 +822,19 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getVariableDecl_Name()
+  {
+    return (EAttribute)variableDeclEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getVariableDecl_Option()
   {
-    return (EReference)variableDeclEClass.getEStructuralFeatures().get(4);
+    return (EReference)variableDeclEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -746,9 +892,49 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getDownload_Arg()
+  public EClass getDatabase()
   {
-    return (EAttribute)downloadEClass.getEStructuralFeatures().get(0);
+    return databaseEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDatabase_Tbl()
+  {
+    return (EReference)databaseEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDatabase_Clm()
+  {
+    return (EAttribute)databaseEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getClient()
+  {
+    return clientEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getClient_Arg()
+  {
+    return (EAttribute)clientEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -866,9 +1052,9 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getInvocation_FuncName()
+  public EReference getInvocation_FuncName()
   {
-    return (EAttribute)invocationEClass.getEStructuralFeatures().get(1);
+    return (EReference)invocationEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -876,9 +1062,389 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getInvocation_Args()
+  public EClass getFunctions()
   {
-    return (EReference)invocationEClass.getEStructuralFeatures().get(2);
+    return functionsEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getComputation()
+  {
+    return computationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getMultiplication()
+  {
+    return multiplicationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getMultiplication_X()
+  {
+    return (EReference)multiplicationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getMultiplication_Y()
+  {
+    return (EReference)multiplicationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getMedian()
+  {
+    return medianEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getMedian_Array()
+  {
+    return (EReference)medianEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getWeightedAvg()
+  {
+    return weightedAvgEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getWeightedAvg_Weights()
+  {
+    return (EReference)weightedAvgEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getWeightedAvg_Elems()
+  {
+    return (EReference)weightedAvgEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAverage()
+  {
+    return averageEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAverage_Array()
+  {
+    return (EReference)averageEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getCount()
+  {
+    return countEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCount_Array()
+  {
+    return (EReference)countEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAccessControl()
+  {
+    return accessControlEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAccessControl_C_lvls()
+  {
+    return (EReference)accessControlEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAccessControl_V_lvl()
+  {
+    return (EReference)accessControlEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getBellLapadula()
+  {
+    return bellLapadulaEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getBellLapadula_Cur()
+  {
+    return (EReference)bellLapadulaEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getBellLapadula_Mode()
+  {
+    return (EAttribute)bellLapadulaEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getCovered()
+  {
+    return coveredEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCovered_Match()
+  {
+    return (EReference)coveredEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCovered_Covered()
+  {
+    return (EReference)coveredEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getSearch()
+  {
+    return searchEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSearch_Tblname()
+  {
+    return (EReference)searchEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getSearch_Column()
+  {
+    return (EAttribute)searchEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSearch_Keyword()
+  {
+    return (EReference)searchEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getBloomFilter()
+  {
+    return bloomFilterEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getBloomFilter_Pre()
+  {
+    return (EReference)bloomFilterEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getBloomFilter_Post()
+  {
+    return (EReference)bloomFilterEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getCheckTable()
+  {
+    return checkTableEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCheckTable_Tblname()
+  {
+    return (EReference)checkTableEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAddValues()
+  {
+    return addValuesEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAddValues_Tblname()
+  {
+    return (EReference)addValuesEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAddValues_Args()
+  {
+    return (EReference)addValuesEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getCreateTable()
+  {
+    return createTableEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCreateTable_Tblname()
+  {
+    return (EReference)createTableEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCreateTable_Params()
+  {
+    return (EReference)createTableEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getReturn()
+  {
+    return returnEClass;
   }
 
   /**
@@ -1316,16 +1882,6 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EEnum getFunctions()
-  {
-    return functionsEEnum;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public SmcFactory getSmcFactory()
   {
     return (SmcFactory)getEFactoryInstance();
@@ -1389,6 +1945,7 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
     createEAttribute(variableDeclEClass, VARIABLE_DECL__VISIBILITY);
     createEAttribute(variableDeclEClass, VARIABLE_DECL__TYPE);
     createEAttribute(variableDeclEClass, VARIABLE_DECL__ARRAY);
+    createEAttribute(variableDeclEClass, VARIABLE_DECL__LENGTH);
     createEAttribute(variableDeclEClass, VARIABLE_DECL__NAME);
     createEReference(variableDeclEClass, VARIABLE_DECL__OPTION);
 
@@ -1399,7 +1956,13 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
     abstractAssignmentEClass = createEClass(ABSTRACT_ASSIGNMENT);
 
     downloadEClass = createEClass(DOWNLOAD);
-    createEAttribute(downloadEClass, DOWNLOAD__ARG);
+
+    databaseEClass = createEClass(DATABASE);
+    createEReference(databaseEClass, DATABASE__TBL);
+    createEAttribute(databaseEClass, DATABASE__CLM);
+
+    clientEClass = createEClass(CLIENT);
+    createEAttribute(clientEClass, CLIENT__ARG);
 
     expressionEClass = createEClass(EXPRESSION);
 
@@ -1416,8 +1979,62 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
 
     invocationEClass = createEClass(INVOCATION);
     createEReference(invocationEClass, INVOCATION__BLOCK_NAME);
-    createEAttribute(invocationEClass, INVOCATION__FUNC_NAME);
-    createEReference(invocationEClass, INVOCATION__ARGS);
+    createEReference(invocationEClass, INVOCATION__FUNC_NAME);
+
+    functionsEClass = createEClass(FUNCTIONS);
+
+    computationEClass = createEClass(COMPUTATION);
+
+    multiplicationEClass = createEClass(MULTIPLICATION);
+    createEReference(multiplicationEClass, MULTIPLICATION__X);
+    createEReference(multiplicationEClass, MULTIPLICATION__Y);
+
+    medianEClass = createEClass(MEDIAN);
+    createEReference(medianEClass, MEDIAN__ARRAY);
+
+    weightedAvgEClass = createEClass(WEIGHTED_AVG);
+    createEReference(weightedAvgEClass, WEIGHTED_AVG__WEIGHTS);
+    createEReference(weightedAvgEClass, WEIGHTED_AVG__ELEMS);
+
+    averageEClass = createEClass(AVERAGE);
+    createEReference(averageEClass, AVERAGE__ARRAY);
+
+    countEClass = createEClass(COUNT);
+    createEReference(countEClass, COUNT__ARRAY);
+
+    accessControlEClass = createEClass(ACCESS_CONTROL);
+    createEReference(accessControlEClass, ACCESS_CONTROL__CLVLS);
+    createEReference(accessControlEClass, ACCESS_CONTROL__VLVL);
+
+    bellLapadulaEClass = createEClass(BELL_LAPADULA);
+    createEReference(bellLapadulaEClass, BELL_LAPADULA__CUR);
+    createEAttribute(bellLapadulaEClass, BELL_LAPADULA__MODE);
+
+    coveredEClass = createEClass(COVERED);
+    createEReference(coveredEClass, COVERED__MATCH);
+    createEReference(coveredEClass, COVERED__COVERED);
+
+    searchEClass = createEClass(SEARCH);
+    createEReference(searchEClass, SEARCH__TBLNAME);
+    createEAttribute(searchEClass, SEARCH__COLUMN);
+    createEReference(searchEClass, SEARCH__KEYWORD);
+
+    bloomFilterEClass = createEClass(BLOOM_FILTER);
+    createEReference(bloomFilterEClass, BLOOM_FILTER__PRE);
+    createEReference(bloomFilterEClass, BLOOM_FILTER__POST);
+
+    checkTableEClass = createEClass(CHECK_TABLE);
+    createEReference(checkTableEClass, CHECK_TABLE__TBLNAME);
+
+    addValuesEClass = createEClass(ADD_VALUES);
+    createEReference(addValuesEClass, ADD_VALUES__TBLNAME);
+    createEReference(addValuesEClass, ADD_VALUES__ARGS);
+
+    createTableEClass = createEClass(CREATE_TABLE);
+    createEReference(createTableEClass, CREATE_TABLE__TBLNAME);
+    createEReference(createTableEClass, CREATE_TABLE__PARAMS);
+
+    returnEClass = createEClass(RETURN);
 
     blockEClass = createEClass(BLOCK);
     createEReference(blockEClass, BLOCK__COMMANDS);
@@ -1478,7 +2095,6 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
     blockTypeEEnum = createEEnum(BLOCK_TYPE);
     secTypeEEnum = createEEnum(SEC_TYPE);
     basicTypeEEnum = createEEnum(BASIC_TYPE);
-    functionsEEnum = createEEnum(FUNCTIONS);
   }
 
   /**
@@ -1518,11 +2134,28 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
     variableDeclEClass.getESuperTypes().add(this.getCommand());
     variableAssignmentEClass.getESuperTypes().add(this.getCommand());
     downloadEClass.getESuperTypes().add(this.getAbstractAssignment());
+    databaseEClass.getESuperTypes().add(this.getDownload());
+    clientEClass.getESuperTypes().add(this.getDownload());
     expressionEClass.getESuperTypes().add(this.getAbstractAssignment());
     tupleEClass.getESuperTypes().add(this.getExpression());
     listEClass.getESuperTypes().add(this.getExpression());
     dictEClass.getESuperTypes().add(this.getExpression());
     invocationEClass.getESuperTypes().add(this.getExpression());
+    computationEClass.getESuperTypes().add(this.getFunctions());
+    multiplicationEClass.getESuperTypes().add(this.getComputation());
+    medianEClass.getESuperTypes().add(this.getComputation());
+    weightedAvgEClass.getESuperTypes().add(this.getComputation());
+    averageEClass.getESuperTypes().add(this.getComputation());
+    countEClass.getESuperTypes().add(this.getComputation());
+    accessControlEClass.getESuperTypes().add(this.getFunctions());
+    bellLapadulaEClass.getESuperTypes().add(this.getAccessControl());
+    coveredEClass.getESuperTypes().add(this.getAccessControl());
+    searchEClass.getESuperTypes().add(this.getFunctions());
+    bloomFilterEClass.getESuperTypes().add(this.getFunctions());
+    checkTableEClass.getESuperTypes().add(this.getFunctions());
+    addValuesEClass.getESuperTypes().add(this.getFunctions());
+    createTableEClass.getESuperTypes().add(this.getFunctions());
+    returnEClass.getESuperTypes().add(this.getCommand());
     blockEClass.getESuperTypes().add(this.getCommand());
     orEClass.getESuperTypes().add(this.getExpression());
     andEClass.getESuperTypes().add(this.getExpression());
@@ -1578,6 +2211,7 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
     initEAttribute(getVariableDecl_Visibility(), this.getSecType(), "visibility", null, 0, 1, VariableDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVariableDecl_Type(), this.getBasicType(), "type", null, 0, 1, VariableDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVariableDecl_Array(), ecorePackage.getEBoolean(), "array", null, 0, 1, VariableDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getVariableDecl_Length(), ecorePackage.getEInt(), "length", null, 0, 1, VariableDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVariableDecl_Name(), ecorePackage.getEString(), "name", null, 0, 1, VariableDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVariableDecl_Option(), this.getAbstractAssignment(), null, "option", null, 0, 1, VariableDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1588,25 +2222,85 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
     initEClass(abstractAssignmentEClass, AbstractAssignment.class, "AbstractAssignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(downloadEClass, Download.class, "Download", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getDownload_Arg(), ecorePackage.getEString(), "arg", null, 0, 1, Download.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(databaseEClass, Database.class, "Database", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getDatabase_Tbl(), this.getExpression(), null, "tbl", null, 0, 1, Database.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDatabase_Clm(), ecorePackage.getEString(), "clm", null, 0, 1, Database.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(clientEClass, Client.class, "Client", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getClient_Arg(), ecorePackage.getEString(), "arg", null, 0, 1, Client.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(tupleEClass, Tuple.class, "Tuple", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getTuple_Arg1(), this.getExpression(), null, "arg1", null, 0, -1, Tuple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTuple_Arg2(), this.getExpression(), null, "arg2", null, 0, -1, Tuple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTuple_Arg1(), this.getExpression(), null, "arg1", null, 0, 1, Tuple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTuple_Arg2(), this.getExpression(), null, "arg2", null, 0, 1, Tuple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(listEClass, List.class, "List", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getList_Args(), this.getExpression(), null, "args", null, 0, -1, List.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(dictEClass, Dict.class, "Dict", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getDict_Key(), this.getExpression(), null, "key", null, 0, -1, Dict.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDict_Key(), this.getExpression(), null, "key", null, 0, 1, Dict.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getDict_Value(), this.getList(), null, "value", null, 0, 1, Dict.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(invocationEClass, Invocation.class, "Invocation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getInvocation_BlockName(), this.getBlockSMC(), null, "blockName", null, 0, 1, Invocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getInvocation_FuncName(), this.getFunctions(), "funcName", null, 0, 1, Invocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getInvocation_Args(), this.getParamDecl(), null, "args", null, 0, -1, Invocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInvocation_FuncName(), this.getFunctions(), null, "funcName", null, 0, 1, Invocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(functionsEClass, Functions.class, "Functions", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(computationEClass, Computation.class, "Computation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(multiplicationEClass, Multiplication.class, "Multiplication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getMultiplication_X(), this.getVariableDecl(), null, "x", null, 0, 1, Multiplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMultiplication_Y(), this.getVariableDecl(), null, "y", null, 0, 1, Multiplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(medianEClass, Median.class, "Median", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getMedian_Array(), this.getVariableDecl(), null, "array", null, 0, 1, Median.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(weightedAvgEClass, WeightedAvg.class, "WeightedAvg", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getWeightedAvg_Weights(), this.getVariableDecl(), null, "weights", null, 0, 1, WeightedAvg.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getWeightedAvg_Elems(), this.getVariableDecl(), null, "elems", null, 0, 1, WeightedAvg.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(averageEClass, Average.class, "Average", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAverage_Array(), this.getVariableDecl(), null, "array", null, 0, 1, Average.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(countEClass, Count.class, "Count", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCount_Array(), this.getVariableDecl(), null, "array", null, 0, 1, Count.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(accessControlEClass, AccessControl.class, "AccessControl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAccessControl_C_lvls(), this.getVariableDecl(), null, "c_lvls", null, 0, 1, AccessControl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAccessControl_V_lvl(), this.getVariableDecl(), null, "v_lvl", null, 0, 1, AccessControl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(bellLapadulaEClass, BellLapadula.class, "BellLapadula", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getBellLapadula_Cur(), this.getVariableDecl(), null, "cur", null, 0, 1, BellLapadula.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getBellLapadula_Mode(), ecorePackage.getEString(), "mode", null, 0, 1, BellLapadula.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(coveredEClass, Covered.class, "Covered", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCovered_Match(), this.getVariableDecl(), null, "match", null, 0, 1, Covered.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCovered_Covered(), this.getVariableDecl(), null, "covered", null, 0, 1, Covered.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(searchEClass, Search.class, "Search", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSearch_Tblname(), this.getVariableDecl(), null, "tblname", null, 0, 1, Search.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getSearch_Column(), ecorePackage.getEString(), "column", null, 0, 1, Search.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSearch_Keyword(), this.getVariableDecl(), null, "keyword", null, 0, 1, Search.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(bloomFilterEClass, BloomFilter.class, "BloomFilter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getBloomFilter_Pre(), this.getVariableDecl(), null, "pre", null, 0, 1, BloomFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getBloomFilter_Post(), this.getVariableDecl(), null, "post", null, 0, 1, BloomFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(checkTableEClass, CheckTable.class, "CheckTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCheckTable_Tblname(), this.getVariableDecl(), null, "tblname", null, 0, 1, CheckTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(addValuesEClass, AddValues.class, "AddValues", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAddValues_Tblname(), this.getVariableDecl(), null, "tblname", null, 0, 1, AddValues.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAddValues_Args(), this.getVariableDecl(), null, "args", null, 0, -1, AddValues.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(createTableEClass, CreateTable.class, "CreateTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCreateTable_Tblname(), this.getVariableDecl(), null, "tblname", null, 0, 1, CreateTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCreateTable_Params(), this.getParamDecl(), null, "params", null, 0, -1, CreateTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(returnEClass, Return.class, "Return", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(blockEClass, Block.class, "Block", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getBlock_Commands(), this.getCommand(), null, "commands", null, 0, -1, Block.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1682,10 +2376,6 @@ public class SmcPackageImpl extends EPackageImpl implements SmcPackage
     addEEnumLiteral(basicTypeEEnum, BasicType.BOOLEAN);
     addEEnumLiteral(basicTypeEEnum, BasicType.STRING);
     addEEnumLiteral(basicTypeEEnum, BasicType.ENCRYPTED);
-
-    initEEnum(functionsEEnum, Functions.class, "Functions");
-    addEEnumLiteral(functionsEEnum, Functions.CREATE_DB);
-    addEEnumLiteral(functionsEEnum, Functions.ADD_VALUES);
 
     // Create resource
     createResource(eNS_URI);

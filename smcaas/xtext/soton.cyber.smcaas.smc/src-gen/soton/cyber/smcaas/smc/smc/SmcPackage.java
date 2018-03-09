@@ -411,13 +411,22 @@ public interface SmcPackage extends EPackage
   int VARIABLE_DECL__ARRAY = COMMAND_FEATURE_COUNT + 2;
 
   /**
+   * The feature id for the '<em><b>Length</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DECL__LENGTH = COMMAND_FEATURE_COUNT + 3;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VARIABLE_DECL__NAME = COMMAND_FEATURE_COUNT + 3;
+  int VARIABLE_DECL__NAME = COMMAND_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Option</b></em>' containment reference.
@@ -426,7 +435,7 @@ public interface SmcPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIABLE_DECL__OPTION = COMMAND_FEATURE_COUNT + 4;
+  int VARIABLE_DECL__OPTION = COMMAND_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Variable Decl</em>' class.
@@ -435,7 +444,7 @@ public interface SmcPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIABLE_DECL_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 5;
+  int VARIABLE_DECL_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.VariableAssignmentImpl <em>Variable Assignment</em>}' class.
@@ -504,22 +513,78 @@ public interface SmcPackage extends EPackage
   int DOWNLOAD = 12;
 
   /**
-   * The feature id for the '<em><b>Arg</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DOWNLOAD__ARG = ABSTRACT_ASSIGNMENT_FEATURE_COUNT + 0;
-
-  /**
    * The number of structural features of the '<em>Download</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DOWNLOAD_FEATURE_COUNT = ABSTRACT_ASSIGNMENT_FEATURE_COUNT + 1;
+  int DOWNLOAD_FEATURE_COUNT = ABSTRACT_ASSIGNMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.DatabaseImpl <em>Database</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.DatabaseImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getDatabase()
+   * @generated
+   */
+  int DATABASE = 13;
+
+  /**
+   * The feature id for the '<em><b>Tbl</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE__TBL = DOWNLOAD_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Clm</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE__CLM = DOWNLOAD_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Database</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE_FEATURE_COUNT = DOWNLOAD_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.ClientImpl <em>Client</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.ClientImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getClient()
+   * @generated
+   */
+  int CLIENT = 14;
+
+  /**
+   * The feature id for the '<em><b>Arg</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLIENT__ARG = DOWNLOAD_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Client</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLIENT_FEATURE_COUNT = DOWNLOAD_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.ExpressionImpl <em>Expression</em>}' class.
@@ -529,7 +594,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getExpression()
    * @generated
    */
-  int EXPRESSION = 13;
+  int EXPRESSION = 15;
 
   /**
    * The number of structural features of the '<em>Expression</em>' class.
@@ -548,10 +613,10 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getTuple()
    * @generated
    */
-  int TUPLE = 14;
+  int TUPLE = 16;
 
   /**
-   * The feature id for the '<em><b>Arg1</b></em>' containment reference list.
+   * The feature id for the '<em><b>Arg1</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -560,7 +625,7 @@ public interface SmcPackage extends EPackage
   int TUPLE__ARG1 = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Arg2</b></em>' containment reference list.
+   * The feature id for the '<em><b>Arg2</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -585,7 +650,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getList()
    * @generated
    */
-  int LIST = 15;
+  int LIST = 17;
 
   /**
    * The feature id for the '<em><b>Args</b></em>' containment reference list.
@@ -613,10 +678,10 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getDict()
    * @generated
    */
-  int DICT = 16;
+  int DICT = 18;
 
   /**
-   * The feature id for the '<em><b>Key</b></em>' containment reference list.
+   * The feature id for the '<em><b>Key</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -650,7 +715,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getInvocation()
    * @generated
    */
-  int INVOCATION = 17;
+  int INVOCATION = 19;
 
   /**
    * The feature id for the '<em><b>Block Name</b></em>' reference.
@@ -662,7 +727,7 @@ public interface SmcPackage extends EPackage
   int INVOCATION__BLOCK_NAME = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Func Name</b></em>' attribute.
+   * The feature id for the '<em><b>Func Name</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -671,22 +736,560 @@ public interface SmcPackage extends EPackage
   int INVOCATION__FUNC_NAME = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Args</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INVOCATION__ARGS = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
    * The number of structural features of the '<em>Invocation</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int INVOCATION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
+  int INVOCATION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.FunctionsImpl <em>Functions</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.FunctionsImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getFunctions()
+   * @generated
+   */
+  int FUNCTIONS = 20;
+
+  /**
+   * The number of structural features of the '<em>Functions</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FUNCTIONS_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.ComputationImpl <em>Computation</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.ComputationImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getComputation()
+   * @generated
+   */
+  int COMPUTATION = 21;
+
+  /**
+   * The number of structural features of the '<em>Computation</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPUTATION_FEATURE_COUNT = FUNCTIONS_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.MultiplicationImpl <em>Multiplication</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.MultiplicationImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getMultiplication()
+   * @generated
+   */
+  int MULTIPLICATION = 22;
+
+  /**
+   * The feature id for the '<em><b>X</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MULTIPLICATION__X = COMPUTATION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Y</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MULTIPLICATION__Y = COMPUTATION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Multiplication</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MULTIPLICATION_FEATURE_COUNT = COMPUTATION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.MedianImpl <em>Median</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.MedianImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getMedian()
+   * @generated
+   */
+  int MEDIAN = 23;
+
+  /**
+   * The feature id for the '<em><b>Array</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MEDIAN__ARRAY = COMPUTATION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Median</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MEDIAN_FEATURE_COUNT = COMPUTATION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.WeightedAvgImpl <em>Weighted Avg</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.WeightedAvgImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getWeightedAvg()
+   * @generated
+   */
+  int WEIGHTED_AVG = 24;
+
+  /**
+   * The feature id for the '<em><b>Weights</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WEIGHTED_AVG__WEIGHTS = COMPUTATION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Elems</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WEIGHTED_AVG__ELEMS = COMPUTATION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Weighted Avg</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WEIGHTED_AVG_FEATURE_COUNT = COMPUTATION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.AverageImpl <em>Average</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.AverageImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getAverage()
+   * @generated
+   */
+  int AVERAGE = 25;
+
+  /**
+   * The feature id for the '<em><b>Array</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AVERAGE__ARRAY = COMPUTATION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Average</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AVERAGE_FEATURE_COUNT = COMPUTATION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.CountImpl <em>Count</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.CountImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getCount()
+   * @generated
+   */
+  int COUNT = 26;
+
+  /**
+   * The feature id for the '<em><b>Array</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COUNT__ARRAY = COMPUTATION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Count</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COUNT_FEATURE_COUNT = COMPUTATION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.AccessControlImpl <em>Access Control</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.AccessControlImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getAccessControl()
+   * @generated
+   */
+  int ACCESS_CONTROL = 27;
+
+  /**
+   * The feature id for the '<em><b>Clvls</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ACCESS_CONTROL__CLVLS = FUNCTIONS_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Vlvl</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ACCESS_CONTROL__VLVL = FUNCTIONS_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Access Control</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ACCESS_CONTROL_FEATURE_COUNT = FUNCTIONS_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.BellLapadulaImpl <em>Bell Lapadula</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.BellLapadulaImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getBellLapadula()
+   * @generated
+   */
+  int BELL_LAPADULA = 28;
+
+  /**
+   * The feature id for the '<em><b>Clvls</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BELL_LAPADULA__CLVLS = ACCESS_CONTROL__CLVLS;
+
+  /**
+   * The feature id for the '<em><b>Vlvl</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BELL_LAPADULA__VLVL = ACCESS_CONTROL__VLVL;
+
+  /**
+   * The feature id for the '<em><b>Cur</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BELL_LAPADULA__CUR = ACCESS_CONTROL_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Mode</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BELL_LAPADULA__MODE = ACCESS_CONTROL_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Bell Lapadula</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BELL_LAPADULA_FEATURE_COUNT = ACCESS_CONTROL_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.CoveredImpl <em>Covered</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.CoveredImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getCovered()
+   * @generated
+   */
+  int COVERED = 29;
+
+  /**
+   * The feature id for the '<em><b>Clvls</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COVERED__CLVLS = ACCESS_CONTROL__CLVLS;
+
+  /**
+   * The feature id for the '<em><b>Vlvl</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COVERED__VLVL = ACCESS_CONTROL__VLVL;
+
+  /**
+   * The feature id for the '<em><b>Match</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COVERED__MATCH = ACCESS_CONTROL_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Covered</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COVERED__COVERED = ACCESS_CONTROL_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Covered</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COVERED_FEATURE_COUNT = ACCESS_CONTROL_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.SearchImpl <em>Search</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.SearchImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getSearch()
+   * @generated
+   */
+  int SEARCH = 30;
+
+  /**
+   * The feature id for the '<em><b>Tblname</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SEARCH__TBLNAME = FUNCTIONS_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Column</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SEARCH__COLUMN = FUNCTIONS_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Keyword</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SEARCH__KEYWORD = FUNCTIONS_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Search</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SEARCH_FEATURE_COUNT = FUNCTIONS_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.BloomFilterImpl <em>Bloom Filter</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.BloomFilterImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getBloomFilter()
+   * @generated
+   */
+  int BLOOM_FILTER = 31;
+
+  /**
+   * The feature id for the '<em><b>Pre</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BLOOM_FILTER__PRE = FUNCTIONS_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Post</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BLOOM_FILTER__POST = FUNCTIONS_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Bloom Filter</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BLOOM_FILTER_FEATURE_COUNT = FUNCTIONS_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.CheckTableImpl <em>Check Table</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.CheckTableImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getCheckTable()
+   * @generated
+   */
+  int CHECK_TABLE = 32;
+
+  /**
+   * The feature id for the '<em><b>Tblname</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CHECK_TABLE__TBLNAME = FUNCTIONS_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Check Table</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CHECK_TABLE_FEATURE_COUNT = FUNCTIONS_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.AddValuesImpl <em>Add Values</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.AddValuesImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getAddValues()
+   * @generated
+   */
+  int ADD_VALUES = 33;
+
+  /**
+   * The feature id for the '<em><b>Tblname</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ADD_VALUES__TBLNAME = FUNCTIONS_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Args</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ADD_VALUES__ARGS = FUNCTIONS_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Add Values</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ADD_VALUES_FEATURE_COUNT = FUNCTIONS_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.CreateTableImpl <em>Create Table</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.CreateTableImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getCreateTable()
+   * @generated
+   */
+  int CREATE_TABLE = 34;
+
+  /**
+   * The feature id for the '<em><b>Tblname</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CREATE_TABLE__TBLNAME = FUNCTIONS_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Params</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CREATE_TABLE__PARAMS = FUNCTIONS_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Create Table</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CREATE_TABLE_FEATURE_COUNT = FUNCTIONS_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.ReturnImpl <em>Return</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see soton.cyber.smcaas.smc.smc.impl.ReturnImpl
+   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getReturn()
+   * @generated
+   */
+  int RETURN = 35;
+
+  /**
+   * The number of structural features of the '<em>Return</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RETURN_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.impl.BlockImpl <em>Block</em>}' class.
@@ -696,7 +1299,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getBlock()
    * @generated
    */
-  int BLOCK = 18;
+  int BLOCK = 36;
 
   /**
    * The feature id for the '<em><b>Commands</b></em>' containment reference list.
@@ -724,7 +1327,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getOr()
    * @generated
    */
-  int OR = 19;
+  int OR = 37;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -761,7 +1364,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getAnd()
    * @generated
    */
-  int AND = 20;
+  int AND = 38;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -798,7 +1401,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getEquality()
    * @generated
    */
-  int EQUALITY = 21;
+  int EQUALITY = 39;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -844,7 +1447,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getComparison()
    * @generated
    */
-  int COMPARISON = 22;
+  int COMPARISON = 40;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -890,7 +1493,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getPlusOrMinus()
    * @generated
    */
-  int PLUS_OR_MINUS = 23;
+  int PLUS_OR_MINUS = 41;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -936,7 +1539,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getMulOrDiv()
    * @generated
    */
-  int MUL_OR_DIV = 24;
+  int MUL_OR_DIV = 42;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -982,7 +1585,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getNot()
    * @generated
    */
-  int NOT = 25;
+  int NOT = 43;
 
   /**
    * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -1010,7 +1613,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getIntLiteral()
    * @generated
    */
-  int INT_LITERAL = 26;
+  int INT_LITERAL = 44;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1038,7 +1641,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getDoubleLiteral()
    * @generated
    */
-  int DOUBLE_LITERAL = 27;
+  int DOUBLE_LITERAL = 45;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1066,7 +1669,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getBooleanLiteral()
    * @generated
    */
-  int BOOLEAN_LITERAL = 28;
+  int BOOLEAN_LITERAL = 46;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1094,7 +1697,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getStringLiteral()
    * @generated
    */
-  int STRING_LITERAL = 29;
+  int STRING_LITERAL = 47;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1122,7 +1725,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getDateLiteral()
    * @generated
    */
-  int DATE_LITERAL = 30;
+  int DATE_LITERAL = 48;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1150,7 +1753,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getTimeLiteral()
    * @generated
    */
-  int TIME_LITERAL = 31;
+  int TIME_LITERAL = 49;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1178,7 +1781,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getVariableRef()
    * @generated
    */
-  int VARIABLE_REF = 32;
+  int VARIABLE_REF = 50;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -1206,7 +1809,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getBlockType()
    * @generated
    */
-  int BLOCK_TYPE = 33;
+  int BLOCK_TYPE = 51;
 
   /**
    * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.SecType <em>Sec Type</em>}' enum.
@@ -1216,7 +1819,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getSecType()
    * @generated
    */
-  int SEC_TYPE = 34;
+  int SEC_TYPE = 52;
 
   /**
    * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.BasicType <em>Basic Type</em>}' enum.
@@ -1226,17 +1829,7 @@ public interface SmcPackage extends EPackage
    * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getBasicType()
    * @generated
    */
-  int BASIC_TYPE = 35;
-
-  /**
-   * The meta object id for the '{@link soton.cyber.smcaas.smc.smc.Functions <em>Functions</em>}' enum.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see soton.cyber.smcaas.smc.smc.Functions
-   * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getFunctions()
-   * @generated
-   */
-  int FUNCTIONS = 36;
+  int BASIC_TYPE = 53;
 
 
   /**
@@ -1549,6 +2142,17 @@ public interface SmcPackage extends EPackage
   EAttribute getVariableDecl_Array();
 
   /**
+   * Returns the meta object for the attribute '{@link soton.cyber.smcaas.smc.smc.VariableDecl#getLength <em>Length</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Length</em>'.
+   * @see soton.cyber.smcaas.smc.smc.VariableDecl#getLength()
+   * @see #getVariableDecl()
+   * @generated
+   */
+  EAttribute getVariableDecl_Length();
+
+  /**
    * Returns the meta object for the attribute '{@link soton.cyber.smcaas.smc.smc.VariableDecl#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1623,15 +2227,57 @@ public interface SmcPackage extends EPackage
   EClass getDownload();
 
   /**
-   * Returns the meta object for the attribute '{@link soton.cyber.smcaas.smc.smc.Download#getArg <em>Arg</em>}'.
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.Database <em>Database</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Database</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Database
+   * @generated
+   */
+  EClass getDatabase();
+
+  /**
+   * Returns the meta object for the containment reference '{@link soton.cyber.smcaas.smc.smc.Database#getTbl <em>Tbl</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Tbl</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Database#getTbl()
+   * @see #getDatabase()
+   * @generated
+   */
+  EReference getDatabase_Tbl();
+
+  /**
+   * Returns the meta object for the attribute '{@link soton.cyber.smcaas.smc.smc.Database#getClm <em>Clm</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Clm</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Database#getClm()
+   * @see #getDatabase()
+   * @generated
+   */
+  EAttribute getDatabase_Clm();
+
+  /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.Client <em>Client</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Client</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Client
+   * @generated
+   */
+  EClass getClient();
+
+  /**
+   * Returns the meta object for the attribute '{@link soton.cyber.smcaas.smc.smc.Client#getArg <em>Arg</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Arg</em>'.
-   * @see soton.cyber.smcaas.smc.smc.Download#getArg()
-   * @see #getDownload()
+   * @see soton.cyber.smcaas.smc.smc.Client#getArg()
+   * @see #getClient()
    * @generated
    */
-  EAttribute getDownload_Arg();
+  EAttribute getClient_Arg();
 
   /**
    * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.Expression <em>Expression</em>}'.
@@ -1654,10 +2300,10 @@ public interface SmcPackage extends EPackage
   EClass getTuple();
 
   /**
-   * Returns the meta object for the containment reference list '{@link soton.cyber.smcaas.smc.smc.Tuple#getArg1 <em>Arg1</em>}'.
+   * Returns the meta object for the containment reference '{@link soton.cyber.smcaas.smc.smc.Tuple#getArg1 <em>Arg1</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Arg1</em>'.
+   * @return the meta object for the containment reference '<em>Arg1</em>'.
    * @see soton.cyber.smcaas.smc.smc.Tuple#getArg1()
    * @see #getTuple()
    * @generated
@@ -1665,10 +2311,10 @@ public interface SmcPackage extends EPackage
   EReference getTuple_Arg1();
 
   /**
-   * Returns the meta object for the containment reference list '{@link soton.cyber.smcaas.smc.smc.Tuple#getArg2 <em>Arg2</em>}'.
+   * Returns the meta object for the containment reference '{@link soton.cyber.smcaas.smc.smc.Tuple#getArg2 <em>Arg2</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Arg2</em>'.
+   * @return the meta object for the containment reference '<em>Arg2</em>'.
    * @see soton.cyber.smcaas.smc.smc.Tuple#getArg2()
    * @see #getTuple()
    * @generated
@@ -1707,10 +2353,10 @@ public interface SmcPackage extends EPackage
   EClass getDict();
 
   /**
-   * Returns the meta object for the containment reference list '{@link soton.cyber.smcaas.smc.smc.Dict#getKey <em>Key</em>}'.
+   * Returns the meta object for the containment reference '{@link soton.cyber.smcaas.smc.smc.Dict#getKey <em>Key</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Key</em>'.
+   * @return the meta object for the containment reference '<em>Key</em>'.
    * @see soton.cyber.smcaas.smc.smc.Dict#getKey()
    * @see #getDict()
    * @generated
@@ -1750,26 +2396,428 @@ public interface SmcPackage extends EPackage
   EReference getInvocation_BlockName();
 
   /**
-   * Returns the meta object for the attribute '{@link soton.cyber.smcaas.smc.smc.Invocation#getFuncName <em>Func Name</em>}'.
+   * Returns the meta object for the containment reference '{@link soton.cyber.smcaas.smc.smc.Invocation#getFuncName <em>Func Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Func Name</em>'.
+   * @return the meta object for the containment reference '<em>Func Name</em>'.
    * @see soton.cyber.smcaas.smc.smc.Invocation#getFuncName()
    * @see #getInvocation()
    * @generated
    */
-  EAttribute getInvocation_FuncName();
+  EReference getInvocation_FuncName();
 
   /**
-   * Returns the meta object for the reference list '{@link soton.cyber.smcaas.smc.smc.Invocation#getArgs <em>Args</em>}'.
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.Functions <em>Functions</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Functions</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Functions
+   * @generated
+   */
+  EClass getFunctions();
+
+  /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.Computation <em>Computation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Computation</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Computation
+   * @generated
+   */
+  EClass getComputation();
+
+  /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.Multiplication <em>Multiplication</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Multiplication</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Multiplication
+   * @generated
+   */
+  EClass getMultiplication();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.Multiplication#getX <em>X</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>X</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Multiplication#getX()
+   * @see #getMultiplication()
+   * @generated
+   */
+  EReference getMultiplication_X();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.Multiplication#getY <em>Y</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Y</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Multiplication#getY()
+   * @see #getMultiplication()
+   * @generated
+   */
+  EReference getMultiplication_Y();
+
+  /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.Median <em>Median</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Median</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Median
+   * @generated
+   */
+  EClass getMedian();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.Median#getArray <em>Array</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Array</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Median#getArray()
+   * @see #getMedian()
+   * @generated
+   */
+  EReference getMedian_Array();
+
+  /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.WeightedAvg <em>Weighted Avg</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Weighted Avg</em>'.
+   * @see soton.cyber.smcaas.smc.smc.WeightedAvg
+   * @generated
+   */
+  EClass getWeightedAvg();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.WeightedAvg#getWeights <em>Weights</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Weights</em>'.
+   * @see soton.cyber.smcaas.smc.smc.WeightedAvg#getWeights()
+   * @see #getWeightedAvg()
+   * @generated
+   */
+  EReference getWeightedAvg_Weights();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.WeightedAvg#getElems <em>Elems</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Elems</em>'.
+   * @see soton.cyber.smcaas.smc.smc.WeightedAvg#getElems()
+   * @see #getWeightedAvg()
+   * @generated
+   */
+  EReference getWeightedAvg_Elems();
+
+  /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.Average <em>Average</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Average</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Average
+   * @generated
+   */
+  EClass getAverage();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.Average#getArray <em>Array</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Array</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Average#getArray()
+   * @see #getAverage()
+   * @generated
+   */
+  EReference getAverage_Array();
+
+  /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.Count <em>Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Count</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Count
+   * @generated
+   */
+  EClass getCount();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.Count#getArray <em>Array</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Array</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Count#getArray()
+   * @see #getCount()
+   * @generated
+   */
+  EReference getCount_Array();
+
+  /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.AccessControl <em>Access Control</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Access Control</em>'.
+   * @see soton.cyber.smcaas.smc.smc.AccessControl
+   * @generated
+   */
+  EClass getAccessControl();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.AccessControl#getC_lvls <em>Clvls</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Clvls</em>'.
+   * @see soton.cyber.smcaas.smc.smc.AccessControl#getC_lvls()
+   * @see #getAccessControl()
+   * @generated
+   */
+  EReference getAccessControl_C_lvls();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.AccessControl#getV_lvl <em>Vlvl</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Vlvl</em>'.
+   * @see soton.cyber.smcaas.smc.smc.AccessControl#getV_lvl()
+   * @see #getAccessControl()
+   * @generated
+   */
+  EReference getAccessControl_V_lvl();
+
+  /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.BellLapadula <em>Bell Lapadula</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Bell Lapadula</em>'.
+   * @see soton.cyber.smcaas.smc.smc.BellLapadula
+   * @generated
+   */
+  EClass getBellLapadula();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.BellLapadula#getCur <em>Cur</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Cur</em>'.
+   * @see soton.cyber.smcaas.smc.smc.BellLapadula#getCur()
+   * @see #getBellLapadula()
+   * @generated
+   */
+  EReference getBellLapadula_Cur();
+
+  /**
+   * Returns the meta object for the attribute '{@link soton.cyber.smcaas.smc.smc.BellLapadula#getMode <em>Mode</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Mode</em>'.
+   * @see soton.cyber.smcaas.smc.smc.BellLapadula#getMode()
+   * @see #getBellLapadula()
+   * @generated
+   */
+  EAttribute getBellLapadula_Mode();
+
+  /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.Covered <em>Covered</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Covered</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Covered
+   * @generated
+   */
+  EClass getCovered();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.Covered#getMatch <em>Match</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Match</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Covered#getMatch()
+   * @see #getCovered()
+   * @generated
+   */
+  EReference getCovered_Match();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.Covered#getCovered <em>Covered</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Covered</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Covered#getCovered()
+   * @see #getCovered()
+   * @generated
+   */
+  EReference getCovered_Covered();
+
+  /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.Search <em>Search</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Search</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Search
+   * @generated
+   */
+  EClass getSearch();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.Search#getTblname <em>Tblname</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Tblname</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Search#getTblname()
+   * @see #getSearch()
+   * @generated
+   */
+  EReference getSearch_Tblname();
+
+  /**
+   * Returns the meta object for the attribute '{@link soton.cyber.smcaas.smc.smc.Search#getColumn <em>Column</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Column</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Search#getColumn()
+   * @see #getSearch()
+   * @generated
+   */
+  EAttribute getSearch_Column();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.Search#getKeyword <em>Keyword</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Keyword</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Search#getKeyword()
+   * @see #getSearch()
+   * @generated
+   */
+  EReference getSearch_Keyword();
+
+  /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.BloomFilter <em>Bloom Filter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Bloom Filter</em>'.
+   * @see soton.cyber.smcaas.smc.smc.BloomFilter
+   * @generated
+   */
+  EClass getBloomFilter();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.BloomFilter#getPre <em>Pre</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Pre</em>'.
+   * @see soton.cyber.smcaas.smc.smc.BloomFilter#getPre()
+   * @see #getBloomFilter()
+   * @generated
+   */
+  EReference getBloomFilter_Pre();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.BloomFilter#getPost <em>Post</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Post</em>'.
+   * @see soton.cyber.smcaas.smc.smc.BloomFilter#getPost()
+   * @see #getBloomFilter()
+   * @generated
+   */
+  EReference getBloomFilter_Post();
+
+  /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.CheckTable <em>Check Table</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Check Table</em>'.
+   * @see soton.cyber.smcaas.smc.smc.CheckTable
+   * @generated
+   */
+  EClass getCheckTable();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.CheckTable#getTblname <em>Tblname</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Tblname</em>'.
+   * @see soton.cyber.smcaas.smc.smc.CheckTable#getTblname()
+   * @see #getCheckTable()
+   * @generated
+   */
+  EReference getCheckTable_Tblname();
+
+  /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.AddValues <em>Add Values</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Add Values</em>'.
+   * @see soton.cyber.smcaas.smc.smc.AddValues
+   * @generated
+   */
+  EClass getAddValues();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.AddValues#getTblname <em>Tblname</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Tblname</em>'.
+   * @see soton.cyber.smcaas.smc.smc.AddValues#getTblname()
+   * @see #getAddValues()
+   * @generated
+   */
+  EReference getAddValues_Tblname();
+
+  /**
+   * Returns the meta object for the reference list '{@link soton.cyber.smcaas.smc.smc.AddValues#getArgs <em>Args</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference list '<em>Args</em>'.
-   * @see soton.cyber.smcaas.smc.smc.Invocation#getArgs()
-   * @see #getInvocation()
+   * @see soton.cyber.smcaas.smc.smc.AddValues#getArgs()
+   * @see #getAddValues()
    * @generated
    */
-  EReference getInvocation_Args();
+  EReference getAddValues_Args();
+
+  /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.CreateTable <em>Create Table</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Create Table</em>'.
+   * @see soton.cyber.smcaas.smc.smc.CreateTable
+   * @generated
+   */
+  EClass getCreateTable();
+
+  /**
+   * Returns the meta object for the reference '{@link soton.cyber.smcaas.smc.smc.CreateTable#getTblname <em>Tblname</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Tblname</em>'.
+   * @see soton.cyber.smcaas.smc.smc.CreateTable#getTblname()
+   * @see #getCreateTable()
+   * @generated
+   */
+  EReference getCreateTable_Tblname();
+
+  /**
+   * Returns the meta object for the reference list '{@link soton.cyber.smcaas.smc.smc.CreateTable#getParams <em>Params</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Params</em>'.
+   * @see soton.cyber.smcaas.smc.smc.CreateTable#getParams()
+   * @see #getCreateTable()
+   * @generated
+   */
+  EReference getCreateTable_Params();
+
+  /**
+   * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.Return <em>Return</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Return</em>'.
+   * @see soton.cyber.smcaas.smc.smc.Return
+   * @generated
+   */
+  EClass getReturn();
 
   /**
    * Returns the meta object for class '{@link soton.cyber.smcaas.smc.smc.Block <em>Block</em>}'.
@@ -2227,16 +3275,6 @@ public interface SmcPackage extends EPackage
   EEnum getBasicType();
 
   /**
-   * Returns the meta object for enum '{@link soton.cyber.smcaas.smc.smc.Functions <em>Functions</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for enum '<em>Functions</em>'.
-   * @see soton.cyber.smcaas.smc.smc.Functions
-   * @generated
-   */
-  EEnum getFunctions();
-
-  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2512,6 +3550,14 @@ public interface SmcPackage extends EPackage
     EAttribute VARIABLE_DECL__ARRAY = eINSTANCE.getVariableDecl_Array();
 
     /**
+     * The meta object literal for the '<em><b>Length</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VARIABLE_DECL__LENGTH = eINSTANCE.getVariableDecl_Length();
+
+    /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2574,12 +3620,48 @@ public interface SmcPackage extends EPackage
     EClass DOWNLOAD = eINSTANCE.getDownload();
 
     /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.DatabaseImpl <em>Database</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.DatabaseImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getDatabase()
+     * @generated
+     */
+    EClass DATABASE = eINSTANCE.getDatabase();
+
+    /**
+     * The meta object literal for the '<em><b>Tbl</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DATABASE__TBL = eINSTANCE.getDatabase_Tbl();
+
+    /**
+     * The meta object literal for the '<em><b>Clm</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DATABASE__CLM = eINSTANCE.getDatabase_Clm();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.ClientImpl <em>Client</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.ClientImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getClient()
+     * @generated
+     */
+    EClass CLIENT = eINSTANCE.getClient();
+
+    /**
      * The meta object literal for the '<em><b>Arg</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute DOWNLOAD__ARG = eINSTANCE.getDownload_Arg();
+    EAttribute CLIENT__ARG = eINSTANCE.getClient_Arg();
 
     /**
      * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.ExpressionImpl <em>Expression</em>}' class.
@@ -2602,7 +3684,7 @@ public interface SmcPackage extends EPackage
     EClass TUPLE = eINSTANCE.getTuple();
 
     /**
-     * The meta object literal for the '<em><b>Arg1</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Arg1</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2610,7 +3692,7 @@ public interface SmcPackage extends EPackage
     EReference TUPLE__ARG1 = eINSTANCE.getTuple_Arg1();
 
     /**
-     * The meta object literal for the '<em><b>Arg2</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Arg2</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2646,7 +3728,7 @@ public interface SmcPackage extends EPackage
     EClass DICT = eINSTANCE.getDict();
 
     /**
-     * The meta object literal for the '<em><b>Key</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Key</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2680,12 +3762,312 @@ public interface SmcPackage extends EPackage
     EReference INVOCATION__BLOCK_NAME = eINSTANCE.getInvocation_BlockName();
 
     /**
-     * The meta object literal for the '<em><b>Func Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Func Name</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute INVOCATION__FUNC_NAME = eINSTANCE.getInvocation_FuncName();
+    EReference INVOCATION__FUNC_NAME = eINSTANCE.getInvocation_FuncName();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.FunctionsImpl <em>Functions</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.FunctionsImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getFunctions()
+     * @generated
+     */
+    EClass FUNCTIONS = eINSTANCE.getFunctions();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.ComputationImpl <em>Computation</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.ComputationImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getComputation()
+     * @generated
+     */
+    EClass COMPUTATION = eINSTANCE.getComputation();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.MultiplicationImpl <em>Multiplication</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.MultiplicationImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getMultiplication()
+     * @generated
+     */
+    EClass MULTIPLICATION = eINSTANCE.getMultiplication();
+
+    /**
+     * The meta object literal for the '<em><b>X</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MULTIPLICATION__X = eINSTANCE.getMultiplication_X();
+
+    /**
+     * The meta object literal for the '<em><b>Y</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MULTIPLICATION__Y = eINSTANCE.getMultiplication_Y();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.MedianImpl <em>Median</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.MedianImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getMedian()
+     * @generated
+     */
+    EClass MEDIAN = eINSTANCE.getMedian();
+
+    /**
+     * The meta object literal for the '<em><b>Array</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MEDIAN__ARRAY = eINSTANCE.getMedian_Array();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.WeightedAvgImpl <em>Weighted Avg</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.WeightedAvgImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getWeightedAvg()
+     * @generated
+     */
+    EClass WEIGHTED_AVG = eINSTANCE.getWeightedAvg();
+
+    /**
+     * The meta object literal for the '<em><b>Weights</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference WEIGHTED_AVG__WEIGHTS = eINSTANCE.getWeightedAvg_Weights();
+
+    /**
+     * The meta object literal for the '<em><b>Elems</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference WEIGHTED_AVG__ELEMS = eINSTANCE.getWeightedAvg_Elems();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.AverageImpl <em>Average</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.AverageImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getAverage()
+     * @generated
+     */
+    EClass AVERAGE = eINSTANCE.getAverage();
+
+    /**
+     * The meta object literal for the '<em><b>Array</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AVERAGE__ARRAY = eINSTANCE.getAverage_Array();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.CountImpl <em>Count</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.CountImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getCount()
+     * @generated
+     */
+    EClass COUNT = eINSTANCE.getCount();
+
+    /**
+     * The meta object literal for the '<em><b>Array</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference COUNT__ARRAY = eINSTANCE.getCount_Array();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.AccessControlImpl <em>Access Control</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.AccessControlImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getAccessControl()
+     * @generated
+     */
+    EClass ACCESS_CONTROL = eINSTANCE.getAccessControl();
+
+    /**
+     * The meta object literal for the '<em><b>Clvls</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ACCESS_CONTROL__CLVLS = eINSTANCE.getAccessControl_C_lvls();
+
+    /**
+     * The meta object literal for the '<em><b>Vlvl</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ACCESS_CONTROL__VLVL = eINSTANCE.getAccessControl_V_lvl();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.BellLapadulaImpl <em>Bell Lapadula</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.BellLapadulaImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getBellLapadula()
+     * @generated
+     */
+    EClass BELL_LAPADULA = eINSTANCE.getBellLapadula();
+
+    /**
+     * The meta object literal for the '<em><b>Cur</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BELL_LAPADULA__CUR = eINSTANCE.getBellLapadula_Cur();
+
+    /**
+     * The meta object literal for the '<em><b>Mode</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute BELL_LAPADULA__MODE = eINSTANCE.getBellLapadula_Mode();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.CoveredImpl <em>Covered</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.CoveredImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getCovered()
+     * @generated
+     */
+    EClass COVERED = eINSTANCE.getCovered();
+
+    /**
+     * The meta object literal for the '<em><b>Match</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference COVERED__MATCH = eINSTANCE.getCovered_Match();
+
+    /**
+     * The meta object literal for the '<em><b>Covered</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference COVERED__COVERED = eINSTANCE.getCovered_Covered();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.SearchImpl <em>Search</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.SearchImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getSearch()
+     * @generated
+     */
+    EClass SEARCH = eINSTANCE.getSearch();
+
+    /**
+     * The meta object literal for the '<em><b>Tblname</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SEARCH__TBLNAME = eINSTANCE.getSearch_Tblname();
+
+    /**
+     * The meta object literal for the '<em><b>Column</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SEARCH__COLUMN = eINSTANCE.getSearch_Column();
+
+    /**
+     * The meta object literal for the '<em><b>Keyword</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SEARCH__KEYWORD = eINSTANCE.getSearch_Keyword();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.BloomFilterImpl <em>Bloom Filter</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.BloomFilterImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getBloomFilter()
+     * @generated
+     */
+    EClass BLOOM_FILTER = eINSTANCE.getBloomFilter();
+
+    /**
+     * The meta object literal for the '<em><b>Pre</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BLOOM_FILTER__PRE = eINSTANCE.getBloomFilter_Pre();
+
+    /**
+     * The meta object literal for the '<em><b>Post</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BLOOM_FILTER__POST = eINSTANCE.getBloomFilter_Post();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.CheckTableImpl <em>Check Table</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.CheckTableImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getCheckTable()
+     * @generated
+     */
+    EClass CHECK_TABLE = eINSTANCE.getCheckTable();
+
+    /**
+     * The meta object literal for the '<em><b>Tblname</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CHECK_TABLE__TBLNAME = eINSTANCE.getCheckTable_Tblname();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.AddValuesImpl <em>Add Values</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.AddValuesImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getAddValues()
+     * @generated
+     */
+    EClass ADD_VALUES = eINSTANCE.getAddValues();
+
+    /**
+     * The meta object literal for the '<em><b>Tblname</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ADD_VALUES__TBLNAME = eINSTANCE.getAddValues_Tblname();
 
     /**
      * The meta object literal for the '<em><b>Args</b></em>' reference list feature.
@@ -2693,7 +4075,43 @@ public interface SmcPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference INVOCATION__ARGS = eINSTANCE.getInvocation_Args();
+    EReference ADD_VALUES__ARGS = eINSTANCE.getAddValues_Args();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.CreateTableImpl <em>Create Table</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.CreateTableImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getCreateTable()
+     * @generated
+     */
+    EClass CREATE_TABLE = eINSTANCE.getCreateTable();
+
+    /**
+     * The meta object literal for the '<em><b>Tblname</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CREATE_TABLE__TBLNAME = eINSTANCE.getCreateTable_Tblname();
+
+    /**
+     * The meta object literal for the '<em><b>Params</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CREATE_TABLE__PARAMS = eINSTANCE.getCreateTable_Params();
+
+    /**
+     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.ReturnImpl <em>Return</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see soton.cyber.smcaas.smc.smc.impl.ReturnImpl
+     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getReturn()
+     * @generated
+     */
+    EClass RETURN = eINSTANCE.getReturn();
 
     /**
      * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.impl.BlockImpl <em>Block</em>}' class.
@@ -3074,16 +4492,6 @@ public interface SmcPackage extends EPackage
      * @generated
      */
     EEnum BASIC_TYPE = eINSTANCE.getBasicType();
-
-    /**
-     * The meta object literal for the '{@link soton.cyber.smcaas.smc.smc.Functions <em>Functions</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see soton.cyber.smcaas.smc.smc.Functions
-     * @see soton.cyber.smcaas.smc.smc.impl.SmcPackageImpl#getFunctions()
-     * @generated
-     */
-    EEnum FUNCTIONS = eINSTANCE.getFunctions();
 
   }
 

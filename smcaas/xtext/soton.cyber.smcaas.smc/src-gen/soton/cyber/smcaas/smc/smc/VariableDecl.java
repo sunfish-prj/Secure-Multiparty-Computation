@@ -16,6 +16,7 @@ package soton.cyber.smcaas.smc.smc;
  *   <li>{@link soton.cyber.smcaas.smc.smc.VariableDecl#getVisibility <em>Visibility</em>}</li>
  *   <li>{@link soton.cyber.smcaas.smc.smc.VariableDecl#getType <em>Type</em>}</li>
  *   <li>{@link soton.cyber.smcaas.smc.smc.VariableDecl#isArray <em>Array</em>}</li>
+ *   <li>{@link soton.cyber.smcaas.smc.smc.VariableDecl#getLength <em>Length</em>}</li>
  *   <li>{@link soton.cyber.smcaas.smc.smc.VariableDecl#getName <em>Name</em>}</li>
  *   <li>{@link soton.cyber.smcaas.smc.smc.VariableDecl#getOption <em>Option</em>}</li>
  * </ul>
@@ -109,6 +110,32 @@ public interface VariableDecl extends Command
    * @generated
    */
   void setArray(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Length</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Length</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Length</em>' attribute.
+   * @see #setLength(int)
+   * @see soton.cyber.smcaas.smc.smc.SmcPackage#getVariableDecl_Length()
+   * @model
+   * @generated
+   */
+  int getLength();
+
+  /**
+   * Sets the value of the '{@link soton.cyber.smcaas.smc.smc.VariableDecl#getLength <em>Length</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Length</em>' attribute.
+   * @see #getLength()
+   * @generated
+   */
+  void setLength(int value);
 
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.

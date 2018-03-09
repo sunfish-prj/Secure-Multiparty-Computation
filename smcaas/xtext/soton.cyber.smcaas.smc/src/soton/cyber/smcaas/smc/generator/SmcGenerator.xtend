@@ -43,6 +43,23 @@ import soton.cyber.smcaas.smc.smc.AbstractAssignment
 import soton.cyber.smcaas.smc.smc.Download
 import soton.cyber.smcaas.smc.smc.Tuple
 import soton.cyber.smcaas.smc.smc.Dict
+import soton.cyber.smcaas.smc.smc.CreateTable
+import soton.cyber.smcaas.smc.smc.AddValues
+import soton.cyber.smcaas.smc.smc.BloomFilter
+import soton.cyber.smcaas.smc.smc.Search
+import soton.cyber.smcaas.smc.smc.AccessControl
+import soton.cyber.smcaas.smc.smc.Database
+import soton.cyber.smcaas.smc.smc.Client
+import soton.cyber.smcaas.smc.smc.CheckTable
+import soton.cyber.smcaas.smc.smc.Return
+import soton.cyber.smcaas.smc.smc.Covered
+import soton.cyber.smcaas.smc.smc.BellLapadula
+import soton.cyber.smcaas.smc.smc.Computation
+import soton.cyber.smcaas.smc.smc.Count
+import soton.cyber.smcaas.smc.smc.Average
+import soton.cyber.smcaas.smc.smc.WeightedAvg
+import soton.cyber.smcaas.smc.smc.Median
+import soton.cyber.smcaas.smc.smc.Multiplication
 
 /**
  * Generates code from your model files on save.
@@ -65,6 +82,7 @@ class SmcGenerator extends AbstractGenerator {
 		import shared3p_bloom;
 		import shared3p_random;
 		import shared3p_aes;
+		import shared3p_sort;
 		
 		domain pd_shared3p shared3p;
 		
@@ -74,63 +92,241 @@ class SmcGenerator extends AbstractGenerator {
 		
 		«IF smc.main !== null»«smc.main.compile»«ENDIF»
 	'''
-		
+	
+	/*** blocks ***/
+	
 	def compile(BlockSMC block)'''
 		«switch (block.type) {
 			case INSERT: {
 				''''''
 			}
 			case COMP: {
-				'''comp - TO ADD MODULE'''
+				'''
+				// Sums all elements of the input array
+				template <type T>
+				pd_shared3p T count(pd_shared3p T [[1]] x){
+				
+				    pd_shared3p T res;
+				
+				    uint64 n = size(x);
+				    for (uint64 i = 0; i < n; ++i) {
+				        res += x[i];
+				    }
+				
+				    return res;
+				}
+				
+				// Calculates the average on elements of an input array
+				template <type T>
+				pd_shared3p T avg(pd_shared3p T [[1]] x){
+				
+				    pd_shared3p T res;
+				    pd_shared3p T sum;
+				
+				    uint64 n = size(x);
+				
+				    sum = count(x);
+				
+				    T tot = (T) n;
+				    res = sum / tot;
+				
+				    return res;
+				}
+				
+				// Calculates the multiplication between two arrays
+				template <type T>
+				pd_shared3p T [[1]] multiplication(pd_shared3p T [[1]] x, pd_shared3p T [[1]] y){
+				
+				    assert(size(x) == size(y));
+				    uint64 n = size(x);
+				    pd_shared3p T [[1]] res (n);
+				
+				    res = x * y;
+				
+				    return res;
+				}
+				
+				// Calculates the weighted average on elements of an input array, with relative weights
+				template <type T>
+				pd_shared3p T weightedAvg(pd_shared3p T [[1]] weights, pd_shared3p T [[1]] elems){
+				
+				    pd_shared3p T res;
+				
+				    pd_shared3p T [[1]] mul = multiplication(weights, elems);
+				    pd_shared3p T sum = count(mul);
+				    pd_shared3p T tot = count(weights);
+				
+				    res = sum / tot;
+				
+				    return res;
+				}
+				
+				// Calculates the median on elements of an input array
+				template <type T>
+				pd_shared3p T median(pd_shared3p T [[1]] x){
+				
+				    pd_shared3p T res;
+				
+				    pd_shared3p T [[1]] sorted = sort(x);
+				    uint64 n = size(sorted);
+				    if((n % 2) == 0){
+				        // even
+				        uint64 pos1 = n/2;
+				        uint64 pos2 = (n/2)+1;
+				        uint64 apos1 = pos1 - 1;
+				        uint64 apos2 = pos2 - 1;
+				        pd_shared3p T v1 = sorted[apos1];
+				        pd_shared3p T v2 = sorted[apos2];
+				        pd_shared3p T [[1]] toBeAvg = {v1, v2};
+				        res = avg(toBeAvg);
+				    }else{
+				        // odd
+				        uint64 pos = (n+1)/2;
+				        uint64 apos = pos - 1;
+				        res = sorted[apos];
+				    }
+				
+				    return res;
+				}
+				'''
 			}
 			case SEARCH: {
-				'''search - TO ADD MODULE'''
+				'''
+				// Search function on keyword passed in input
+				pd_shared3p bool [[1]] search(string ds, string tbl, string clm, uint32[[1]] seed, pd_shared3p xor_uint64[[1]] keyword){
+					
+					uint numRows = tdbGetRowCount(ds, tbl);
+					
+					pd_shared3p bool[[1]] match (numRows);
+					
+					uint filterVmap = tdbReadColumn(ds, tbl, clm);
+					
+					for (uint i = 0; i < numRows; ++i) {
+					    print("Searching in document ", i);
+					    pd_shared3p bool[[1]] filter = tdbVmapGetVlenValue(filterVmap, "values", i);
+					    pd_shared3p bool[[1]] result = bloomQueryMany(keyword, filter, seed);
+					    matchingDocuments[i] = all(result);
+					}
+				
+				    return match;
+				}
+				
+				'''
 			}
 			case ANONYMIZATION: {
-				'''anon - TO ADD MODULE'''
+				'''anonymization - TO ADD MODULE'''
 			}
 			case ACCESS: {
-				'''access - TO ADD MODULE'''
+				'''
+				// Access control function on covered docs
+				pd_shared3p bool [[1]] checkCovered(pd_shared3p bool [[1]] match, pd_shared3p bool [[1]] cov){
+				
+				    assert(size(match) == size(cov));
+				    uint64 n = size(match);
+				
+				    pd_shared3p bool [[1]] ac_flags (n);
+				
+				    ac_flags = !(cov);
+				
+				    return ac_flags;
+				}
+				
+				// Access control function on policy (for UC3)
+				pd_shared3p bool [[1]] checkPolicyUncovered(pd_shared3p bool [[1]] match, pd_shared3p bool [[1]] cov, pd_shared3p uint64 [[1]] c_lvls, pd_shared3p uint64 v_lvl){
+				
+				    pd_shared3p bool [[1]] ac_covered = checkCovered(match, cov);
+				
+				    assert(size(ac_covered) == size(c_lvls));
+				    uint64 n = size(ac_covered);
+				
+				    pd_shared3p bool [[1]] ac_policy (n);
+				
+				    ac_policy = (v_lvl >= c_lvls);
+				
+				    pd_shared3p bool [[1]] ac_final (n);
+				
+				    ac_final = (ac_covered & ac_policy);
+				
+				    return ac_final;
+				
+				}
+				
+				// Access control function on policy (Bell-LaPadula)
+				pd_shared3p bool [[1]] checkPolicyBLP_Simple(string mode, pd_shared3p uint64 [[1]] o_lvls, pd_shared3p uint64 s_lvl){
+				    uint64 n = size(o_lvls);
+				    pd_shared3p bool [[1]] ac_policy (n);
+				
+				    // simple security property (no-read-up)
+				    if(mode == "read"){
+				        ac_policy = (s_lvl >= o_lvls);
+				    }
+				    // star property (no-write-down)
+				    if(mode == "write"){
+				        ac_policy = (s_lvl <= o_lvls);
+				    }
+				    return ac_policy;
+				}
+				
+				// Access control function on policy (Bell-LaPadula)
+				pd_shared3p bool [[1]] checkPolicyBLP(string mode, pd_shared3p uint64 [[1]] o_lvls, pd_shared3p uint64 s_lvl){
+				    uint64 n = size(o_lvls);
+				    pd_shared3p bool [[1]] ac_policy (n);
+				    
+				    // simple security property (no-read-up)
+				    if(mode == "read"){
+				        ac_policy = (s_lvl >= o_lvls);
+				    }else{
+				        // star property (no-write-down)
+				        if(mode == "write"){
+				            ac_policy = (s_lvl == o_lvls);
+				        }
+				        if(mode == "append"){
+				            ac_policy = (s_lvl <= o_lvls);
+				        }
+				    }
+				
+				    return ac_policy;
+				}
+				
+				// Access control function on policy (Bell-LaPadula)
+				pd_shared3p bool [[1]] checkPolicyBLP(bool current, string mode, pd_shared3p uint64 [[1]] o_lvls, pd_shared3p uint64 s_lvl){
+				    uint64 n = size(o_lvls);
+				    pd_shared3p bool [[1]] ac_policy (n);
+				
+				    // each subject has a maximal level and a current level
+				
+				    // simple security property (no-read-up)
+				    if(mode == "read"){
+				        ac_policy = (s_lvl >= o_lvls);
+				    }
+				
+				    // star property (no-write-down)
+				    // IF subject-level is equal to current-level
+				    if(current){
+				        if(mode == "write"){
+				            ac_policy = (s_lvl == o_lvls);
+				        }
+				        if(mode == "append"){
+				            ac_policy = (s_lvl <= o_lvls);
+				        }
+				
+				    // OTHERWISE subject-level is equal to maximal-level
+				    }else{
+				        ac_policy = false;
+				    }
+				
+				    return ac_policy;
+				}
+				
+				'''
 			}
 			case PERMISSION: {
-				'''perm - TO ADD MODULE'''
+				'''permission release - TO ADD MODULE'''
 			}
 		}»
 	'''
 	
-	/* blocks */
-	
-	def addDataset()'''
-		void addDataset(string ds, string tbl, string [[1]] clm_names, pd_shared3p uint64 [[2]] values){
-		
-		  // First create table
-		  uint params = tdbVmapNew();
-		
-		  for (uint i = 0; i < size(clm_names); ++i) {
-		    pd_shared3p uint64 vtype;
-		    tdbVmapAddType(params, "types", vtype);
-		    tdbVmapAddString(params, "names", clm_names[i]);
-		  }
-		
-		  tdbTableCreate(ds, tbl, params);
-		
-		  // Then insert values into database:
-		  uint length = size(values) / size(clm_names);
-		  for (uint i = 0; i < length; ++i) {
-		
-		    tdbVmapClear(params);
-		
-		    for (uint j = 0; j < size(clm_names); ++j) {
-		      tdbVmapAddValue(params, "values", values[j]);
-		    }
-		
-		    tdbInsertRow(ds, tbl, params);
-		  }
-		  tdbVmapDelete(params);
-		
-		  return tbl;
-		}
-	'''
+	/*** main ***/
 	
 	def compile(MainSMC mainSmc)'''
 		void main() {
@@ -139,15 +335,22 @@ class SmcGenerator extends AbstractGenerator {
 			
 			tdbOpenConnection(ds);
 			
+			// Public seed. Has to be constant
+			uint32[[1]] seed = {0xdae60299, 0x9b23f811, 0xa58d3bc7, 0x84fc61a9, 0x7df76b0c};
+			
+			uint params = tdbVmapNew();
+			
 			«FOR c : mainSmc.commands»
 				«compileCommand(c)»
 			«ENDFOR»
+			
+			tdbVmapDelete(params);
 			
 			tdbCloseConnection(ds);
 		}
 	'''
 	
-	/* commands */
+	/*** commands ***/
 	
 	def dispatch compileCommand(Command c){
 		c.compileCommand
@@ -159,13 +362,14 @@ class SmcGenerator extends AbstractGenerator {
 				«x.compileCommand»
 			«ENDFOR»
 		}
+		
 	'''
 	
 	def dispatch compileCommand(VariableDecl c)'''
 		«c.visibility.toSecrecVisibility» «c.type.toSecrecType» 
-		«IF c.array»[[1]] «ENDIF»«c.name»
-		«IF c.option !== null» = «c.option.compileAssignment»«ENDIF»
-		;
+		«IF c.array»[[1]] «ENDIF»«c.name» 
+		«IF c.option !== null» = «c.option.compileAssignment»«ELSE»«IF c.array»(«c.length»)«ENDIF»«ENDIF»;
+		
 	'''
 	
 	def dispatch compileAssignment(Expression a)'''
@@ -173,7 +377,15 @@ class SmcGenerator extends AbstractGenerator {
 	'''
 	
 	def dispatch compileAssignment(Download a)'''
-		argument("«a.arg»")
+		«a.compileDownload»
+	'''
+	
+	def dispatch compileDownload(Client d)'''
+		argument("«d.arg»")
+	'''
+	
+	def dispatch compileDownload(Database d)'''
+		tdbReadColumn(ds, «d.tbl.compileEx», "«d.clm»");
 	'''
 	
 	def getToSecrecVisibility(SecType type) {
@@ -209,6 +421,7 @@ class SmcGenerator extends AbstractGenerator {
 	
 	def dispatch compileCommand(VariableAssignment c)'''
 		«c.^var.name» = «c.option.compileAssignment»;
+		
 	'''
 	
 	def dispatch compileCommand(IfThenElse c)'''
@@ -223,16 +436,23 @@ class SmcGenerator extends AbstractGenerator {
 	'''
 	
 	def dispatch compileCommand(Print c) '''
-		print("«c.value.compileEx»");
+		print(«c.value.compileEx»);
+		
 	'''
 	
 	def dispatch compileCommand(InvocationVoid c)'''
-		«compileEx(c.call)»;
+		«compileEx(c.call)»
 	'''
 	
+	// to be used only for CreateTable
 	def dispatch compileCommand(ParamDecl c)'''
 	'''
-	/* expressions */
+	
+	def dispatch compileCommand(Return c)'''
+		return;
+	'''
+	
+	/*** expressions ***/
 	
 	def dispatch compileEx (Expression e){
 		e.compileEx
@@ -329,9 +549,8 @@ class SmcGenerator extends AbstractGenerator {
 	'''
 	
 	//not useful for secreC
-//	def dispatch compileEx (Tuple e)'''
-//		
-//	'''
+	def dispatch compileEx (Tuple e)'''
+	'''
 	
 	def dispatch compileEx (List e)'''{
 		«FOR x : e.args SEPARATOR ','»
@@ -340,64 +559,90 @@ class SmcGenerator extends AbstractGenerator {
 	'''
 	
 	//not useful for secreC
-//	def dispatch compileEx (Dict e)'''
-//		
-//	'''
+	def dispatch compileEx (Dict e)'''
+	'''
 	
-	def dispatch compileEx(Invocation c){
-		switch (c.blockName.type){
-			case INSERT: {
-				switch (c.funcName){
-					case CREATE_DB: {
-						'''
-«««						modificare la grammatica per prendere la tbl corretta
-						if (tdbTableExists(ds, tbl)) {
-							print("Table `" + tbl + "` already exists, deleting...");
-							tdbTableDelete(ds, tbl);
-						}
-						
-						«IF c.args !== null»
-							uint params = tdbVmapNew();
-							
-							«FOR x : c.args»
-								{
-									«x.stype.toSecrecVisibility» «x.btype.toSecrecType» vtype;
-									tdbVmapAddType(params, "types", vtype);
-									tdbVmapAddString(params, "names", "«x.parName»");
-								}
-								
-							«ENDFOR»	
-						«ENDIF»
-						tdbTableCreate(ds, tbl, params);
-						
-						tdbVmapDelete(params);
-						'''
-					}
-					case ADD_VALUES: {
-						'''
-						tdbVmapClear(params);
-«««						bisogna inserire qualcosa che non sia solo una tupla ma qualcos'altro, tipo la variabile ma proveniente da argument
-						«IF c.args !== null»
-							«FOR x : c.args SEPARATOR ','»
-								tdbVmapAddValue(params, "values", «x.name»);
-							«ENDFOR»
-						«ENDIF»
-						tdbInsertRow(ds, tbl, params);
-						tdbVmapDelete(params);
-						'''
-					}
-				}		
+	def dispatch compileEx(Invocation c)'''
+		«c.funcName.compileFunction»
+	'''
+	
+	/*** functions ***/
+	
+	def dispatch compileFunction(CheckTable f)'''
+		tdbTableExists(ds, «f.tblname.name»)
+	'''
+	
+	def dispatch compileFunction(CreateTable f)'''
+		tdbVmapClear(params);
+		
+		«FOR x : f.params»
+			{
+				«x.stype.toSecrecVisibility» «x.btype.toSecrecType» vtype;
+				tdbVmapAddType(params, "types", vtype);
+				tdbVmapAddString(params, "names", "«x.parName»");
 			}
-			case ACCESS: {
-			}
-			case ANONYMIZATION: {
-			}
-			case COMP: {
-			}
-			case PERMISSION: {
-			}
-			case SEARCH: {
-			}
-		}
-	}
+			
+		«ENDFOR»	
+		
+		tdbTableCreate(ds, «f.tblname.name», params);
+		
+	'''
+	
+	def dispatch compileFunction(AddValues f)'''
+		tdbVmapClear(params);
+		
+		«FOR x : f.args»
+			tdbVmapAddValue(params, "values", «x.name»);
+			
+		«ENDFOR»
+		
+		tdbInsertRow(ds, «f.tblname.name», params);
+		
+	'''
+	
+	def dispatch compileFunction(BloomFilter f)'''
+		«f.post.name» = bloomInsertMany(«f.pre.name», «f.post.name», seed);
+		
+	'''
+	
+	def dispatch compileFunction(Search f)'''
+		search(ds, «f.tblname.name», "«f.column»", seed, «f.keyword.name»)
+	'''
+	
+	def dispatch compileFunction(AccessControl f)'''
+		«f.compileAccessControl»
+	'''
+	
+	def dispatch compileAccessControl(Covered ac)'''
+		checkPolicyUncovered(«ac.match.name», «ac.covered.name», «ac.c_lvls.name», «ac.v_lvl.name»)
+	'''
+	
+	def dispatch compileAccessControl(BellLapadula ac)'''
+		«IF ac.cur !== null»checkPolicyBLP(«ac.cur.name», "«ac.mode»", «ac.c_lvls.name», «ac.v_lvl.name»)
+		«ELSE»checkPolicyBLP("«ac.mode»", «ac.c_lvls.name», «ac.v_lvl.name»)«ENDIF»
+	'''
+	
+	def dispatch compileFunction(Computation f)'''
+		«f.compileComputation»
+	'''
+	
+	def dispatch compileComputation(Count c)'''
+		count(«c.array.name»)
+	'''
+	
+	def dispatch compileComputation(Average c)'''
+		avg(«c.array.name»)
+	'''
+	
+	def dispatch compileComputation(WeightedAvg c)'''
+		weightedAvg(«c.weights.name», «c.elems.name»)
+	'''
+	
+	def dispatch compileComputation(Median c)'''
+		median(«c.array.name»)
+	'''
+	
+	def dispatch compileComputation(Multiplication c)'''
+		multiplication(«c.x.name», «c.y.name»)
+	'''
 }

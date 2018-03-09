@@ -28,6 +28,7 @@ import soton.cyber.smcaas.smc.smc.VariableDecl;
  *   <li>{@link soton.cyber.smcaas.smc.smc.impl.VariableDeclImpl#getVisibility <em>Visibility</em>}</li>
  *   <li>{@link soton.cyber.smcaas.smc.smc.impl.VariableDeclImpl#getType <em>Type</em>}</li>
  *   <li>{@link soton.cyber.smcaas.smc.smc.impl.VariableDeclImpl#isArray <em>Array</em>}</li>
+ *   <li>{@link soton.cyber.smcaas.smc.smc.impl.VariableDeclImpl#getLength <em>Length</em>}</li>
  *   <li>{@link soton.cyber.smcaas.smc.smc.impl.VariableDeclImpl#getName <em>Name</em>}</li>
  *   <li>{@link soton.cyber.smcaas.smc.smc.impl.VariableDeclImpl#getOption <em>Option</em>}</li>
  * </ul>
@@ -95,6 +96,26 @@ public class VariableDeclImpl extends CommandImpl implements VariableDecl
    * @ordered
    */
   protected boolean array = ARRAY_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getLength() <em>Length</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getLength()
+   * @generated
+   * @ordered
+   */
+  protected static final int LENGTH_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getLength() <em>Length</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getLength()
+   * @generated
+   * @ordered
+   */
+  protected int length = LENGTH_EDEFAULT;
 
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -221,6 +242,29 @@ public class VariableDeclImpl extends CommandImpl implements VariableDecl
    * <!-- end-user-doc -->
    * @generated
    */
+  public int getLength()
+  {
+    return length;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setLength(int newLength)
+  {
+    int oldLength = length;
+    length = newLength;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SmcPackage.VARIABLE_DECL__LENGTH, oldLength, length));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getName()
   {
     return name;
@@ -319,6 +363,8 @@ public class VariableDeclImpl extends CommandImpl implements VariableDecl
         return getType();
       case SmcPackage.VARIABLE_DECL__ARRAY:
         return isArray();
+      case SmcPackage.VARIABLE_DECL__LENGTH:
+        return getLength();
       case SmcPackage.VARIABLE_DECL__NAME:
         return getName();
       case SmcPackage.VARIABLE_DECL__OPTION:
@@ -345,6 +391,9 @@ public class VariableDeclImpl extends CommandImpl implements VariableDecl
         return;
       case SmcPackage.VARIABLE_DECL__ARRAY:
         setArray((Boolean)newValue);
+        return;
+      case SmcPackage.VARIABLE_DECL__LENGTH:
+        setLength((Integer)newValue);
         return;
       case SmcPackage.VARIABLE_DECL__NAME:
         setName((String)newValue);
@@ -375,6 +424,9 @@ public class VariableDeclImpl extends CommandImpl implements VariableDecl
       case SmcPackage.VARIABLE_DECL__ARRAY:
         setArray(ARRAY_EDEFAULT);
         return;
+      case SmcPackage.VARIABLE_DECL__LENGTH:
+        setLength(LENGTH_EDEFAULT);
+        return;
       case SmcPackage.VARIABLE_DECL__NAME:
         setName(NAME_EDEFAULT);
         return;
@@ -401,6 +453,8 @@ public class VariableDeclImpl extends CommandImpl implements VariableDecl
         return type != TYPE_EDEFAULT;
       case SmcPackage.VARIABLE_DECL__ARRAY:
         return array != ARRAY_EDEFAULT;
+      case SmcPackage.VARIABLE_DECL__LENGTH:
+        return length != LENGTH_EDEFAULT;
       case SmcPackage.VARIABLE_DECL__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case SmcPackage.VARIABLE_DECL__OPTION:
@@ -426,6 +480,8 @@ public class VariableDeclImpl extends CommandImpl implements VariableDecl
     result.append(type);
     result.append(", array: ");
     result.append(array);
+    result.append(", length: ");
+    result.append(length);
     result.append(", name: ");
     result.append(name);
     result.append(')');

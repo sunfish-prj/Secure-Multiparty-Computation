@@ -172,6 +172,24 @@ public class SmcSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case SmcPackage.DATABASE:
+      {
+        Database database = (Database)theEObject;
+        T result = caseDatabase(database);
+        if (result == null) result = caseDownload(database);
+        if (result == null) result = caseAbstractAssignment(database);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.CLIENT:
+      {
+        Client client = (Client)theEObject;
+        T result = caseClient(client);
+        if (result == null) result = caseDownload(client);
+        if (result == null) result = caseAbstractAssignment(client);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case SmcPackage.EXPRESSION:
       {
         Expression expression = (Expression)theEObject;
@@ -213,6 +231,140 @@ public class SmcSwitch<T> extends Switch<T>
         T result = caseInvocation(invocation);
         if (result == null) result = caseExpression(invocation);
         if (result == null) result = caseAbstractAssignment(invocation);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.FUNCTIONS:
+      {
+        Functions functions = (Functions)theEObject;
+        T result = caseFunctions(functions);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.COMPUTATION:
+      {
+        Computation computation = (Computation)theEObject;
+        T result = caseComputation(computation);
+        if (result == null) result = caseFunctions(computation);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.MULTIPLICATION:
+      {
+        Multiplication multiplication = (Multiplication)theEObject;
+        T result = caseMultiplication(multiplication);
+        if (result == null) result = caseComputation(multiplication);
+        if (result == null) result = caseFunctions(multiplication);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.MEDIAN:
+      {
+        Median median = (Median)theEObject;
+        T result = caseMedian(median);
+        if (result == null) result = caseComputation(median);
+        if (result == null) result = caseFunctions(median);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.WEIGHTED_AVG:
+      {
+        WeightedAvg weightedAvg = (WeightedAvg)theEObject;
+        T result = caseWeightedAvg(weightedAvg);
+        if (result == null) result = caseComputation(weightedAvg);
+        if (result == null) result = caseFunctions(weightedAvg);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.AVERAGE:
+      {
+        Average average = (Average)theEObject;
+        T result = caseAverage(average);
+        if (result == null) result = caseComputation(average);
+        if (result == null) result = caseFunctions(average);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.COUNT:
+      {
+        Count count = (Count)theEObject;
+        T result = caseCount(count);
+        if (result == null) result = caseComputation(count);
+        if (result == null) result = caseFunctions(count);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.ACCESS_CONTROL:
+      {
+        AccessControl accessControl = (AccessControl)theEObject;
+        T result = caseAccessControl(accessControl);
+        if (result == null) result = caseFunctions(accessControl);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.BELL_LAPADULA:
+      {
+        BellLapadula bellLapadula = (BellLapadula)theEObject;
+        T result = caseBellLapadula(bellLapadula);
+        if (result == null) result = caseAccessControl(bellLapadula);
+        if (result == null) result = caseFunctions(bellLapadula);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.COVERED:
+      {
+        Covered covered = (Covered)theEObject;
+        T result = caseCovered(covered);
+        if (result == null) result = caseAccessControl(covered);
+        if (result == null) result = caseFunctions(covered);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.SEARCH:
+      {
+        Search search = (Search)theEObject;
+        T result = caseSearch(search);
+        if (result == null) result = caseFunctions(search);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.BLOOM_FILTER:
+      {
+        BloomFilter bloomFilter = (BloomFilter)theEObject;
+        T result = caseBloomFilter(bloomFilter);
+        if (result == null) result = caseFunctions(bloomFilter);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.CHECK_TABLE:
+      {
+        CheckTable checkTable = (CheckTable)theEObject;
+        T result = caseCheckTable(checkTable);
+        if (result == null) result = caseFunctions(checkTable);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.ADD_VALUES:
+      {
+        AddValues addValues = (AddValues)theEObject;
+        T result = caseAddValues(addValues);
+        if (result == null) result = caseFunctions(addValues);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.CREATE_TABLE:
+      {
+        CreateTable createTable = (CreateTable)theEObject;
+        T result = caseCreateTable(createTable);
+        if (result == null) result = caseFunctions(createTable);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SmcPackage.RETURN:
+      {
+        Return return_ = (Return)theEObject;
+        T result = caseReturn(return_);
+        if (result == null) result = caseCommand(return_);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -563,6 +715,38 @@ public class SmcSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Database</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Database</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDatabase(Database object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Client</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Client</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseClient(Client object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Expression</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -638,6 +822,262 @@ public class SmcSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseInvocation(Invocation object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Functions</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Functions</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFunctions(Functions object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Computation</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Computation</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseComputation(Computation object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Multiplication</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Multiplication</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseMultiplication(Multiplication object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Median</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Median</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseMedian(Median object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Weighted Avg</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Weighted Avg</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseWeightedAvg(WeightedAvg object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Average</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Average</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAverage(Average object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Count</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Count</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCount(Count object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Access Control</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Access Control</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAccessControl(AccessControl object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Bell Lapadula</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Bell Lapadula</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseBellLapadula(BellLapadula object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Covered</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Covered</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCovered(Covered object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Search</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Search</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSearch(Search object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Bloom Filter</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Bloom Filter</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseBloomFilter(BloomFilter object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Check Table</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Check Table</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCheckTable(CheckTable object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Add Values</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Add Values</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAddValues(AddValues object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Create Table</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Create Table</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCreateTable(CreateTable object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Return</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Return</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseReturn(Return object)
   {
     return null;
   }

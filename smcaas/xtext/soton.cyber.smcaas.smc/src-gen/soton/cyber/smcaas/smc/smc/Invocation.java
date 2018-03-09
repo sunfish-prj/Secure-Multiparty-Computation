@@ -3,7 +3,6 @@
  */
 package soton.cyber.smcaas.smc.smc;
 
-import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -16,7 +15,6 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link soton.cyber.smcaas.smc.smc.Invocation#getBlockName <em>Block Name</em>}</li>
  *   <li>{@link soton.cyber.smcaas.smc.smc.Invocation#getFuncName <em>Func Name</em>}</li>
- *   <li>{@link soton.cyber.smcaas.smc.smc.Invocation#getArgs <em>Args</em>}</li>
  * </ul>
  *
  * @see soton.cyber.smcaas.smc.smc.SmcPackage#getInvocation()
@@ -52,48 +50,29 @@ public interface Invocation extends Expression
   void setBlockName(BlockSMC value);
 
   /**
-   * Returns the value of the '<em><b>Func Name</b></em>' attribute.
-   * The literals are from the enumeration {@link soton.cyber.smcaas.smc.smc.Functions}.
+   * Returns the value of the '<em><b>Func Name</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Func Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Func Name</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Func Name</em>' attribute.
-   * @see soton.cyber.smcaas.smc.smc.Functions
+   * @return the value of the '<em>Func Name</em>' containment reference.
    * @see #setFuncName(Functions)
    * @see soton.cyber.smcaas.smc.smc.SmcPackage#getInvocation_FuncName()
-   * @model
+   * @model containment="true"
    * @generated
    */
   Functions getFuncName();
 
   /**
-   * Sets the value of the '{@link soton.cyber.smcaas.smc.smc.Invocation#getFuncName <em>Func Name</em>}' attribute.
+   * Sets the value of the '{@link soton.cyber.smcaas.smc.smc.Invocation#getFuncName <em>Func Name</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Func Name</em>' attribute.
-   * @see soton.cyber.smcaas.smc.smc.Functions
+   * @param value the new value of the '<em>Func Name</em>' containment reference.
    * @see #getFuncName()
    * @generated
    */
   void setFuncName(Functions value);
-
-  /**
-   * Returns the value of the '<em><b>Args</b></em>' reference list.
-   * The list contents are of type {@link soton.cyber.smcaas.smc.smc.ParamDecl}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Args</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Args</em>' reference list.
-   * @see soton.cyber.smcaas.smc.smc.SmcPackage#getInvocation_Args()
-   * @model
-   * @generated
-   */
-  EList<ParamDecl> getArgs();
 
 } // Invocation

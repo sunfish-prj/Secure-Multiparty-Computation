@@ -3,23 +3,17 @@
  */
 package soton.cyber.smcaas.smc.smc.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
 import soton.cyber.smcaas.smc.smc.BlockSMC;
 import soton.cyber.smcaas.smc.smc.Functions;
 import soton.cyber.smcaas.smc.smc.Invocation;
-import soton.cyber.smcaas.smc.smc.ParamDecl;
 import soton.cyber.smcaas.smc.smc.SmcPackage;
 
 /**
@@ -32,7 +26,6 @@ import soton.cyber.smcaas.smc.smc.SmcPackage;
  * <ul>
  *   <li>{@link soton.cyber.smcaas.smc.smc.impl.InvocationImpl#getBlockName <em>Block Name</em>}</li>
  *   <li>{@link soton.cyber.smcaas.smc.smc.impl.InvocationImpl#getFuncName <em>Func Name</em>}</li>
- *   <li>{@link soton.cyber.smcaas.smc.smc.impl.InvocationImpl#getArgs <em>Args</em>}</li>
  * </ul>
  *
  * @generated
@@ -50,34 +43,14 @@ public class InvocationImpl extends ExpressionImpl implements Invocation
   protected BlockSMC blockName;
 
   /**
-   * The default value of the '{@link #getFuncName() <em>Func Name</em>}' attribute.
+   * The cached value of the '{@link #getFuncName() <em>Func Name</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getFuncName()
    * @generated
    * @ordered
    */
-  protected static final Functions FUNC_NAME_EDEFAULT = Functions.CREATE_DB;
-
-  /**
-   * The cached value of the '{@link #getFuncName() <em>Func Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFuncName()
-   * @generated
-   * @ordered
-   */
-  protected Functions funcName = FUNC_NAME_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getArgs() <em>Args</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getArgs()
-   * @generated
-   * @ordered
-   */
-  protected EList<ParamDecl> args;
+  protected Functions funcName;
 
   /**
    * <!-- begin-user-doc -->
@@ -158,12 +131,16 @@ public class InvocationImpl extends ExpressionImpl implements Invocation
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setFuncName(Functions newFuncName)
+  public NotificationChain basicSetFuncName(Functions newFuncName, NotificationChain msgs)
   {
     Functions oldFuncName = funcName;
-    funcName = newFuncName == null ? FUNC_NAME_EDEFAULT : newFuncName;
+    funcName = newFuncName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SmcPackage.INVOCATION__FUNC_NAME, oldFuncName, funcName));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SmcPackage.INVOCATION__FUNC_NAME, oldFuncName, newFuncName);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -171,13 +148,36 @@ public class InvocationImpl extends ExpressionImpl implements Invocation
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ParamDecl> getArgs()
+  public void setFuncName(Functions newFuncName)
   {
-    if (args == null)
+    if (newFuncName != funcName)
     {
-      args = new EObjectResolvingEList<ParamDecl>(ParamDecl.class, this, SmcPackage.INVOCATION__ARGS);
+      NotificationChain msgs = null;
+      if (funcName != null)
+        msgs = ((InternalEObject)funcName).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SmcPackage.INVOCATION__FUNC_NAME, null, msgs);
+      if (newFuncName != null)
+        msgs = ((InternalEObject)newFuncName).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SmcPackage.INVOCATION__FUNC_NAME, null, msgs);
+      msgs = basicSetFuncName(newFuncName, msgs);
+      if (msgs != null) msgs.dispatch();
     }
-    return args;
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SmcPackage.INVOCATION__FUNC_NAME, newFuncName, newFuncName));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case SmcPackage.INVOCATION__FUNC_NAME:
+        return basicSetFuncName(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -195,8 +195,6 @@ public class InvocationImpl extends ExpressionImpl implements Invocation
         return basicGetBlockName();
       case SmcPackage.INVOCATION__FUNC_NAME:
         return getFuncName();
-      case SmcPackage.INVOCATION__ARGS:
-        return getArgs();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -206,7 +204,6 @@ public class InvocationImpl extends ExpressionImpl implements Invocation
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -217,10 +214,6 @@ public class InvocationImpl extends ExpressionImpl implements Invocation
         return;
       case SmcPackage.INVOCATION__FUNC_NAME:
         setFuncName((Functions)newValue);
-        return;
-      case SmcPackage.INVOCATION__ARGS:
-        getArgs().clear();
-        getArgs().addAll((Collection<? extends ParamDecl>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -240,10 +233,7 @@ public class InvocationImpl extends ExpressionImpl implements Invocation
         setBlockName((BlockSMC)null);
         return;
       case SmcPackage.INVOCATION__FUNC_NAME:
-        setFuncName(FUNC_NAME_EDEFAULT);
-        return;
-      case SmcPackage.INVOCATION__ARGS:
-        getArgs().clear();
+        setFuncName((Functions)null);
         return;
     }
     super.eUnset(featureID);
@@ -262,28 +252,9 @@ public class InvocationImpl extends ExpressionImpl implements Invocation
       case SmcPackage.INVOCATION__BLOCK_NAME:
         return blockName != null;
       case SmcPackage.INVOCATION__FUNC_NAME:
-        return funcName != FUNC_NAME_EDEFAULT;
-      case SmcPackage.INVOCATION__ARGS:
-        return args != null && !args.isEmpty();
+        return funcName != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (funcName: ");
-    result.append(funcName);
-    result.append(')');
-    return result.toString();
   }
 
 } //InvocationImpl

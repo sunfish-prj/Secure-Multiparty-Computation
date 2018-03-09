@@ -141,6 +141,24 @@ public interface SmcFactory extends EFactory
   Download createDownload();
 
   /**
+   * Returns a new object of class '<em>Database</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Database</em>'.
+   * @generated
+   */
+  Database createDatabase();
+
+  /**
+   * Returns a new object of class '<em>Client</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Client</em>'.
+   * @generated
+   */
+  Client createClient();
+
+  /**
    * Returns a new object of class '<em>Expression</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -184,6 +202,150 @@ public interface SmcFactory extends EFactory
    * @generated
    */
   Invocation createInvocation();
+
+  /**
+   * Returns a new object of class '<em>Functions</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Functions</em>'.
+   * @generated
+   */
+  Functions createFunctions();
+
+  /**
+   * Returns a new object of class '<em>Computation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Computation</em>'.
+   * @generated
+   */
+  Computation createComputation();
+
+  /**
+   * Returns a new object of class '<em>Multiplication</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Multiplication</em>'.
+   * @generated
+   */
+  Multiplication createMultiplication();
+
+  /**
+   * Returns a new object of class '<em>Median</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Median</em>'.
+   * @generated
+   */
+  Median createMedian();
+
+  /**
+   * Returns a new object of class '<em>Weighted Avg</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Weighted Avg</em>'.
+   * @generated
+   */
+  WeightedAvg createWeightedAvg();
+
+  /**
+   * Returns a new object of class '<em>Average</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Average</em>'.
+   * @generated
+   */
+  Average createAverage();
+
+  /**
+   * Returns a new object of class '<em>Count</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Count</em>'.
+   * @generated
+   */
+  Count createCount();
+
+  /**
+   * Returns a new object of class '<em>Access Control</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Access Control</em>'.
+   * @generated
+   */
+  AccessControl createAccessControl();
+
+  /**
+   * Returns a new object of class '<em>Bell Lapadula</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Bell Lapadula</em>'.
+   * @generated
+   */
+  BellLapadula createBellLapadula();
+
+  /**
+   * Returns a new object of class '<em>Covered</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Covered</em>'.
+   * @generated
+   */
+  Covered createCovered();
+
+  /**
+   * Returns a new object of class '<em>Search</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Search</em>'.
+   * @generated
+   */
+  Search createSearch();
+
+  /**
+   * Returns a new object of class '<em>Bloom Filter</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Bloom Filter</em>'.
+   * @generated
+   */
+  BloomFilter createBloomFilter();
+
+  /**
+   * Returns a new object of class '<em>Check Table</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Check Table</em>'.
+   * @generated
+   */
+  CheckTable createCheckTable();
+
+  /**
+   * Returns a new object of class '<em>Add Values</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Add Values</em>'.
+   * @generated
+   */
+  AddValues createAddValues();
+
+  /**
+   * Returns a new object of class '<em>Create Table</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Create Table</em>'.
+   * @generated
+   */
+  CreateTable createCreateTable();
+
+  /**
+   * Returns a new object of class '<em>Return</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Return</em>'.
+   * @generated
+   */
+  Return createReturn();
 
   /**
    * Returns a new object of class '<em>Block</em>'.

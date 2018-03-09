@@ -25,10 +25,6 @@
       <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//BasicType/STRING"/>
       <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//BasicType/ENCRYPTED"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Smc.ecore#//Functions">
-      <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//Functions/CREATE_DB"/>
-      <genEnumLiterals ecoreEnumLiteral="Smc.ecore#//Functions/ADD_VALUES"/>
-    </genEnums>
     <genClasses ecoreClass="Smc.ecore#//Smc">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//Smc/blocks"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//Smc/main"/>
@@ -66,6 +62,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//VariableDecl/visibility"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//VariableDecl/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//VariableDecl/array"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//VariableDecl/length"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//VariableDecl/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//VariableDecl/option"/>
     </genClasses>
@@ -74,8 +71,13 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//VariableAssignment/option"/>
     </genClasses>
     <genClasses ecoreClass="Smc.ecore#//AbstractAssignment"/>
-    <genClasses ecoreClass="Smc.ecore#//Download">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//Download/arg"/>
+    <genClasses ecoreClass="Smc.ecore#//Download"/>
+    <genClasses ecoreClass="Smc.ecore#//Database">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//Database/tbl"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//Database/clm"/>
+    </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//Client">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//Client/arg"/>
     </genClasses>
     <genClasses ecoreClass="Smc.ecore#//Expression"/>
     <genClasses ecoreClass="Smc.ecore#//Tuple">
@@ -91,9 +93,60 @@
     </genClasses>
     <genClasses ecoreClass="Smc.ecore#//Invocation">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//Invocation/blockName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//Invocation/funcName"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//Invocation/args"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//Invocation/funcName"/>
     </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//Functions"/>
+    <genClasses ecoreClass="Smc.ecore#//Computation"/>
+    <genClasses ecoreClass="Smc.ecore#//Multiplication">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//Multiplication/x"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//Multiplication/y"/>
+    </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//Median">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//Median/array"/>
+    </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//WeightedAvg">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//WeightedAvg/weights"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//WeightedAvg/elems"/>
+    </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//Average">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//Average/array"/>
+    </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//Count">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//Count/array"/>
+    </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//AccessControl">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//AccessControl/c_lvls"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//AccessControl/v_lvl"/>
+    </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//BellLapadula">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//BellLapadula/cur"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//BellLapadula/mode"/>
+    </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//Covered">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//Covered/match"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//Covered/covered"/>
+    </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//Search">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//Search/tblname"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Smc.ecore#//Search/column"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//Search/keyword"/>
+    </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//BloomFilter">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//BloomFilter/pre"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//BloomFilter/post"/>
+    </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//CheckTable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//CheckTable/tblname"/>
+    </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//AddValues">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//AddValues/tblname"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//AddValues/args"/>
+    </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//CreateTable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//CreateTable/tblname"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Smc.ecore#//CreateTable/params"/>
+    </genClasses>
+    <genClasses ecoreClass="Smc.ecore#//Return"/>
     <genClasses ecoreClass="Smc.ecore#//Block">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Smc.ecore#//Block/commands"/>
     </genClasses>

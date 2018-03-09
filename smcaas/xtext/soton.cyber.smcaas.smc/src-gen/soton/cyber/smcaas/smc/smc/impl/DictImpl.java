@@ -3,20 +3,13 @@
  */
 package soton.cyber.smcaas.smc.smc.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 import soton.cyber.smcaas.smc.smc.Dict;
 import soton.cyber.smcaas.smc.smc.Expression;
@@ -40,14 +33,14 @@ import soton.cyber.smcaas.smc.smc.SmcPackage;
 public class DictImpl extends ExpressionImpl implements Dict
 {
   /**
-   * The cached value of the '{@link #getKey() <em>Key</em>}' containment reference list.
+   * The cached value of the '{@link #getKey() <em>Key</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getKey()
    * @generated
    * @ordered
    */
-  protected EList<Expression> key;
+  protected Expression key;
 
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' reference.
@@ -85,13 +78,47 @@ public class DictImpl extends ExpressionImpl implements Dict
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Expression> getKey()
+  public Expression getKey()
   {
-    if (key == null)
-    {
-      key = new EObjectContainmentEList<Expression>(Expression.class, this, SmcPackage.DICT__KEY);
-    }
     return key;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetKey(Expression newKey, NotificationChain msgs)
+  {
+    Expression oldKey = key;
+    key = newKey;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SmcPackage.DICT__KEY, oldKey, newKey);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setKey(Expression newKey)
+  {
+    if (newKey != key)
+    {
+      NotificationChain msgs = null;
+      if (key != null)
+        msgs = ((InternalEObject)key).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SmcPackage.DICT__KEY, null, msgs);
+      if (newKey != null)
+        msgs = ((InternalEObject)newKey).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SmcPackage.DICT__KEY, null, msgs);
+      msgs = basicSetKey(newKey, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SmcPackage.DICT__KEY, newKey, newKey));
   }
 
   /**
@@ -148,7 +175,7 @@ public class DictImpl extends ExpressionImpl implements Dict
     switch (featureID)
     {
       case SmcPackage.DICT__KEY:
-        return ((InternalEList<?>)getKey()).basicRemove(otherEnd, msgs);
+        return basicSetKey(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -177,15 +204,13 @@ public class DictImpl extends ExpressionImpl implements Dict
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
       case SmcPackage.DICT__KEY:
-        getKey().clear();
-        getKey().addAll((Collection<? extends Expression>)newValue);
+        setKey((Expression)newValue);
         return;
       case SmcPackage.DICT__VALUE:
         setValue((List)newValue);
@@ -205,7 +230,7 @@ public class DictImpl extends ExpressionImpl implements Dict
     switch (featureID)
     {
       case SmcPackage.DICT__KEY:
-        getKey().clear();
+        setKey((Expression)null);
         return;
       case SmcPackage.DICT__VALUE:
         setValue((List)null);
@@ -225,7 +250,7 @@ public class DictImpl extends ExpressionImpl implements Dict
     switch (featureID)
     {
       case SmcPackage.DICT__KEY:
-        return key != null && !key.isEmpty();
+        return key != null;
       case SmcPackage.DICT__VALUE:
         return value != null;
     }

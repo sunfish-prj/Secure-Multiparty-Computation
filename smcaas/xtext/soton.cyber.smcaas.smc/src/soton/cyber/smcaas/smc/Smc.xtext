@@ -9,7 +9,6 @@ Smc:
 ;
 	
 BlockSMC:
-//	'block' type=BlockType name=ID '=' 'new' '('(parameters+=Expression (',' parameters+=Expression)*)? ')'';'
 	'block' type=BlockType name=ID '=' 'new' '(' ')'';'
 ;
 
@@ -25,13 +24,15 @@ MainSMC:
 	'}'
 ;
 
+/* Command */
+
 Command:
-	Block | VariableDecl  | VariableAssignment | IfThenElse | While | Print | InvocationVoid | ParamDecl
+	Block | VariableDecl  | VariableAssignment | IfThenElse | While | Print | InvocationVoid | ParamDecl | Return
 ;
 
-//BlockFunction:
-//	
-//;
+Return returns Command:
+	{Return} 'return' ';'
+;
 
 ParamDecl:
 	'parameter' name=ID '=' '<' stype=SecType btype=BasicType '>' parName=STRING ';'
@@ -58,9 +59,8 @@ IfThenElse:
 	'if' '(' condition=Expression ')' thenBrach=Command (=> 'else' elseBranch=Command )?
 ;
 
-//can be added array length inside []
 VariableDecl: 
-	'var' visibility=SecType type=BasicType array?=('[]')? name=ID ('=' option=AbstractAssignment)? ';'
+	'var' visibility=SecType type=BasicType (array ?='[' (length=INT)? ']')? name=ID ('=' option=AbstractAssignment)? ';'
 ;
 
 enum SecType:
@@ -80,8 +80,18 @@ AbstractAssignment:
 ;
 
 Download:
+	Client | Database
+;
+
+Database:
+	'retrieveFromDB' '(' tbl=Atomic',' clm=STRING ')'
+;
+
+Client:
 	'retrieveFromClient' '(' arg=STRING ')'
 ;
+
+/* Expression */
 
 Expression:
 	Or 
@@ -140,7 +150,7 @@ Atomic returns Expression:
 ;
 
 Tuple:
-	'tuple' '<' arg1+=Atomic ',' arg2+=Atomic '>'
+	'tuple' '<' arg1=Atomic ',' arg2=Atomic '>'
 ;
 
 List:
@@ -148,15 +158,80 @@ List:
 ;
 
 Dict:
-	'dict' '(' key+=Atomic ',' value=[List] ')'
+	'dict' '(' key=Atomic ',' value=[List] ')'
 ;
 
 Invocation: 
-	blockName=[BlockSMC] '.' funcName=Functions '(' (args+=[ParamDecl] (',' args+=[ParamDecl])*)? ')'
+	blockName=[BlockSMC] '.' funcName=Functions
 ;
 
-enum Functions:
-	CREATE_DB = 'createDataset' | ADD_VALUES = 'addValues'
+Functions:
+	CreateTable | CheckTable | AddValues | BloomFilter | Search | AccessControl | Computation
+;
+
+/* Block Computation */
+
+Computation:
+	Count | Average | WeightedAvg | Median | Multiplication
+;
+
+
+Multiplication:
+	'multiplication' '(' x=[VariableDecl] ',' y=[VariableDecl] ')'
+;
+
+Median:
+	'median' '(' array=[VariableDecl] ')'
+;
+
+WeightedAvg:
+	'w_avg' '(' weights=[VariableDecl] ',' elems=[VariableDecl] ')' 
+;
+
+Average:
+	'avg' '(' array=[VariableDecl] ')'
+;
+
+Count:
+	'count' '(' array=[VariableDecl] ')'
+;
+
+/* Block Access Control */
+
+AccessControl:
+	Covered | BellLapadula
+;
+
+BellLapadula:
+	'accessControlBLP' '(' (cur=[VariableDecl] ',')?  mode=STRING ',' c_lvls=[VariableDecl] ',' v_lvl=[VariableDecl] ')'
+;
+
+Covered:
+	'accessControlCovered' '(' match=[VariableDecl] ',' covered=[VariableDecl] ',' c_lvls=[VariableDecl] ',' v_lvl=[VariableDecl] ')'
+;
+
+/* Block Search */
+
+Search:
+	'search' '(' tblname=[VariableDecl] ',' column=STRING ',' keyword=[VariableDecl] ')'
+;
+
+BloomFilter:
+	'bloomFilter' '(' pre=[VariableDecl] ',' post=[VariableDecl] ')'
+;
+
+/* Block Insert Data */
+
+CheckTable:
+	'checkDataset' '(' tblname=[VariableDecl] ')'
+;
+
+AddValues:
+	'addValues' '(' tblname=[VariableDecl] (',' args+=[VariableDecl] (',' args+=[VariableDecl])*)+ ')'
+;
+
+CreateTable:
+	'createDataset' '(' tblname=[VariableDecl] (',' params+=[ParamDecl] (',' params+=[ParamDecl])*)+ ')'
 ;
 
 //Standard types

@@ -12,15 +12,28 @@ import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
 import soton.cyber.smcaas.smc.smc.AbstractAssignment;
+import soton.cyber.smcaas.smc.smc.AccessControl;
+import soton.cyber.smcaas.smc.smc.AddValues;
 import soton.cyber.smcaas.smc.smc.And;
+import soton.cyber.smcaas.smc.smc.Average;
 import soton.cyber.smcaas.smc.smc.BasicType;
+import soton.cyber.smcaas.smc.smc.BellLapadula;
 import soton.cyber.smcaas.smc.smc.Block;
 import soton.cyber.smcaas.smc.smc.BlockSMC;
 import soton.cyber.smcaas.smc.smc.BlockType;
+import soton.cyber.smcaas.smc.smc.BloomFilter;
 import soton.cyber.smcaas.smc.smc.BooleanLiteral;
+import soton.cyber.smcaas.smc.smc.CheckTable;
+import soton.cyber.smcaas.smc.smc.Client;
 import soton.cyber.smcaas.smc.smc.Command;
 import soton.cyber.smcaas.smc.smc.Comparison;
+import soton.cyber.smcaas.smc.smc.Computation;
+import soton.cyber.smcaas.smc.smc.Count;
+import soton.cyber.smcaas.smc.smc.Covered;
+import soton.cyber.smcaas.smc.smc.CreateTable;
+import soton.cyber.smcaas.smc.smc.Database;
 import soton.cyber.smcaas.smc.smc.DateLiteral;
+import soton.cyber.smcaas.smc.smc.Dict;
 import soton.cyber.smcaas.smc.smc.DoubleLiteral;
 import soton.cyber.smcaas.smc.smc.Download;
 import soton.cyber.smcaas.smc.smc.Equality;
@@ -32,19 +45,25 @@ import soton.cyber.smcaas.smc.smc.Invocation;
 import soton.cyber.smcaas.smc.smc.InvocationVoid;
 import soton.cyber.smcaas.smc.smc.List;
 import soton.cyber.smcaas.smc.smc.MainSMC;
+import soton.cyber.smcaas.smc.smc.Median;
 import soton.cyber.smcaas.smc.smc.MulOrDiv;
+import soton.cyber.smcaas.smc.smc.Multiplication;
 import soton.cyber.smcaas.smc.smc.Not;
 import soton.cyber.smcaas.smc.smc.Or;
 import soton.cyber.smcaas.smc.smc.ParamDecl;
 import soton.cyber.smcaas.smc.smc.PlusOrMinus;
 import soton.cyber.smcaas.smc.smc.Print;
+import soton.cyber.smcaas.smc.smc.Return;
+import soton.cyber.smcaas.smc.smc.Search;
 import soton.cyber.smcaas.smc.smc.SecType;
 import soton.cyber.smcaas.smc.smc.Smc;
 import soton.cyber.smcaas.smc.smc.StringLiteral;
 import soton.cyber.smcaas.smc.smc.TimeLiteral;
+import soton.cyber.smcaas.smc.smc.Tuple;
 import soton.cyber.smcaas.smc.smc.VariableAssignment;
 import soton.cyber.smcaas.smc.smc.VariableDecl;
 import soton.cyber.smcaas.smc.smc.VariableRef;
+import soton.cyber.smcaas.smc.smc.WeightedAvg;
 import soton.cyber.smcaas.smc.smc.While;
 
 /**
@@ -78,6 +97,8 @@ public class SmcGenerator extends AbstractGenerator {
     _builder.newLine();
     _builder.append("import shared3p_aes;");
     _builder.newLine();
+    _builder.append("import shared3p_sort;");
+    _builder.newLine();
     _builder.newLine();
     _builder.append("domain pd_shared3p shared3p;");
     _builder.newLine();
@@ -103,6 +124,9 @@ public class SmcGenerator extends AbstractGenerator {
     return _builder;
   }
   
+  /**
+   * blocks
+   */
   public CharSequence compile(final BlockSMC block) {
     StringConcatenation _builder = new StringConcatenation();
     CharSequence _switchResult = null;
@@ -115,27 +139,500 @@ public class SmcGenerator extends AbstractGenerator {
           break;
         case COMP:
           StringConcatenation _builder_2 = new StringConcatenation();
-          _builder_2.append("comp - TO ADD MODULE");
+          _builder_2.append("// Sums all elements of the input array");
+          _builder_2.newLine();
+          _builder_2.append("template <type T>");
+          _builder_2.newLine();
+          _builder_2.append("pd_shared3p T count(pd_shared3p T [[1]] x){");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("pd_shared3p T res;");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("uint64 n = size(x);");
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("for (uint64 i = 0; i < n; ++i) {");
+          _builder_2.newLine();
+          _builder_2.append("        ");
+          _builder_2.append("res += x[i];");
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("}");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("return res;");
+          _builder_2.newLine();
+          _builder_2.append("}");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("// Calculates the average on elements of an input array");
+          _builder_2.newLine();
+          _builder_2.append("template <type T>");
+          _builder_2.newLine();
+          _builder_2.append("pd_shared3p T avg(pd_shared3p T [[1]] x){");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("pd_shared3p T res;");
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("pd_shared3p T sum;");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("uint64 n = size(x);");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("sum = count(x);");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("T tot = (T) n;");
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("res = sum / tot;");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("return res;");
+          _builder_2.newLine();
+          _builder_2.append("}");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("// Calculates the multiplication between two arrays");
+          _builder_2.newLine();
+          _builder_2.append("template <type T>");
+          _builder_2.newLine();
+          _builder_2.append("pd_shared3p T [[1]] multiplication(pd_shared3p T [[1]] x, pd_shared3p T [[1]] y){");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("assert(size(x) == size(y));");
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("uint64 n = size(x);");
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("pd_shared3p T [[1]] res (n);");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("res = x * y;");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("return res;");
+          _builder_2.newLine();
+          _builder_2.append("}");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("// Calculates the weighted average on elements of an input array, with relative weights");
+          _builder_2.newLine();
+          _builder_2.append("template <type T>");
+          _builder_2.newLine();
+          _builder_2.append("pd_shared3p T weightedAvg(pd_shared3p T [[1]] weights, pd_shared3p T [[1]] elems){");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("pd_shared3p T res;");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("pd_shared3p T [[1]] mul = multiplication(weights, elems);");
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("pd_shared3p T sum = count(mul);");
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("pd_shared3p T tot = count(weights);");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("res = sum / tot;");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("return res;");
+          _builder_2.newLine();
+          _builder_2.append("}");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("// Calculates the median on elements of an input array");
+          _builder_2.newLine();
+          _builder_2.append("template <type T>");
+          _builder_2.newLine();
+          _builder_2.append("pd_shared3p T median(pd_shared3p T [[1]] x){");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("pd_shared3p T res;");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("pd_shared3p T [[1]] sorted = sort(x);");
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("uint64 n = size(sorted);");
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("if((n % 2) == 0){");
+          _builder_2.newLine();
+          _builder_2.append("        ");
+          _builder_2.append("// even");
+          _builder_2.newLine();
+          _builder_2.append("        ");
+          _builder_2.append("uint64 pos1 = n/2;");
+          _builder_2.newLine();
+          _builder_2.append("        ");
+          _builder_2.append("uint64 pos2 = (n/2)+1;");
+          _builder_2.newLine();
+          _builder_2.append("        ");
+          _builder_2.append("uint64 apos1 = pos1 - 1;");
+          _builder_2.newLine();
+          _builder_2.append("        ");
+          _builder_2.append("uint64 apos2 = pos2 - 1;");
+          _builder_2.newLine();
+          _builder_2.append("        ");
+          _builder_2.append("pd_shared3p T v1 = sorted[apos1];");
+          _builder_2.newLine();
+          _builder_2.append("        ");
+          _builder_2.append("pd_shared3p T v2 = sorted[apos2];");
+          _builder_2.newLine();
+          _builder_2.append("        ");
+          _builder_2.append("pd_shared3p T [[1]] toBeAvg = {v1, v2};");
+          _builder_2.newLine();
+          _builder_2.append("        ");
+          _builder_2.append("res = avg(toBeAvg);");
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("}else{");
+          _builder_2.newLine();
+          _builder_2.append("        ");
+          _builder_2.append("// odd");
+          _builder_2.newLine();
+          _builder_2.append("        ");
+          _builder_2.append("uint64 pos = (n+1)/2;");
+          _builder_2.newLine();
+          _builder_2.append("        ");
+          _builder_2.append("uint64 apos = pos - 1;");
+          _builder_2.newLine();
+          _builder_2.append("        ");
+          _builder_2.append("res = sorted[apos];");
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("}");
+          _builder_2.newLine();
+          _builder_2.newLine();
+          _builder_2.append("    ");
+          _builder_2.append("return res;");
+          _builder_2.newLine();
+          _builder_2.append("}");
+          _builder_2.newLine();
           _switchResult = _builder_2;
           break;
         case SEARCH:
           StringConcatenation _builder_3 = new StringConcatenation();
-          _builder_3.append("search - TO ADD MODULE");
+          _builder_3.append("// Search function on keyword passed in input");
+          _builder_3.newLine();
+          _builder_3.append("pd_shared3p bool [[1]] search(string ds, string tbl, string clm, uint32[[1]] seed, pd_shared3p xor_uint64[[1]] keyword){");
+          _builder_3.newLine();
+          _builder_3.append("\t");
+          _builder_3.newLine();
+          _builder_3.append("\t");
+          _builder_3.append("uint numRows = tdbGetRowCount(ds, tbl);");
+          _builder_3.newLine();
+          _builder_3.append("\t");
+          _builder_3.newLine();
+          _builder_3.append("\t");
+          _builder_3.append("pd_shared3p bool[[1]] match (numRows);");
+          _builder_3.newLine();
+          _builder_3.append("\t");
+          _builder_3.newLine();
+          _builder_3.append("\t");
+          _builder_3.append("uint filterVmap = tdbReadColumn(ds, tbl, clm);");
+          _builder_3.newLine();
+          _builder_3.append("\t");
+          _builder_3.newLine();
+          _builder_3.append("\t");
+          _builder_3.append("for (uint i = 0; i < numRows; ++i) {");
+          _builder_3.newLine();
+          _builder_3.append("\t    ");
+          _builder_3.append("print(\"Searching in document \", i);");
+          _builder_3.newLine();
+          _builder_3.append("\t    ");
+          _builder_3.append("pd_shared3p bool[[1]] filter = tdbVmapGetVlenValue(filterVmap, \"values\", i);");
+          _builder_3.newLine();
+          _builder_3.append("\t    ");
+          _builder_3.append("pd_shared3p bool[[1]] result = bloomQueryMany(keyword, filter, seed);");
+          _builder_3.newLine();
+          _builder_3.append("\t    ");
+          _builder_3.append("matchingDocuments[i] = all(result);");
+          _builder_3.newLine();
+          _builder_3.append("\t");
+          _builder_3.append("}");
+          _builder_3.newLine();
+          _builder_3.newLine();
+          _builder_3.append("    ");
+          _builder_3.append("return match;");
+          _builder_3.newLine();
+          _builder_3.append("}");
+          _builder_3.newLine();
+          _builder_3.newLine();
           _switchResult = _builder_3;
           break;
         case ANONYMIZATION:
           StringConcatenation _builder_4 = new StringConcatenation();
-          _builder_4.append("anon - TO ADD MODULE");
+          _builder_4.append("anonymization - TO ADD MODULE");
           _switchResult = _builder_4;
           break;
         case ACCESS:
           StringConcatenation _builder_5 = new StringConcatenation();
-          _builder_5.append("access - TO ADD MODULE");
+          _builder_5.append("// Access control function on covered docs");
+          _builder_5.newLine();
+          _builder_5.append("pd_shared3p bool [[1]] checkCovered(pd_shared3p bool [[1]] match, pd_shared3p bool [[1]] cov){");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("assert(size(match) == size(cov));");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("uint64 n = size(match);");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("pd_shared3p bool [[1]] ac_flags (n);");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("ac_flags = !(cov);");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("return ac_flags;");
+          _builder_5.newLine();
+          _builder_5.append("}");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("// Access control function on policy (for UC3)");
+          _builder_5.newLine();
+          _builder_5.append("pd_shared3p bool [[1]] checkPolicyUncovered(pd_shared3p bool [[1]] match, pd_shared3p bool [[1]] cov, pd_shared3p uint64 [[1]] c_lvls, pd_shared3p uint64 v_lvl){");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("pd_shared3p bool [[1]] ac_covered = checkCovered(match, cov);");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("assert(size(ac_covered) == size(c_lvls));");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("uint64 n = size(ac_covered);");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("pd_shared3p bool [[1]] ac_policy (n);");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("ac_policy = (v_lvl >= c_lvls);");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("pd_shared3p bool [[1]] ac_final (n);");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("ac_final = (ac_covered & ac_policy);");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("return ac_final;");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("}");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("// Access control function on policy (Bell-LaPadula)");
+          _builder_5.newLine();
+          _builder_5.append("pd_shared3p bool [[1]] checkPolicyBLP_Simple(string mode, pd_shared3p uint64 [[1]] o_lvls, pd_shared3p uint64 s_lvl){");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("uint64 n = size(o_lvls);");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("pd_shared3p bool [[1]] ac_policy (n);");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("// simple security property (no-read-up)");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("if(mode == \"read\"){");
+          _builder_5.newLine();
+          _builder_5.append("        ");
+          _builder_5.append("ac_policy = (s_lvl >= o_lvls);");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("}");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("// star property (no-write-down)");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("if(mode == \"write\"){");
+          _builder_5.newLine();
+          _builder_5.append("        ");
+          _builder_5.append("ac_policy = (s_lvl <= o_lvls);");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("}");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("return ac_policy;");
+          _builder_5.newLine();
+          _builder_5.append("}");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("// Access control function on policy (Bell-LaPadula)");
+          _builder_5.newLine();
+          _builder_5.append("pd_shared3p bool [[1]] checkPolicyBLP(string mode, pd_shared3p uint64 [[1]] o_lvls, pd_shared3p uint64 s_lvl){");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("uint64 n = size(o_lvls);");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("pd_shared3p bool [[1]] ac_policy (n);");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("// simple security property (no-read-up)");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("if(mode == \"read\"){");
+          _builder_5.newLine();
+          _builder_5.append("        ");
+          _builder_5.append("ac_policy = (s_lvl >= o_lvls);");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("}else{");
+          _builder_5.newLine();
+          _builder_5.append("        ");
+          _builder_5.append("// star property (no-write-down)");
+          _builder_5.newLine();
+          _builder_5.append("        ");
+          _builder_5.append("if(mode == \"write\"){");
+          _builder_5.newLine();
+          _builder_5.append("            ");
+          _builder_5.append("ac_policy = (s_lvl == o_lvls);");
+          _builder_5.newLine();
+          _builder_5.append("        ");
+          _builder_5.append("}");
+          _builder_5.newLine();
+          _builder_5.append("        ");
+          _builder_5.append("if(mode == \"append\"){");
+          _builder_5.newLine();
+          _builder_5.append("            ");
+          _builder_5.append("ac_policy = (s_lvl <= o_lvls);");
+          _builder_5.newLine();
+          _builder_5.append("        ");
+          _builder_5.append("}");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("}");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("return ac_policy;");
+          _builder_5.newLine();
+          _builder_5.append("}");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("// Access control function on policy (Bell-LaPadula)");
+          _builder_5.newLine();
+          _builder_5.append("pd_shared3p bool [[1]] checkPolicyBLP(bool current, string mode, pd_shared3p uint64 [[1]] o_lvls, pd_shared3p uint64 s_lvl){");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("uint64 n = size(o_lvls);");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("pd_shared3p bool [[1]] ac_policy (n);");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("// each subject has a maximal level and a current level");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("// simple security property (no-read-up)");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("if(mode == \"read\"){");
+          _builder_5.newLine();
+          _builder_5.append("        ");
+          _builder_5.append("ac_policy = (s_lvl >= o_lvls);");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("}");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("// star property (no-write-down)");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("// IF subject-level is equal to current-level");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("if(current){");
+          _builder_5.newLine();
+          _builder_5.append("        ");
+          _builder_5.append("if(mode == \"write\"){");
+          _builder_5.newLine();
+          _builder_5.append("            ");
+          _builder_5.append("ac_policy = (s_lvl == o_lvls);");
+          _builder_5.newLine();
+          _builder_5.append("        ");
+          _builder_5.append("}");
+          _builder_5.newLine();
+          _builder_5.append("        ");
+          _builder_5.append("if(mode == \"append\"){");
+          _builder_5.newLine();
+          _builder_5.append("            ");
+          _builder_5.append("ac_policy = (s_lvl <= o_lvls);");
+          _builder_5.newLine();
+          _builder_5.append("        ");
+          _builder_5.append("}");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("// OTHERWISE subject-level is equal to maximal-level");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("}else{");
+          _builder_5.newLine();
+          _builder_5.append("        ");
+          _builder_5.append("ac_policy = false;");
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("}");
+          _builder_5.newLine();
+          _builder_5.newLine();
+          _builder_5.append("    ");
+          _builder_5.append("return ac_policy;");
+          _builder_5.newLine();
+          _builder_5.append("}");
+          _builder_5.newLine();
+          _builder_5.newLine();
           _switchResult = _builder_5;
           break;
         case PERMISSION:
           StringConcatenation _builder_6 = new StringConcatenation();
-          _builder_6.append("perm - TO ADD MODULE");
+          _builder_6.append("permission release - TO ADD MODULE");
           _switchResult = _builder_6;
           break;
         default:
@@ -148,82 +645,8 @@ public class SmcGenerator extends AbstractGenerator {
   }
   
   /**
-   * blocks
+   * main
    */
-  public CharSequence addDataset() {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("void addDataset(string ds, string tbl, string [[1]] clm_names, pd_shared3p uint64 [[2]] values){");
-    _builder.newLine();
-    _builder.newLine();
-    _builder.append("  ");
-    _builder.append("// First create table");
-    _builder.newLine();
-    _builder.append("  ");
-    _builder.append("uint params = tdbVmapNew();");
-    _builder.newLine();
-    _builder.newLine();
-    _builder.append("  ");
-    _builder.append("for (uint i = 0; i < size(clm_names); ++i) {");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("pd_shared3p uint64 vtype;");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("tdbVmapAddType(params, \"types\", vtype);");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("tdbVmapAddString(params, \"names\", clm_names[i]);");
-    _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.newLine();
-    _builder.append("  ");
-    _builder.append("tdbTableCreate(ds, tbl, params);");
-    _builder.newLine();
-    _builder.newLine();
-    _builder.append("  ");
-    _builder.append("// Then insert values into database:");
-    _builder.newLine();
-    _builder.append("  ");
-    _builder.append("uint length = size(values) / size(clm_names);");
-    _builder.newLine();
-    _builder.append("  ");
-    _builder.append("for (uint i = 0; i < length; ++i) {");
-    _builder.newLine();
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("tdbVmapClear(params);");
-    _builder.newLine();
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("for (uint j = 0; j < size(clm_names); ++j) {");
-    _builder.newLine();
-    _builder.append("      ");
-    _builder.append("tdbVmapAddValue(params, \"values\", values[j]);");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("tdbInsertRow(ds, tbl, params);");
-    _builder.newLine();
-    _builder.append("  ");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.append("  ");
-    _builder.append("tdbVmapDelete(params);");
-    _builder.newLine();
-    _builder.newLine();
-    _builder.append("  ");
-    _builder.append("return tbl;");
-    _builder.newLine();
-    _builder.append("}");
-    _builder.newLine();
-    return _builder;
-  }
-  
   public CharSequence compile(final MainSMC mainSmc) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("void main() {");
@@ -240,6 +663,19 @@ public class SmcGenerator extends AbstractGenerator {
     _builder.newLine();
     _builder.append("\t");
     _builder.newLine();
+    _builder.append("\t");
+    _builder.append("// Public seed. Has to be constant");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("uint32[[1]] seed = {0xdae60299, 0x9b23f811, 0xa58d3bc7, 0x84fc61a9, 0x7df76b0c};");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("uint params = tdbVmapNew();");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
     {
       EList<Command> _commands = mainSmc.getCommands();
       for(final Command c : _commands) {
@@ -249,6 +685,11 @@ public class SmcGenerator extends AbstractGenerator {
         _builder.newLineIfNotEmpty();
       }
     }
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("tdbVmapDelete(params);");
+    _builder.newLine();
     _builder.append("\t");
     _builder.newLine();
     _builder.append("\t");
@@ -281,6 +722,7 @@ public class SmcGenerator extends AbstractGenerator {
     }
     _builder.append("}");
     _builder.newLine();
+    _builder.newLine();
     return _builder;
   }
   
@@ -301,6 +743,7 @@ public class SmcGenerator extends AbstractGenerator {
     }
     String _name = c.getName();
     _builder.append(_name);
+    _builder.append(" ");
     _builder.newLineIfNotEmpty();
     {
       AbstractAssignment _option = c.getOption();
@@ -309,10 +752,20 @@ public class SmcGenerator extends AbstractGenerator {
         _builder.append(" = ");
         CharSequence _compileAssignment = this.compileAssignment(c.getOption());
         _builder.append(_compileAssignment);
+      } else {
+        {
+          boolean _isArray_1 = c.isArray();
+          if (_isArray_1) {
+            _builder.append("(");
+            int _length = c.getLength();
+            _builder.append(_length);
+            _builder.append(")");
+          }
+        }
       }
     }
-    _builder.newLineIfNotEmpty();
     _builder.append(";");
+    _builder.newLineIfNotEmpty();
     _builder.newLine();
     return _builder;
   }
@@ -327,10 +780,31 @@ public class SmcGenerator extends AbstractGenerator {
   
   protected CharSequence _compileAssignment(final Download a) {
     StringConcatenation _builder = new StringConcatenation();
+    CharSequence _compileDownload = this.compileDownload(a);
+    _builder.append(_compileDownload);
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  protected CharSequence _compileDownload(final Client d) {
+    StringConcatenation _builder = new StringConcatenation();
     _builder.append("argument(\"");
-    String _arg = a.getArg();
+    String _arg = d.getArg();
     _builder.append(_arg);
     _builder.append("\")");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  protected CharSequence _compileDownload(final Database d) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("tdbReadColumn(ds, ");
+    Object _compileEx = this.compileEx(d.getTbl());
+    _builder.append(_compileEx);
+    _builder.append(", \"");
+    String _clm = d.getClm();
+    _builder.append(_clm);
+    _builder.append("\");");
     _builder.newLineIfNotEmpty();
     return _builder;
   }
@@ -400,6 +874,7 @@ public class SmcGenerator extends AbstractGenerator {
     _builder.append(_compileAssignment);
     _builder.append(";");
     _builder.newLineIfNotEmpty();
+    _builder.newLine();
     return _builder;
   }
   
@@ -439,11 +914,12 @@ public class SmcGenerator extends AbstractGenerator {
   
   protected Object _compileCommand(final Print c) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("print(\"");
+    _builder.append("print(");
     Object _compileEx = this.compileEx(c.getValue());
     _builder.append(_compileEx);
-    _builder.append("\");");
+    _builder.append(");");
     _builder.newLineIfNotEmpty();
+    _builder.newLine();
     return _builder;
   }
   
@@ -451,13 +927,19 @@ public class SmcGenerator extends AbstractGenerator {
     StringConcatenation _builder = new StringConcatenation();
     Object _compileEx = this.compileEx(c.getCall());
     _builder.append(_compileEx);
-    _builder.append(";");
     _builder.newLineIfNotEmpty();
     return _builder;
   }
   
   protected Object _compileCommand(final ParamDecl c) {
     StringConcatenation _builder = new StringConcatenation();
+    return _builder;
+  }
+  
+  protected Object _compileCommand(final Return c) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("return;");
+    _builder.newLine();
     return _builder;
   }
   
@@ -724,6 +1206,11 @@ public class SmcGenerator extends AbstractGenerator {
     return _builder;
   }
   
+  protected Object _compileEx(final Tuple e) {
+    StringConcatenation _builder = new StringConcatenation();
+    return _builder;
+  }
+  
   protected Object _compileEx(final List e) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("{");
@@ -749,130 +1236,258 @@ public class SmcGenerator extends AbstractGenerator {
     return _builder;
   }
   
+  protected Object _compileEx(final Dict e) {
+    StringConcatenation _builder = new StringConcatenation();
+    return _builder;
+  }
+  
   protected Object _compileEx(final Invocation c) {
-    CharSequence _switchResult = null;
-    BlockType _type = c.getBlockName().getType();
-    if (_type != null) {
-      switch (_type) {
-        case INSERT:
-          CharSequence _switchResult_1 = null;
-          Functions _funcName = c.getFuncName();
-          if (_funcName != null) {
-            switch (_funcName) {
-              case CREATE_DB:
-                StringConcatenation _builder = new StringConcatenation();
-                _builder.append("if (tdbTableExists(ds, tbl)) {");
-                _builder.newLine();
-                _builder.append("\t");
-                _builder.append("print(\"Table `\" + tbl + \"` already exists, deleting...\");");
-                _builder.newLine();
-                _builder.append("\t");
-                _builder.append("tdbTableDelete(ds, tbl);");
-                _builder.newLine();
-                _builder.append("}");
-                _builder.newLine();
-                _builder.newLine();
-                {
-                  EList<ParamDecl> _args = c.getArgs();
-                  boolean _tripleNotEquals = (_args != null);
-                  if (_tripleNotEquals) {
-                    _builder.append("uint params = tdbVmapNew();");
-                    _builder.newLine();
-                    _builder.newLine();
-                    {
-                      EList<ParamDecl> _args_1 = c.getArgs();
-                      for(final ParamDecl x : _args_1) {
-                        _builder.append("{");
-                        _builder.newLine();
-                        _builder.append("\t");
-                        CharSequence _toSecrecVisibility = this.getToSecrecVisibility(x.getStype());
-                        _builder.append(_toSecrecVisibility, "\t");
-                        _builder.append(" ");
-                        CharSequence _toSecrecType = this.getToSecrecType(x.getBtype());
-                        _builder.append(_toSecrecType, "\t");
-                        _builder.append(" vtype;");
-                        _builder.newLineIfNotEmpty();
-                        _builder.append("\t");
-                        _builder.append("tdbVmapAddType(params, \"types\", vtype);");
-                        _builder.newLine();
-                        _builder.append("\t");
-                        _builder.append("tdbVmapAddString(params, \"names\", \"");
-                        String _parName = x.getParName();
-                        _builder.append(_parName, "\t");
-                        _builder.append("\");");
-                        _builder.newLineIfNotEmpty();
-                        _builder.append("}");
-                        _builder.newLine();
-                        _builder.newLine();
-                      }
-                    }
-                  }
-                }
-                _builder.append("tdbTableCreate(ds, tbl, params);");
-                _builder.newLine();
-                _builder.newLine();
-                _builder.append("tdbVmapDelete(params);");
-                _builder.newLine();
-                _switchResult_1 = _builder;
-                break;
-              case ADD_VALUES:
-                StringConcatenation _builder_1 = new StringConcatenation();
-                _builder_1.append("tdbVmapClear(params);");
-                _builder_1.newLine();
-                {
-                  EList<ParamDecl> _args_2 = c.getArgs();
-                  boolean _tripleNotEquals_1 = (_args_2 != null);
-                  if (_tripleNotEquals_1) {
-                    {
-                      EList<ParamDecl> _args_3 = c.getArgs();
-                      boolean _hasElements = false;
-                      for(final ParamDecl x_1 : _args_3) {
-                        if (!_hasElements) {
-                          _hasElements = true;
-                        } else {
-                          _builder_1.appendImmediate(",", "");
-                        }
-                        _builder_1.append("tdbVmapAddValue(params, \"values\", ");
-                        String _name = x_1.getName();
-                        _builder_1.append(_name);
-                        _builder_1.append(");");
-                        _builder_1.newLineIfNotEmpty();
-                      }
-                    }
-                  }
-                }
-                _builder_1.append("tdbInsertRow(ds, tbl, params);");
-                _builder_1.newLine();
-                _builder_1.append("tdbVmapDelete(params);");
-                _builder_1.newLine();
-                _switchResult_1 = _builder_1;
-                break;
-              default:
-                break;
-            }
-          }
-          _switchResult = _switchResult_1;
-          break;
-        case ACCESS:
-          _switchResult = null;
-          break;
-        case ANONYMIZATION:
-          _switchResult = null;
-          break;
-        case COMP:
-          _switchResult = null;
-          break;
-        case PERMISSION:
-          _switchResult = null;
-          break;
-        case SEARCH:
-          _switchResult = null;
-          break;
-        default:
-          break;
+    StringConcatenation _builder = new StringConcatenation();
+    CharSequence _compileFunction = this.compileFunction(c.getFuncName());
+    _builder.append(_compileFunction);
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  /**
+   * functions
+   */
+  protected CharSequence _compileFunction(final CheckTable f) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("tdbTableExists(ds, ");
+    String _name = f.getTblname().getName();
+    _builder.append(_name);
+    _builder.append(")");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  protected CharSequence _compileFunction(final CreateTable f) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("tdbVmapClear(params);");
+    _builder.newLine();
+    _builder.newLine();
+    {
+      EList<ParamDecl> _params = f.getParams();
+      for(final ParamDecl x : _params) {
+        _builder.append("{");
+        _builder.newLine();
+        _builder.append("\t");
+        CharSequence _toSecrecVisibility = this.getToSecrecVisibility(x.getStype());
+        _builder.append(_toSecrecVisibility, "\t");
+        _builder.append(" ");
+        CharSequence _toSecrecType = this.getToSecrecType(x.getBtype());
+        _builder.append(_toSecrecType, "\t");
+        _builder.append(" vtype;");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("tdbVmapAddType(params, \"types\", vtype);");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("tdbVmapAddString(params, \"names\", \"");
+        String _parName = x.getParName();
+        _builder.append(_parName, "\t");
+        _builder.append("\");");
+        _builder.newLineIfNotEmpty();
+        _builder.append("}");
+        _builder.newLine();
+        _builder.newLine();
       }
     }
-    return _switchResult;
+    _builder.newLine();
+    _builder.append("tdbTableCreate(ds, ");
+    String _name = f.getTblname().getName();
+    _builder.append(_name);
+    _builder.append(", params);");
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    return _builder;
+  }
+  
+  protected CharSequence _compileFunction(final AddValues f) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("tdbVmapClear(params);");
+    _builder.newLine();
+    _builder.newLine();
+    {
+      EList<VariableDecl> _args = f.getArgs();
+      for(final VariableDecl x : _args) {
+        _builder.append("tdbVmapAddValue(params, \"values\", ");
+        String _name = x.getName();
+        _builder.append(_name);
+        _builder.append(");");
+        _builder.newLineIfNotEmpty();
+        _builder.newLine();
+      }
+    }
+    _builder.newLine();
+    _builder.append("tdbInsertRow(ds, ");
+    String _name_1 = f.getTblname().getName();
+    _builder.append(_name_1);
+    _builder.append(", params);");
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    return _builder;
+  }
+  
+  protected CharSequence _compileFunction(final BloomFilter f) {
+    StringConcatenation _builder = new StringConcatenation();
+    String _name = f.getPost().getName();
+    _builder.append(_name);
+    _builder.append(" = bloomInsertMany(");
+    String _name_1 = f.getPre().getName();
+    _builder.append(_name_1);
+    _builder.append(", ");
+    String _name_2 = f.getPost().getName();
+    _builder.append(_name_2);
+    _builder.append(", seed);");
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    return _builder;
+  }
+  
+  protected CharSequence _compileFunction(final Search f) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("search(ds, ");
+    String _name = f.getTblname().getName();
+    _builder.append(_name);
+    _builder.append(", \"");
+    String _column = f.getColumn();
+    _builder.append(_column);
+    _builder.append("\", seed, ");
+    String _name_1 = f.getKeyword().getName();
+    _builder.append(_name_1);
+    _builder.append(")");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  protected CharSequence _compileFunction(final AccessControl f) {
+    StringConcatenation _builder = new StringConcatenation();
+    CharSequence _compileAccessControl = this.compileAccessControl(f);
+    _builder.append(_compileAccessControl);
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  protected CharSequence _compileAccessControl(final Covered ac) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("checkPolicyUncovered(");
+    String _name = ac.getMatch().getName();
+    _builder.append(_name);
+    _builder.append(", ");
+    String _name_1 = ac.getCovered().getName();
+    _builder.append(_name_1);
+    _builder.append(", ");
+    String _name_2 = ac.getC_lvls().getName();
+    _builder.append(_name_2);
+    _builder.append(", ");
+    String _name_3 = ac.getV_lvl().getName();
+    _builder.append(_name_3);
+    _builder.append(")");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  protected CharSequence _compileAccessControl(final BellLapadula ac) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      VariableDecl _cur = ac.getCur();
+      boolean _tripleNotEquals = (_cur != null);
+      if (_tripleNotEquals) {
+        _builder.append("checkPolicyBLP(");
+        String _name = ac.getCur().getName();
+        _builder.append(_name);
+        _builder.append(", \"");
+        String _mode = ac.getMode();
+        _builder.append(_mode);
+        _builder.append("\", ");
+        String _name_1 = ac.getC_lvls().getName();
+        _builder.append(_name_1);
+        _builder.append(", ");
+        String _name_2 = ac.getV_lvl().getName();
+        _builder.append(_name_2);
+        _builder.append(")");
+        _builder.newLineIfNotEmpty();
+      } else {
+        _builder.append("checkPolicyBLP(\"");
+        String _mode_1 = ac.getMode();
+        _builder.append(_mode_1);
+        _builder.append("\", ");
+        String _name_3 = ac.getC_lvls().getName();
+        _builder.append(_name_3);
+        _builder.append(", ");
+        String _name_4 = ac.getV_lvl().getName();
+        _builder.append(_name_4);
+        _builder.append(")");
+      }
+    }
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  protected CharSequence _compileFunction(final Computation f) {
+    StringConcatenation _builder = new StringConcatenation();
+    CharSequence _compileComputation = this.compileComputation(f);
+    _builder.append(_compileComputation);
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  protected CharSequence _compileComputation(final Count c) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("count(");
+    String _name = c.getArray().getName();
+    _builder.append(_name);
+    _builder.append(")");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  protected CharSequence _compileComputation(final Average c) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("avg(");
+    String _name = c.getArray().getName();
+    _builder.append(_name);
+    _builder.append(")");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  protected CharSequence _compileComputation(final WeightedAvg c) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("weightedAvg(");
+    String _name = c.getWeights().getName();
+    _builder.append(_name);
+    _builder.append(", ");
+    String _name_1 = c.getElems().getName();
+    _builder.append(_name_1);
+    _builder.append(")");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  protected CharSequence _compileComputation(final Median c) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("median(");
+    String _name = c.getArray().getName();
+    _builder.append(_name);
+    _builder.append(")");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  protected CharSequence _compileComputation(final Multiplication c) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("multiplication(");
+    String _name = c.getX().getName();
+    _builder.append(_name);
+    _builder.append(", ");
+    String _name_1 = c.getY().getName();
+    _builder.append(_name_1);
+    _builder.append(")");
+    _builder.newLineIfNotEmpty();
+    return _builder;
   }
   
   public Object compileCommand(final Command c) {
@@ -886,6 +1501,8 @@ public class SmcGenerator extends AbstractGenerator {
       return _compileCommand((ParamDecl)c);
     } else if (c instanceof Print) {
       return _compileCommand((Print)c);
+    } else if (c instanceof Return) {
+      return _compileCommand((Return)c);
     } else if (c instanceof VariableAssignment) {
       return _compileCommand((VariableAssignment)c);
     } else if (c instanceof VariableDecl) {
@@ -911,6 +1528,17 @@ public class SmcGenerator extends AbstractGenerator {
     }
   }
   
+  public CharSequence compileDownload(final Download d) {
+    if (d instanceof Client) {
+      return _compileDownload((Client)d);
+    } else if (d instanceof Database) {
+      return _compileDownload((Database)d);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(d).toString());
+    }
+  }
+  
   public Object compileEx(final Expression e) {
     if (e instanceof And) {
       return _compileEx((And)e);
@@ -920,6 +1548,8 @@ public class SmcGenerator extends AbstractGenerator {
       return _compileEx((Comparison)e);
     } else if (e instanceof DateLiteral) {
       return _compileEx((DateLiteral)e);
+    } else if (e instanceof Dict) {
+      return _compileEx((Dict)e);
     } else if (e instanceof DoubleLiteral) {
       return _compileEx((DoubleLiteral)e);
     } else if (e instanceof Equality) {
@@ -942,6 +1572,8 @@ public class SmcGenerator extends AbstractGenerator {
       return _compileEx((StringLiteral)e);
     } else if (e instanceof TimeLiteral) {
       return _compileEx((TimeLiteral)e);
+    } else if (e instanceof Tuple) {
+      return _compileEx((Tuple)e);
     } else if (e instanceof VariableRef) {
       return _compileEx((VariableRef)e);
     } else if (e != null) {
@@ -949,6 +1581,55 @@ public class SmcGenerator extends AbstractGenerator {
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(e).toString());
+    }
+  }
+  
+  public CharSequence compileFunction(final Functions f) {
+    if (f instanceof AccessControl) {
+      return _compileFunction((AccessControl)f);
+    } else if (f instanceof AddValues) {
+      return _compileFunction((AddValues)f);
+    } else if (f instanceof BloomFilter) {
+      return _compileFunction((BloomFilter)f);
+    } else if (f instanceof CheckTable) {
+      return _compileFunction((CheckTable)f);
+    } else if (f instanceof Computation) {
+      return _compileFunction((Computation)f);
+    } else if (f instanceof CreateTable) {
+      return _compileFunction((CreateTable)f);
+    } else if (f instanceof Search) {
+      return _compileFunction((Search)f);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(f).toString());
+    }
+  }
+  
+  public CharSequence compileAccessControl(final AccessControl ac) {
+    if (ac instanceof BellLapadula) {
+      return _compileAccessControl((BellLapadula)ac);
+    } else if (ac instanceof Covered) {
+      return _compileAccessControl((Covered)ac);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(ac).toString());
+    }
+  }
+  
+  public CharSequence compileComputation(final Computation c) {
+    if (c instanceof Average) {
+      return _compileComputation((Average)c);
+    } else if (c instanceof Count) {
+      return _compileComputation((Count)c);
+    } else if (c instanceof Median) {
+      return _compileComputation((Median)c);
+    } else if (c instanceof Multiplication) {
+      return _compileComputation((Multiplication)c);
+    } else if (c instanceof WeightedAvg) {
+      return _compileComputation((WeightedAvg)c);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(c).toString());
     }
   }
 }

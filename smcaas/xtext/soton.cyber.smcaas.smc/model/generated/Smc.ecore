@@ -56,6 +56,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="#//SecType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//BasicType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="array" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="length" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="option" eType="#//AbstractAssignment"
         containment="true"/>
@@ -77,14 +78,20 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractAssignment"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Download" eSuperTypes="#//AbstractAssignment">
+  <eClassifiers xsi:type="ecore:EClass" name="Download" eSuperTypes="#//AbstractAssignment"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Database" eSuperTypes="#//Download">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tbl" eType="#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="clm" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Client" eSuperTypes="#//Download">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="arg" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Expression" eSuperTypes="#//AbstractAssignment"/>
   <eClassifiers xsi:type="ecore:EClass" name="Tuple" eSuperTypes="#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="arg1" upperBound="-1" eType="#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arg1" eType="#//Expression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="arg2" upperBound="-1" eType="#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arg2" eType="#//Expression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="List" eSuperTypes="#//Expression">
@@ -92,20 +99,69 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Dict" eSuperTypes="#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="key" upperBound="-1" eType="#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="#//Expression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//List"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Invocation" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="blockName" eType="#//BlockSMC"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="funcName" eType="#//Functions"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="funcName" eType="#//Functions"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Functions"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Computation" eSuperTypes="#//Functions"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Multiplication" eSuperTypes="#//Computation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="x" eType="#//VariableDecl"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="y" eType="#//VariableDecl"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Median" eSuperTypes="#//Computation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="array" eType="#//VariableDecl"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WeightedAvg" eSuperTypes="#//Computation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="weights" eType="#//VariableDecl"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elems" eType="#//VariableDecl"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Average" eSuperTypes="#//Computation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="array" eType="#//VariableDecl"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Count" eSuperTypes="#//Computation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="array" eType="#//VariableDecl"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AccessControl" eSuperTypes="#//Functions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="c_lvls" eType="#//VariableDecl"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="v_lvl" eType="#//VariableDecl"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BellLapadula" eSuperTypes="#//AccessControl">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cur" eType="#//VariableDecl"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Covered" eSuperTypes="#//AccessControl">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="match" eType="#//VariableDecl"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="covered" eType="#//VariableDecl"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Search" eSuperTypes="#//Functions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tblname" eType="#//VariableDecl"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="column" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="keyword" eType="#//VariableDecl"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BloomFilter" eSuperTypes="#//Functions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pre" eType="#//VariableDecl"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="post" eType="#//VariableDecl"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CheckTable" eSuperTypes="#//Functions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tblname" eType="#//VariableDecl"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AddValues" eSuperTypes="#//Functions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tblname" eType="#//VariableDecl"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="args" unique="false" upperBound="-1"
-        eType="#//ParamDecl"/>
+        eType="#//VariableDecl"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="Functions">
-    <eLiterals name="CREATE_DB" literal="createDataset"/>
-    <eLiterals name="ADD_VALUES" value="1" literal="addValues"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CreateTable" eSuperTypes="#//Functions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tblname" eType="#//VariableDecl"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="params" unique="false"
+        upperBound="-1" eType="#//ParamDecl"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Return" eSuperTypes="#//Command"/>
   <eClassifiers xsi:type="ecore:EClass" name="Block" eSuperTypes="#//Command">
     <eStructuralFeatures xsi:type="ecore:EReference" name="commands" upperBound="-1"
         eType="#//Command" containment="true"/>

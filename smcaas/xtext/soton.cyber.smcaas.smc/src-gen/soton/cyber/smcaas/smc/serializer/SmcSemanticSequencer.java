@@ -15,15 +15,24 @@ import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import soton.cyber.smcaas.smc.services.SmcGrammarAccess;
+import soton.cyber.smcaas.smc.smc.AddValues;
 import soton.cyber.smcaas.smc.smc.And;
+import soton.cyber.smcaas.smc.smc.Average;
+import soton.cyber.smcaas.smc.smc.BellLapadula;
 import soton.cyber.smcaas.smc.smc.Block;
 import soton.cyber.smcaas.smc.smc.BlockSMC;
+import soton.cyber.smcaas.smc.smc.BloomFilter;
 import soton.cyber.smcaas.smc.smc.BooleanLiteral;
+import soton.cyber.smcaas.smc.smc.CheckTable;
+import soton.cyber.smcaas.smc.smc.Client;
 import soton.cyber.smcaas.smc.smc.Comparison;
+import soton.cyber.smcaas.smc.smc.Count;
+import soton.cyber.smcaas.smc.smc.Covered;
+import soton.cyber.smcaas.smc.smc.CreateTable;
+import soton.cyber.smcaas.smc.smc.Database;
 import soton.cyber.smcaas.smc.smc.DateLiteral;
 import soton.cyber.smcaas.smc.smc.Dict;
 import soton.cyber.smcaas.smc.smc.DoubleLiteral;
-import soton.cyber.smcaas.smc.smc.Download;
 import soton.cyber.smcaas.smc.smc.Equality;
 import soton.cyber.smcaas.smc.smc.IfThenElse;
 import soton.cyber.smcaas.smc.smc.IntLiteral;
@@ -31,12 +40,16 @@ import soton.cyber.smcaas.smc.smc.Invocation;
 import soton.cyber.smcaas.smc.smc.InvocationVoid;
 import soton.cyber.smcaas.smc.smc.List;
 import soton.cyber.smcaas.smc.smc.MainSMC;
+import soton.cyber.smcaas.smc.smc.Median;
 import soton.cyber.smcaas.smc.smc.MulOrDiv;
+import soton.cyber.smcaas.smc.smc.Multiplication;
 import soton.cyber.smcaas.smc.smc.Not;
 import soton.cyber.smcaas.smc.smc.Or;
 import soton.cyber.smcaas.smc.smc.ParamDecl;
 import soton.cyber.smcaas.smc.smc.PlusOrMinus;
 import soton.cyber.smcaas.smc.smc.Print;
+import soton.cyber.smcaas.smc.smc.Return;
+import soton.cyber.smcaas.smc.smc.Search;
 import soton.cyber.smcaas.smc.smc.Smc;
 import soton.cyber.smcaas.smc.smc.SmcPackage;
 import soton.cyber.smcaas.smc.smc.StringLiteral;
@@ -45,6 +58,7 @@ import soton.cyber.smcaas.smc.smc.Tuple;
 import soton.cyber.smcaas.smc.smc.VariableAssignment;
 import soton.cyber.smcaas.smc.smc.VariableDecl;
 import soton.cyber.smcaas.smc.smc.VariableRef;
+import soton.cyber.smcaas.smc.smc.WeightedAvg;
 import soton.cyber.smcaas.smc.smc.While;
 
 @SuppressWarnings("all")
@@ -61,8 +75,17 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == SmcPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
+			case SmcPackage.ADD_VALUES:
+				sequence_AddValues(context, (AddValues) semanticObject); 
+				return; 
 			case SmcPackage.AND:
 				sequence_And(context, (And) semanticObject); 
+				return; 
+			case SmcPackage.AVERAGE:
+				sequence_Average(context, (Average) semanticObject); 
+				return; 
+			case SmcPackage.BELL_LAPADULA:
+				sequence_BellLapadula(context, (BellLapadula) semanticObject); 
 				return; 
 			case SmcPackage.BLOCK:
 				sequence_Block(context, (Block) semanticObject); 
@@ -70,11 +93,32 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case SmcPackage.BLOCK_SMC:
 				sequence_BlockSMC(context, (BlockSMC) semanticObject); 
 				return; 
+			case SmcPackage.BLOOM_FILTER:
+				sequence_BloomFilter(context, (BloomFilter) semanticObject); 
+				return; 
 			case SmcPackage.BOOLEAN_LITERAL:
 				sequence_Atomic(context, (BooleanLiteral) semanticObject); 
 				return; 
+			case SmcPackage.CHECK_TABLE:
+				sequence_CheckTable(context, (CheckTable) semanticObject); 
+				return; 
+			case SmcPackage.CLIENT:
+				sequence_Client(context, (Client) semanticObject); 
+				return; 
 			case SmcPackage.COMPARISON:
 				sequence_Comparison(context, (Comparison) semanticObject); 
+				return; 
+			case SmcPackage.COUNT:
+				sequence_Count(context, (Count) semanticObject); 
+				return; 
+			case SmcPackage.COVERED:
+				sequence_Covered(context, (Covered) semanticObject); 
+				return; 
+			case SmcPackage.CREATE_TABLE:
+				sequence_CreateTable(context, (CreateTable) semanticObject); 
+				return; 
+			case SmcPackage.DATABASE:
+				sequence_Database(context, (Database) semanticObject); 
 				return; 
 			case SmcPackage.DATE_LITERAL:
 				sequence_Atomic(context, (DateLiteral) semanticObject); 
@@ -84,9 +128,6 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case SmcPackage.DOUBLE_LITERAL:
 				sequence_Atomic(context, (DoubleLiteral) semanticObject); 
-				return; 
-			case SmcPackage.DOWNLOAD:
-				sequence_Download(context, (Download) semanticObject); 
 				return; 
 			case SmcPackage.EQUALITY:
 				sequence_Equality(context, (Equality) semanticObject); 
@@ -109,8 +150,14 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case SmcPackage.MAIN_SMC:
 				sequence_MainSMC(context, (MainSMC) semanticObject); 
 				return; 
+			case SmcPackage.MEDIAN:
+				sequence_Median(context, (Median) semanticObject); 
+				return; 
 			case SmcPackage.MUL_OR_DIV:
 				sequence_MulOrDiv(context, (MulOrDiv) semanticObject); 
+				return; 
+			case SmcPackage.MULTIPLICATION:
+				sequence_Multiplication(context, (Multiplication) semanticObject); 
 				return; 
 			case SmcPackage.NOT:
 				sequence_Primary(context, (Not) semanticObject); 
@@ -126,6 +173,12 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case SmcPackage.PRINT:
 				sequence_Print(context, (Print) semanticObject); 
+				return; 
+			case SmcPackage.RETURN:
+				sequence_Return(context, (Return) semanticObject); 
+				return; 
+			case SmcPackage.SEARCH:
+				sequence_Search(context, (Search) semanticObject); 
 				return; 
 			case SmcPackage.SMC:
 				sequence_Smc(context, (Smc) semanticObject); 
@@ -148,6 +201,9 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case SmcPackage.VARIABLE_REF:
 				sequence_Atomic(context, (VariableRef) semanticObject); 
 				return; 
+			case SmcPackage.WEIGHTED_AVG:
+				sequence_WeightedAvg(context, (WeightedAvg) semanticObject); 
+				return; 
 			case SmcPackage.WHILE:
 				sequence_While(context, (While) semanticObject); 
 				return; 
@@ -155,6 +211,19 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		if (errorAcceptor != null)
 			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
+	
+	/**
+	 * Contexts:
+	 *     Functions returns AddValues
+	 *     AddValues returns AddValues
+	 *
+	 * Constraint:
+	 *     (tblname=[VariableDecl|ID] (args+=[VariableDecl|ID] args+=[VariableDecl|ID]*)+)
+	 */
+	protected void sequence_AddValues(ISerializationContext context, AddValues semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
 	
 	/**
 	 * Contexts:
@@ -424,6 +493,40 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     Functions returns Average
+	 *     Computation returns Average
+	 *     Average returns Average
+	 *
+	 * Constraint:
+	 *     array=[VariableDecl|ID]
+	 */
+	protected void sequence_Average(ISerializationContext context, Average semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.AVERAGE__ARRAY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.AVERAGE__ARRAY));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAverageAccess().getArrayVariableDeclIDTerminalRuleCall_2_0_1(), semanticObject.eGet(SmcPackage.Literals.AVERAGE__ARRAY, false));
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Functions returns BellLapadula
+	 *     AccessControl returns BellLapadula
+	 *     BellLapadula returns BellLapadula
+	 *
+	 * Constraint:
+	 *     (cur=[VariableDecl|ID]? mode=STRING c_lvls=[VariableDecl|ID] v_lvl=[VariableDecl|ID])
+	 */
+	protected void sequence_BellLapadula(ISerializationContext context, BellLapadula semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     BlockSMC returns BlockSMC
 	 *
 	 * Constraint:
@@ -458,6 +561,67 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     Functions returns BloomFilter
+	 *     BloomFilter returns BloomFilter
+	 *
+	 * Constraint:
+	 *     (pre=[VariableDecl|ID] post=[VariableDecl|ID])
+	 */
+	protected void sequence_BloomFilter(ISerializationContext context, BloomFilter semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.BLOOM_FILTER__PRE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.BLOOM_FILTER__PRE));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.BLOOM_FILTER__POST) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.BLOOM_FILTER__POST));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getBloomFilterAccess().getPreVariableDeclIDTerminalRuleCall_2_0_1(), semanticObject.eGet(SmcPackage.Literals.BLOOM_FILTER__PRE, false));
+		feeder.accept(grammarAccess.getBloomFilterAccess().getPostVariableDeclIDTerminalRuleCall_4_0_1(), semanticObject.eGet(SmcPackage.Literals.BLOOM_FILTER__POST, false));
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Functions returns CheckTable
+	 *     CheckTable returns CheckTable
+	 *
+	 * Constraint:
+	 *     tblname=[VariableDecl|ID]
+	 */
+	protected void sequence_CheckTable(ISerializationContext context, CheckTable semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.CHECK_TABLE__TBLNAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.CHECK_TABLE__TBLNAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCheckTableAccess().getTblnameVariableDeclIDTerminalRuleCall_2_0_1(), semanticObject.eGet(SmcPackage.Literals.CHECK_TABLE__TBLNAME, false));
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AbstractAssignment returns Client
+	 *     Download returns Client
+	 *     Client returns Client
+	 *
+	 * Constraint:
+	 *     arg=STRING
+	 */
+	protected void sequence_Client(ISerializationContext context, Client semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.CLIENT__ARG) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.CLIENT__ARG));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getClientAccess().getArgSTRINGTerminalRuleCall_2_0(), semanticObject.getArg());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     AbstractAssignment returns Comparison
 	 *     Expression returns Comparison
 	 *     Or returns Comparison
@@ -484,6 +648,91 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     Functions returns Count
+	 *     Computation returns Count
+	 *     Count returns Count
+	 *
+	 * Constraint:
+	 *     array=[VariableDecl|ID]
+	 */
+	protected void sequence_Count(ISerializationContext context, Count semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.COUNT__ARRAY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.COUNT__ARRAY));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCountAccess().getArrayVariableDeclIDTerminalRuleCall_2_0_1(), semanticObject.eGet(SmcPackage.Literals.COUNT__ARRAY, false));
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Functions returns Covered
+	 *     AccessControl returns Covered
+	 *     Covered returns Covered
+	 *
+	 * Constraint:
+	 *     (match=[VariableDecl|ID] covered=[VariableDecl|ID] c_lvls=[VariableDecl|ID] v_lvl=[VariableDecl|ID])
+	 */
+	protected void sequence_Covered(ISerializationContext context, Covered semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.COVERED__MATCH) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.COVERED__MATCH));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.COVERED__COVERED) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.COVERED__COVERED));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.ACCESS_CONTROL__CLVLS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.ACCESS_CONTROL__CLVLS));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.ACCESS_CONTROL__VLVL) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.ACCESS_CONTROL__VLVL));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCoveredAccess().getMatchVariableDeclIDTerminalRuleCall_2_0_1(), semanticObject.eGet(SmcPackage.Literals.COVERED__MATCH, false));
+		feeder.accept(grammarAccess.getCoveredAccess().getCoveredVariableDeclIDTerminalRuleCall_4_0_1(), semanticObject.eGet(SmcPackage.Literals.COVERED__COVERED, false));
+		feeder.accept(grammarAccess.getCoveredAccess().getC_lvlsVariableDeclIDTerminalRuleCall_6_0_1(), semanticObject.eGet(SmcPackage.Literals.ACCESS_CONTROL__CLVLS, false));
+		feeder.accept(grammarAccess.getCoveredAccess().getV_lvlVariableDeclIDTerminalRuleCall_8_0_1(), semanticObject.eGet(SmcPackage.Literals.ACCESS_CONTROL__VLVL, false));
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Functions returns CreateTable
+	 *     CreateTable returns CreateTable
+	 *
+	 * Constraint:
+	 *     (tblname=[VariableDecl|ID] (params+=[ParamDecl|ID] params+=[ParamDecl|ID]*)+)
+	 */
+	protected void sequence_CreateTable(ISerializationContext context, CreateTable semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AbstractAssignment returns Database
+	 *     Download returns Database
+	 *     Database returns Database
+	 *
+	 * Constraint:
+	 *     (tbl=Atomic clm=STRING)
+	 */
+	protected void sequence_Database(ISerializationContext context, Database semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.DATABASE__TBL) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.DATABASE__TBL));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.DATABASE__CLM) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.DATABASE__CLM));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getDatabaseAccess().getTblAtomicParserRuleCall_2_0(), semanticObject.getTbl());
+		feeder.accept(grammarAccess.getDatabaseAccess().getClmSTRINGTerminalRuleCall_4_0(), semanticObject.getClm());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     AbstractAssignment returns Dict
 	 *     Expression returns Dict
 	 *     Or returns Dict
@@ -503,28 +752,18 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Dict returns Dict
 	 *
 	 * Constraint:
-	 *     (key+=Atomic value=[List|ID])
+	 *     (key=Atomic value=[List|ID])
 	 */
 	protected void sequence_Dict(ISerializationContext context, Dict semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     AbstractAssignment returns Download
-	 *     Download returns Download
-	 *
-	 * Constraint:
-	 *     arg=STRING
-	 */
-	protected void sequence_Download(ISerializationContext context, Download semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.DOWNLOAD__ARG) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.DOWNLOAD__ARG));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.DICT__KEY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.DICT__KEY));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.DICT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.DICT__VALUE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getDownloadAccess().getArgSTRINGTerminalRuleCall_2_0(), semanticObject.getArg());
+		feeder.accept(grammarAccess.getDictAccess().getKeyAtomicParserRuleCall_2_0(), semanticObject.getKey());
+		feeder.accept(grammarAccess.getDictAccess().getValueListIDTerminalRuleCall_4_0_1(), semanticObject.eGet(SmcPackage.Literals.DICT__VALUE, false));
 		feeder.finish();
 	}
 	
@@ -608,10 +847,19 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Invocation returns Invocation
 	 *
 	 * Constraint:
-	 *     (blockName=[BlockSMC|ID] funcName=Functions (args+=[ParamDecl|ID] args+=[ParamDecl|ID]*)?)
+	 *     (blockName=[BlockSMC|ID] funcName=Functions)
 	 */
 	protected void sequence_Invocation(ISerializationContext context, Invocation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.INVOCATION__BLOCK_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.INVOCATION__BLOCK_NAME));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.INVOCATION__FUNC_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.INVOCATION__FUNC_NAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getInvocationAccess().getBlockNameBlockSMCIDTerminalRuleCall_0_0_1(), semanticObject.eGet(SmcPackage.Literals.INVOCATION__BLOCK_NAME, false));
+		feeder.accept(grammarAccess.getInvocationAccess().getFuncNameFunctionsParserRuleCall_2_0(), semanticObject.getFuncName());
+		feeder.finish();
 	}
 	
 	
@@ -657,6 +905,26 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     Functions returns Median
+	 *     Computation returns Median
+	 *     Median returns Median
+	 *
+	 * Constraint:
+	 *     array=[VariableDecl|ID]
+	 */
+	protected void sequence_Median(ISerializationContext context, Median semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.MEDIAN__ARRAY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.MEDIAN__ARRAY));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getMedianAccess().getArrayVariableDeclIDTerminalRuleCall_2_0_1(), semanticObject.eGet(SmcPackage.Literals.MEDIAN__ARRAY, false));
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     AbstractAssignment returns MulOrDiv
 	 *     Expression returns MulOrDiv
 	 *     Or returns MulOrDiv
@@ -678,6 +946,29 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_MulOrDiv(ISerializationContext context, MulOrDiv semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Functions returns Multiplication
+	 *     Computation returns Multiplication
+	 *     Multiplication returns Multiplication
+	 *
+	 * Constraint:
+	 *     (x=[VariableDecl|ID] y=[VariableDecl|ID])
+	 */
+	protected void sequence_Multiplication(ISerializationContext context, Multiplication semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.MULTIPLICATION__X) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.MULTIPLICATION__X));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.MULTIPLICATION__Y) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.MULTIPLICATION__Y));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getMultiplicationAccess().getXVariableDeclIDTerminalRuleCall_2_0_1(), semanticObject.eGet(SmcPackage.Literals.MULTIPLICATION__X, false));
+		feeder.accept(grammarAccess.getMultiplicationAccess().getYVariableDeclIDTerminalRuleCall_4_0_1(), semanticObject.eGet(SmcPackage.Literals.MULTIPLICATION__Y, false));
+		feeder.finish();
 	}
 	
 	
@@ -823,6 +1114,44 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     Command returns Return
+	 *     Return returns Return
+	 *
+	 * Constraint:
+	 *     {Return}
+	 */
+	protected void sequence_Return(ISerializationContext context, Return semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Functions returns Search
+	 *     Search returns Search
+	 *
+	 * Constraint:
+	 *     (tblname=[VariableDecl|ID] column=STRING keyword=[VariableDecl|ID])
+	 */
+	protected void sequence_Search(ISerializationContext context, Search semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.SEARCH__TBLNAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.SEARCH__TBLNAME));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.SEARCH__COLUMN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.SEARCH__COLUMN));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.SEARCH__KEYWORD) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.SEARCH__KEYWORD));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getSearchAccess().getTblnameVariableDeclIDTerminalRuleCall_2_0_1(), semanticObject.eGet(SmcPackage.Literals.SEARCH__TBLNAME, false));
+		feeder.accept(grammarAccess.getSearchAccess().getColumnSTRINGTerminalRuleCall_4_0(), semanticObject.getColumn());
+		feeder.accept(grammarAccess.getSearchAccess().getKeywordVariableDeclIDTerminalRuleCall_6_0_1(), semanticObject.eGet(SmcPackage.Literals.SEARCH__KEYWORD, false));
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Smc returns Smc
 	 *
 	 * Constraint:
@@ -854,10 +1183,19 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Tuple returns Tuple
 	 *
 	 * Constraint:
-	 *     (arg1+=Atomic arg2+=Atomic)
+	 *     (arg1=Atomic arg2=Atomic)
 	 */
 	protected void sequence_Tuple(ISerializationContext context, Tuple semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.TUPLE__ARG1) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.TUPLE__ARG1));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.TUPLE__ARG2) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.TUPLE__ARG2));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getTupleAccess().getArg1AtomicParserRuleCall_2_0(), semanticObject.getArg1());
+		feeder.accept(grammarAccess.getTupleAccess().getArg2AtomicParserRuleCall_4_0(), semanticObject.getArg2());
+		feeder.finish();
 	}
 	
 	
@@ -889,10 +1227,33 @@ public class SmcSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     VariableDecl returns VariableDecl
 	 *
 	 * Constraint:
-	 *     (visibility=SecType type=BasicType array?='[]'? name=ID option=AbstractAssignment?)
+	 *     (visibility=SecType type=BasicType (array?='[' length=INT?)? name=ID option=AbstractAssignment?)
 	 */
 	protected void sequence_VariableDecl(ISerializationContext context, VariableDecl semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Functions returns WeightedAvg
+	 *     Computation returns WeightedAvg
+	 *     WeightedAvg returns WeightedAvg
+	 *
+	 * Constraint:
+	 *     (weights=[VariableDecl|ID] elems=[VariableDecl|ID])
+	 */
+	protected void sequence_WeightedAvg(ISerializationContext context, WeightedAvg semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.WEIGHTED_AVG__WEIGHTS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.WEIGHTED_AVG__WEIGHTS));
+			if (transientValues.isValueTransient(semanticObject, SmcPackage.Literals.WEIGHTED_AVG__ELEMS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SmcPackage.Literals.WEIGHTED_AVG__ELEMS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getWeightedAvgAccess().getWeightsVariableDeclIDTerminalRuleCall_2_0_1(), semanticObject.eGet(SmcPackage.Literals.WEIGHTED_AVG__WEIGHTS, false));
+		feeder.accept(grammarAccess.getWeightedAvgAccess().getElemsVariableDeclIDTerminalRuleCall_4_0_1(), semanticObject.eGet(SmcPackage.Literals.WEIGHTED_AVG__ELEMS, false));
+		feeder.finish();
 	}
 	
 	

@@ -141,6 +141,16 @@ public class SmcAdapterFactory extends AdapterFactoryImpl
         return createDownloadAdapter();
       }
       @Override
+      public Adapter caseDatabase(Database object)
+      {
+        return createDatabaseAdapter();
+      }
+      @Override
+      public Adapter caseClient(Client object)
+      {
+        return createClientAdapter();
+      }
+      @Override
       public Adapter caseExpression(Expression object)
       {
         return createExpressionAdapter();
@@ -164,6 +174,86 @@ public class SmcAdapterFactory extends AdapterFactoryImpl
       public Adapter caseInvocation(Invocation object)
       {
         return createInvocationAdapter();
+      }
+      @Override
+      public Adapter caseFunctions(Functions object)
+      {
+        return createFunctionsAdapter();
+      }
+      @Override
+      public Adapter caseComputation(Computation object)
+      {
+        return createComputationAdapter();
+      }
+      @Override
+      public Adapter caseMultiplication(Multiplication object)
+      {
+        return createMultiplicationAdapter();
+      }
+      @Override
+      public Adapter caseMedian(Median object)
+      {
+        return createMedianAdapter();
+      }
+      @Override
+      public Adapter caseWeightedAvg(WeightedAvg object)
+      {
+        return createWeightedAvgAdapter();
+      }
+      @Override
+      public Adapter caseAverage(Average object)
+      {
+        return createAverageAdapter();
+      }
+      @Override
+      public Adapter caseCount(Count object)
+      {
+        return createCountAdapter();
+      }
+      @Override
+      public Adapter caseAccessControl(AccessControl object)
+      {
+        return createAccessControlAdapter();
+      }
+      @Override
+      public Adapter caseBellLapadula(BellLapadula object)
+      {
+        return createBellLapadulaAdapter();
+      }
+      @Override
+      public Adapter caseCovered(Covered object)
+      {
+        return createCoveredAdapter();
+      }
+      @Override
+      public Adapter caseSearch(Search object)
+      {
+        return createSearchAdapter();
+      }
+      @Override
+      public Adapter caseBloomFilter(BloomFilter object)
+      {
+        return createBloomFilterAdapter();
+      }
+      @Override
+      public Adapter caseCheckTable(CheckTable object)
+      {
+        return createCheckTableAdapter();
+      }
+      @Override
+      public Adapter caseAddValues(AddValues object)
+      {
+        return createAddValuesAdapter();
+      }
+      @Override
+      public Adapter caseCreateTable(CreateTable object)
+      {
+        return createCreateTableAdapter();
+      }
+      @Override
+      public Adapter caseReturn(Return object)
+      {
+        return createReturnAdapter();
       }
       @Override
       public Adapter caseBlock(Block object)
@@ -458,6 +548,36 @@ public class SmcAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.Database <em>Database</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.Database
+   * @generated
+   */
+  public Adapter createDatabaseAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.Client <em>Client</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.Client
+   * @generated
+   */
+  public Adapter createClientAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.Expression <em>Expression</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -528,6 +648,246 @@ public class SmcAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createInvocationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.Functions <em>Functions</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.Functions
+   * @generated
+   */
+  public Adapter createFunctionsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.Computation <em>Computation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.Computation
+   * @generated
+   */
+  public Adapter createComputationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.Multiplication <em>Multiplication</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.Multiplication
+   * @generated
+   */
+  public Adapter createMultiplicationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.Median <em>Median</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.Median
+   * @generated
+   */
+  public Adapter createMedianAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.WeightedAvg <em>Weighted Avg</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.WeightedAvg
+   * @generated
+   */
+  public Adapter createWeightedAvgAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.Average <em>Average</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.Average
+   * @generated
+   */
+  public Adapter createAverageAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.Count <em>Count</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.Count
+   * @generated
+   */
+  public Adapter createCountAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.AccessControl <em>Access Control</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.AccessControl
+   * @generated
+   */
+  public Adapter createAccessControlAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.BellLapadula <em>Bell Lapadula</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.BellLapadula
+   * @generated
+   */
+  public Adapter createBellLapadulaAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.Covered <em>Covered</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.Covered
+   * @generated
+   */
+  public Adapter createCoveredAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.Search <em>Search</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.Search
+   * @generated
+   */
+  public Adapter createSearchAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.BloomFilter <em>Bloom Filter</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.BloomFilter
+   * @generated
+   */
+  public Adapter createBloomFilterAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.CheckTable <em>Check Table</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.CheckTable
+   * @generated
+   */
+  public Adapter createCheckTableAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.AddValues <em>Add Values</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.AddValues
+   * @generated
+   */
+  public Adapter createAddValuesAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.CreateTable <em>Create Table</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.CreateTable
+   * @generated
+   */
+  public Adapter createCreateTableAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link soton.cyber.smcaas.smc.smc.Return <em>Return</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see soton.cyber.smcaas.smc.smc.Return
+   * @generated
+   */
+  public Adapter createReturnAdapter()
   {
     return null;
   }

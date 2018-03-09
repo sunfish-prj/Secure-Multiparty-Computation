@@ -79,11 +79,29 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
       case SmcPackage.VARIABLE_ASSIGNMENT: return createVariableAssignment();
       case SmcPackage.ABSTRACT_ASSIGNMENT: return createAbstractAssignment();
       case SmcPackage.DOWNLOAD: return createDownload();
+      case SmcPackage.DATABASE: return createDatabase();
+      case SmcPackage.CLIENT: return createClient();
       case SmcPackage.EXPRESSION: return createExpression();
       case SmcPackage.TUPLE: return createTuple();
       case SmcPackage.LIST: return createList();
       case SmcPackage.DICT: return createDict();
       case SmcPackage.INVOCATION: return createInvocation();
+      case SmcPackage.FUNCTIONS: return createFunctions();
+      case SmcPackage.COMPUTATION: return createComputation();
+      case SmcPackage.MULTIPLICATION: return createMultiplication();
+      case SmcPackage.MEDIAN: return createMedian();
+      case SmcPackage.WEIGHTED_AVG: return createWeightedAvg();
+      case SmcPackage.AVERAGE: return createAverage();
+      case SmcPackage.COUNT: return createCount();
+      case SmcPackage.ACCESS_CONTROL: return createAccessControl();
+      case SmcPackage.BELL_LAPADULA: return createBellLapadula();
+      case SmcPackage.COVERED: return createCovered();
+      case SmcPackage.SEARCH: return createSearch();
+      case SmcPackage.BLOOM_FILTER: return createBloomFilter();
+      case SmcPackage.CHECK_TABLE: return createCheckTable();
+      case SmcPackage.ADD_VALUES: return createAddValues();
+      case SmcPackage.CREATE_TABLE: return createCreateTable();
+      case SmcPackage.RETURN: return createReturn();
       case SmcPackage.BLOCK: return createBlock();
       case SmcPackage.OR: return createOr();
       case SmcPackage.AND: return createAnd();
@@ -120,8 +138,6 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
         return createSecTypeFromString(eDataType, initialValue);
       case SmcPackage.BASIC_TYPE:
         return createBasicTypeFromString(eDataType, initialValue);
-      case SmcPackage.FUNCTIONS:
-        return createFunctionsFromString(eDataType, initialValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -143,8 +159,6 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
         return convertSecTypeToString(eDataType, instanceValue);
       case SmcPackage.BASIC_TYPE:
         return convertBasicTypeToString(eDataType, instanceValue);
-      case SmcPackage.FUNCTIONS:
-        return convertFunctionsToString(eDataType, instanceValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -298,6 +312,28 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public Database createDatabase()
+  {
+    DatabaseImpl database = new DatabaseImpl();
+    return database;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Client createClient()
+  {
+    ClientImpl client = new ClientImpl();
+    return client;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Expression createExpression()
   {
     ExpressionImpl expression = new ExpressionImpl();
@@ -346,6 +382,182 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
   {
     InvocationImpl invocation = new InvocationImpl();
     return invocation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Functions createFunctions()
+  {
+    FunctionsImpl functions = new FunctionsImpl();
+    return functions;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Computation createComputation()
+  {
+    ComputationImpl computation = new ComputationImpl();
+    return computation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Multiplication createMultiplication()
+  {
+    MultiplicationImpl multiplication = new MultiplicationImpl();
+    return multiplication;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Median createMedian()
+  {
+    MedianImpl median = new MedianImpl();
+    return median;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public WeightedAvg createWeightedAvg()
+  {
+    WeightedAvgImpl weightedAvg = new WeightedAvgImpl();
+    return weightedAvg;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Average createAverage()
+  {
+    AverageImpl average = new AverageImpl();
+    return average;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Count createCount()
+  {
+    CountImpl count = new CountImpl();
+    return count;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AccessControl createAccessControl()
+  {
+    AccessControlImpl accessControl = new AccessControlImpl();
+    return accessControl;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public BellLapadula createBellLapadula()
+  {
+    BellLapadulaImpl bellLapadula = new BellLapadulaImpl();
+    return bellLapadula;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Covered createCovered()
+  {
+    CoveredImpl covered = new CoveredImpl();
+    return covered;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Search createSearch()
+  {
+    SearchImpl search = new SearchImpl();
+    return search;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public BloomFilter createBloomFilter()
+  {
+    BloomFilterImpl bloomFilter = new BloomFilterImpl();
+    return bloomFilter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CheckTable createCheckTable()
+  {
+    CheckTableImpl checkTable = new CheckTableImpl();
+    return checkTable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AddValues createAddValues()
+  {
+    AddValuesImpl addValues = new AddValuesImpl();
+    return addValues;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CreateTable createCreateTable()
+  {
+    CreateTableImpl createTable = new CreateTableImpl();
+    return createTable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Return createReturn()
+  {
+    ReturnImpl return_ = new ReturnImpl();
+    return return_;
   }
 
   /**
@@ -575,28 +787,6 @@ public class SmcFactoryImpl extends EFactoryImpl implements SmcFactory
    * @generated
    */
   public String convertBasicTypeToString(EDataType eDataType, Object instanceValue)
-  {
-    return instanceValue == null ? null : instanceValue.toString();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Functions createFunctionsFromString(EDataType eDataType, String initialValue)
-  {
-    Functions result = Functions.get(initialValue);
-    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-    return result;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String convertFunctionsToString(EDataType eDataType, Object instanceValue)
   {
     return instanceValue == null ? null : instanceValue.toString();
   }
