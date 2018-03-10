@@ -10,6 +10,8 @@
 
 Change the `serverNames` values in `gateway.js` to match the Sharemind server names in your deployment.
 
+Install dependencies with `npm install`.
+
 Run with
 
 ```
