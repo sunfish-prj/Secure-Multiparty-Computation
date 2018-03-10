@@ -29,15 +29,17 @@ limitations under the License.
         <xsd:complexType>
           <xsd:element name="rocuId" type="xsd:int" /><!-- ROCU that made the search -->
           <xsd:element name="searchId" type="xsd:int" />
+          <xsd:element name="searchUsername" type="xsd:string" />
+          <xsd:element name="searchClearance" type="xsd:int" />
           <xsd:element name="encryptedResult" type="xsd:string" />
+          <xsd:element name="keyword" type="xsd:string" />
         </xsd:complexType>
       </xsd:element>
       <xsd:element name="searchResultListingRequest">
         <xsd:complexType>
-          <xsd:element name="ownerId" type="xsd:string" /><!-- document owner ID -->
-          <xsd:sequence>
-            <xsd:element name="filename" type="xsd:string" minOccurs="1" />
-          </xsd:sequence>
+          <xsd:element name="rocuId" type="xsd:int" />
+          <xsd:element name="searchId" type="xsd:int" />
+          <xsd:element name="filename" type="xsd:string" />
         </xsd:complexType>
       </xsd:element>
     </xsd:schema>

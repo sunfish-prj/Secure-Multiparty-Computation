@@ -1,0 +1,55 @@
+<%- include ../partials/head.ejs -%>
+  <body>
+    <%- include ../partials/navbar.ejs -%>
+    <main role="main" class="container">
+      <div class="starter-template">
+        <h2>Indexed Documents</h2>
+
+        <div id="accordion" role="tablist">
+          No entries
+        </div>
+        
+        <div class="jumbotron w-50 mt-4">
+        <h3>Index a New Document</h3>
+        <form class="sendDocument" id="sendDocument" method="post">
+
+          <div class="form-group">
+            <label for="filenameSlot">File name or ID</label>
+            <input type="text" class="form-control" id="filenameSlot" aria-describedby="emailHelp" placeholder="File.txt" value="">
+            <small id="emailHelp" class="form-text text-muted">Optionally, with full path.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="confidentialitySlot">Confidentiality</label>
+            <select class="form-control" id="confidentialitySlot" value="">
+              <option value="1">Official</option>
+              <option value="2">Official Sensitive</option>
+              <option value="3">Secret</option>
+              <option value="4">Top Secret</option>
+            </select>
+          </div>
+
+          <label class="custom-control custom-checkbox">
+            <input type="checkbox" class="form-check-input" value="" id="coveredSlot">
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">Covered document</span>
+          </label>
+
+          <div class="form-group">
+            <label for="keywordsSlot">Keywords</label>
+            <textarea class="form-control" id="keywordsSlot" rows="3" value=""></textarea>
+            <small class="form-text text-muted">One per line or comma-separated.</small>
+          </div>
+
+          <div class="text-right">
+            <button id="senddoc" type="submit" class="btn btn-primary" onclick="send('something')">Upload</button>
+          </div>
+        </form>
+      </div>
+      </div>
+    </main>
+    <%- include ../partials/footer.ejs -%>
+    <script type="text/javascript" src="/js/auth.js"></script>
+    <script type="text/javascript" src="/js/list.js"></script>
+  </body>
+</html>

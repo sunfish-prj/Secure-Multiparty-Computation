@@ -1,0 +1,31 @@
+<%- include ../partials/head.ejs -%>
+  <body>
+    <%- include ../partials/navbar.ejs -%>
+    <main role="main" class="container">
+      <div class="starter-template">
+
+        <form class="sendSearch" id="sendSearch" method="post">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Keyword" id="searchterm" aria-label="Keyword">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" id="searchbtn" type="submit" onclick="search('something')">Search</button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <h3 class="mt-5">Search History</h3>
+        <div id="accordion" role="tablist">
+          No entries
+        </div>
+        
+      </div>
+    </main>
+    <%- include ../partials/footer.ejs -%>
+    <script type="text/javascript" src="/js/auth.js"></script>
+    <script type="text/javascript" src="/js/search.js"></script>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+<%- include ../partials/head.ejs -%>
+<body>
+    <%- include ../partials/navbar.ejs -%>
+
+    <div class="login-page">
+        <div class="form">
+            <h2>Authenticate <div class="loading" style="display:none;" id="login-loading"></div></h2>
+            <form class="login" id="login" method="post">
+                <input type="text" value="" name="username" placeholder="username" id="username"/>
+                <input type="password" value="" name="password" placeholder="password" id="password"/>
+                <button type="submit" onclick="auth('something')" class="btn btn-primary">Sign In</button>
+            </form>
+        </div>
+    </div>
+    <%- include ../partials/footer.ejs -%>
+    <script type="text/javascript" src="/js/auth.js"></script>
+</body>
+</html>
