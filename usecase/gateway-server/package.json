@@ -10,6 +10,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "sharemind-web-gateway": "./nodejs-web-gateway",
-    "soap": "^0.23.0",
+    "soap": "^0.23.0"
   }
 }
