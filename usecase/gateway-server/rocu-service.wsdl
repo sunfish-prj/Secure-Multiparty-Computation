@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is part of the SUNFISH project (http://www.sunfishproject.eu/).
+
+Copyright 2017 Cybernetica AS
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+  * http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<definitions targetNamespace="urn:ee.cyber.sharemind:sunfish-uc3"
+    xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="urn:ee.cyber.sharemind:sunfish-uc3"
+    xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema targetNamespace="urn:ee.cyber.sharemind:sunfish-uc3"
+        elementFormDefault="qualified">
+      <xsd:element name="searchResultRequest">
+        <xsd:complexType>
+          <xsd:element name="rocuId" type="xsd:int" /><!-- ROCU that made the search -->
+          <xsd:element name="searchId" type="xsd:int" />
+          <xsd:element name="encryptedResult" type="xsd:string" />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="searchResultListingRequest">
+        <xsd:complexType>
+          <xsd:element name="ownerId" type="xsd:string" /><!-- document owner ID -->
+          <xsd:sequence>
+            <xsd:element name="filename" type="xsd:string" minOccurs="1" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+
+  <message name="searchResultIn">
+    <part name="parameters" element="tns:searchResultRequest" />
+  </message>
+  <message name="searchResultOut">
+    <part name="parameters" element="tns:searchResultResponse" />
+  </message>
+  <message name="searchResultListingIn">
+    <part name="parameters" element="tns:searchResultListingRequest" />
+  </message>
+  <message name="searchResultListingOut">
+    <part name="parameters" element="tns:searchResultListingResponse" />
+  </message>
+
+  <portType name="UC3RocuInterface">
+    <operation name="postSearchResult">
+      <input message="tns:searchResultIn" />
+    </operation>
+    <operation name="searchResultListing">
+      <input message="tns:searchResultListingIn" />
+    </operation>
+  </portType>
+
+  <binding name="UC3RocuHttpBinding" type="tns:UC3RocuInterface">
+    <soap:binding
+      transport="http://schemas.xmlsoap.org/soap/http"
+      style="document" />
+    <!-- Posting encrypted search results -->
+    <operation name="postSearchResult">
+      <soap:operation soapAction="urn:ee.cyber.sharemind:sunfish-uc3" style="document" />
+      <input><soap:body use="literal" /></input>
+      <output><soap:body use="literal" /></output>
+    </operation>
+    <!-- Sending the list of matched dicuments to searcher -->
+    <operation name="searchResultListing">
+      <soap:operation soapAction="urn:ee.cyber.sharemind:sunfish-uc3" style="document" />
+      <input><soap:body use="literal" /></input>
+      <output><soap:body use="literal" /></output>
+    </operation>
+  </binding>
+
+  <service name="SunfishUC3RocuService">
+    <port name="UC3RocuEndpoint" binding="tns:UC3RocuHttpBinding">
+      <soap:address location='http://localhost:8000/wsdl' />
+    </port>
+  </service>
+</definitions>

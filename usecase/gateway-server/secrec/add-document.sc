@@ -31,6 +31,8 @@ void main() {
   // document later in its owner's database
   pd_shared3p uint64 id = argument("docid");
   pd_shared3p uint8 owner = argument("owner");
+  pd_shared3p uint8 confidentiality = argument("confidentiality");
+  pd_shared3p bool covered = argument("covered");
   pd_shared3p xor_uint32[[1]] words = argument("words");
 
   tdbOpenConnection(ds);
@@ -50,6 +52,16 @@ void main() {
       pd_shared3p uint8 vtype;
       tdbVmapAddType(params, "types", vtype);
       tdbVmapAddString(params, "names", "owner");
+    }
+    {
+      pd_shared3p uint8 vtype;
+      tdbVmapAddType(params, "types", vtype);
+      tdbVmapAddString(params, "names", "confidentiality");
+    }
+    {
+      pd_shared3p bool vtype;
+      tdbVmapAddType(params, "types", vtype);
+      tdbVmapAddString(params, "names", "covered");
     }
     {
       pd_shared3p bool vtype;
@@ -75,6 +87,8 @@ void main() {
   print("Preparing database statement");
   tdbVmapAddValue(params, "values", id);
   tdbVmapAddValue(params, "values", owner);
+  tdbVmapAddValue(params, "values", confidentiality);
+  tdbVmapAddValue(params, "values", covered);
   tdbVmapAddVlenValue(params, "values", document);
 
   print("Inserting document to database");
@@ -82,5 +96,6 @@ void main() {
   tdbVmapDelete(params);
 
   tdbCloseConnection(ds);
+  publish("success", 1); // We publish something in order to let javascript know we are finished
   print("Done");
 }

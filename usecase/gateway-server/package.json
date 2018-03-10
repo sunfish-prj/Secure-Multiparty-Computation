@@ -1,0 +1,15 @@
+{
+  "name": "sunfish-uc3-gateway",
+  "version": "1.0.0",
+  "description": "SUHFISH UC-3 demo",
+  "main": "gateway.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cybernetica AS",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "sharemind-web-gateway": "./nodejs-web-gateway",
+    "soap": "^0.23.0",
+  }
+}
