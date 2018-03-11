@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var client = function()
+var client = function(config)
 {
     this.BigInteger = require('jsbn').BigInteger;
     this.soap = require('soap');
@@ -24,12 +24,7 @@ var client = function()
     this.servers = null;
     this.pub = this.sm.types.base;
     this.priv = this.sm.types.shared3p;
-
-    this.hosts = [
-    "http://localhost:8081/wsdl",
-    "http://localhost:8082/wsdl",
-    "http://localhost:8083/wsdl"
-    ];   
+    this.config = config;
 }
 
 client.prototype.SMdisconnect = function() {
@@ -47,7 +42,23 @@ client.prototype.SMconnect = function(callback) {
 
         try {
             console.log('Connecting to Sharemind servers.');
-            this.servers = new this.sm.client.GatewayConnection(this.hosts, null, 
+            var hosts = this.config.hosts;
+            var uxpProperties = null;
+            if (this.config.useuxp) {
+                hosts = [
+                    this.config.uxpservice[0].endpoint,
+                    this.config.uxpservice[1].endpoint,
+                    this.config.uxpservice[2].endpoint
+                ];
+                uxpProperties = [
+                    this.config.uxpclient,
+                    this.config.uxpservice[0],
+                    this.config.uxpservice[1],
+                    this.config.uxpservice[2]
+                ];
+            }
+
+            this.servers = new this.sm.client.GatewayConnection(hosts, uxpProperties, 
                 function(err) {console.log(err);});
 
             this.servers.openConnection(function(err, serverInfos, prngSeed) {
@@ -205,10 +216,11 @@ client.prototype.addDocuments = function(data, callback) {
     });
 }
 
-client.prototype.search = function(keyword, config, searchParams, callback) {
-    var password = new Buffer(config.password, 'hex');
+client.prototype.search = function(searchParams, callback) {
+    var password = new Buffer(this.config.password, 'hex');
 
     // slice the keyword into 32 bit segments for the bloom filter 
+    var keyword = searchParams.keyword;
     var slices = []
     var len = keyword.length;
 
@@ -270,7 +282,8 @@ client.prototype.search = function(keyword, config, searchParams, callback) {
         console.log(hexMatches);
 
         // We distribute all excrypted results to all ROCU-s:
-        Object.keys(config.rocus).forEach(function (rid) {
+        var config = this.config;
+        Object.keys(this.config.rocus).forEach(function (rid) {
             console.log("Notifying ROCU ID = " + rid);
             var url = config.rocus[rid].endpoint;
 

@@ -13,8 +13,6 @@ openssl genrsa -out private.key 4096
 openssl rsa -in private.key -pubout -out public.key
 ```
 
-Change the hosts URL-s in `sm_client.js` to the gateway hosts in your deployment.
-
 Install dependencies with `npm install`.
 
 Run with

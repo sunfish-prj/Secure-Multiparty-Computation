@@ -25,9 +25,6 @@ const bcrypt = require('bcrypt');
 const soap = require('soap');
 const moment = require('moment-timezone');
 
-var sm = require('./sm_client.js');
-var sm_client = new sm();
-
 var clientDir = __dirname + "/public/";
 
 if (process.argv.length === 3) {
@@ -41,6 +38,9 @@ if (process.argv.length === 3) {
     console.log("Please provide a configuration file");
     process.exit(1);
 }
+
+var sm = require('./sm_client.js');
+var sm_client = new sm(config);
 
 // openssl genrsa -out private.key 4096
 var privateKey = fs.readFileSync(__dirname + '/private.key');
@@ -367,12 +367,13 @@ app.post('/search/send', function(req, res) {
             db.get("SELECT id, name, clearance FROM Users WHERE username = ?;", [decoded], function(err, row)
             {
                 var searchParams = {
+                    keyword: req.body.keyword,
                     username: row.name,
                     clearance: row.clearance
                 }
                 DBaddSearch(db, req.body.keyword, row.id, function(searchid) {
                     searchParams.id = searchid;
-                    sm_client.search(req.body.keyword, config, searchParams, function(err, data) {
+                    sm_client.search(searchParams, function(err, data) {
                         if (!err) {
                             res.status(200).end();
                         } else {

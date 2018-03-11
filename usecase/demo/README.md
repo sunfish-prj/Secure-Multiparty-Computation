@@ -4,4 +4,4 @@ The `add-owners` SecreC program adds two ROCU-s with their encryption keys to th
 
 The `database*.js` files generate demo users for ROCU web interfaces.
 
-Two ROCU configurations for `client-server` are in `serocu.conf` and `rocu2.conf`.
+Two ROCU configurations for `client-server` are in `serocu.conf` and `rocu2.conf`. Either change the `hosts` to the gateway hosts' SOAP endpoints in your deployment. If you use Unified eXchange Platform (UXP) (`useuxp = true`), configure `uxpclient` and `uxpservice` instead.
