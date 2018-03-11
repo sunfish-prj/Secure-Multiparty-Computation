@@ -266,6 +266,14 @@ client.prototype.search = function(searchParams, callback) {
     var crypto = this.crypto;
     var parent = this;
     this.SMrunScript('search', params, function(err, data) {
+        // If there were no results, there is nothing to do:
+        console.log(data);
+        if (data.matchcount.get(0) == 0) {
+            console.log("No documents matched the search");
+            callback(err, {});
+            return;
+        }
+
         // Check if `matches` is a valid AES ciphertext
         if (data.matches.length * data.matches.typesize % 16 != 0) {
             console.log('Error: Result is not a valid AES ciphertext!');

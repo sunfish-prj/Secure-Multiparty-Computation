@@ -75,6 +75,16 @@ void main() {
   //print("DEBUG: Matching documents:");
   //printVector(declassify(matchingDocuments));
 
+  // If none of the documents matched, finish.
+  // This leaks the total number of documents, but we leak that
+  // anyway at the end. Alternatively, we could add dummy matches here.
+  uint64 matchcount = declassify(sum(matchingDocuments));
+  if (matchcount == 0) {
+    print("None of the documents matched, finishing.");
+    publish("matchcount", matchcount);
+    return;
+  }
+
   /*
    * STEP 2: Filter
    */
@@ -299,9 +309,6 @@ void main() {
                                    rightCols, rightKeyCols, hasIA2, needsPrefix2,
                                    "inner", domainProxy);
 
-  // TODO: It actually has to be right join, as not every document owner
-  // has documents in the index.
-
   if (!joinRes.success) {
       print("ERROR: Join was unsuccessful, aborting");
       return;
@@ -374,7 +381,8 @@ void main() {
   tdbCloseConnection(ds);
 
   //publish("owners", declassify(owners));
-  publish("matches", declassify(ciphertext));
+  publish("matchcount", matchcount);
+  publish("matches", ciphertext);
 
   print("All done");
 }
