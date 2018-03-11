@@ -581,7 +581,7 @@ app.get('/login', function(req, res) {
     servePage('login', req, res);
 });
 
-app.listen(config.httpport, function () {
+app.listen(config.httpport, config.httphost, function () {
     console.log('Running on http://localhost:' + config.httpport);
     
     var xml = fs.readFileSync(__dirname + '/rocu-service.wsdl', 'utf8');
