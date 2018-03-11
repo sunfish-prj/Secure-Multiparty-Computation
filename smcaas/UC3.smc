@@ -1,0 +1,106 @@
+block insert_data B1 = new();
+block search B2 = new();
+block access_control B3 = new();
+block permission_release B4 = new();
+
+main{
+	//check if table already exists in DB
+	var public STRING tbl_own = "rocu-owners";
+	if(B1.checkDataset(tbl_own)){
+		print("Table "+ tbl_own +" already exists");
+		print("Choose another name or update the existing one");
+		return;
+	}
+	
+	//insert rocu owners in DB
+	parameter o = <private INT> "owner";
+	parameter k = <private ENCRYPTED> "key";
+	B1.createDataset(tbl_own, o, k);
+	var private INT [] owner = retrieveFromClient("owner");
+	var private ENCRYPTED [] key = retrieveFromClient("key");
+	B1.addValues(tbl_own, owner, key);
+	
+	//create rocu documents table
+	var public STRING tbl_doc = "rocu-documents";
+	if( ! B1.checkDataset(tbl_doc)){
+		print("Table "+ tbl_doc +" does not exist");
+		print("Creating new one before insert values");
+		
+		parameter did = <private INT> "id";
+		parameter f = <private BOOLEAN> "filter";
+		parameter cl = <private INT> "clearance_level";
+		parameter c = <private BOOLEAN> "covered";
+		B1.createDataset(tbl_doc, did, o, f, cl, c);
+	}
+	
+	//retrieve doc, passed in input by the Client UI
+	var private INT id = retrieveFromClient("docid");
+	var private INT owner = retrieveFromClient("owner");
+	var private ENCRYPTED words = retrieveFromClient("words");
+	var private INT clearance_level = retrieveFromClient("clearance_level");
+	var private BOOLEAN covered = retrieveFromClient("covered");
+	
+	//use Bloom filter
+	var private BOOLEAN [1000] document;
+	B2.bloomFilter(words, document);
+	
+	//insert doc inside DB
+	B1.addValues(tbl_doc, id, owner, document, clearance_level, covered);
+	
+	//search keyword among docs in DB
+	var private ENCRYPTED [] keyword = retrieveFromClient("keyword");
+	if( ! B1.checkDataset(tbl_doc)){
+		print("Table "+ tbl_doc +" does not exist");
+		print("Check if table name is correct or create new one before search");
+		return;
+	}
+	var private BOOLEAN [] match = B2.search(tbl_doc, "filter", keyword);
+	
+	//create new dataset to save search results
+	var public STRING tbl_search = "search-myID-keyword";
+	if( ! B1.checkDataset(tbl_search)){
+		parameter did = <private INT> "id";
+		parameter m = <private BOOLEAN> "match";
+		parameter cl = <private INT> "clearance_level";
+		parameter c = <private BOOLEAN> "covered";
+		B1.createDataset(tbl_search, did, o, m, cl, c);
+		
+		var private INT [] id = retrieveFromDB(tbl_doc, "docid");
+		var private INT [] owner = retrieveFromDB(tbl_doc, "owner");
+		var private INT [] clearance_level = retrieveFromDB(tbl_doc, "clearance_level");
+		var private BOOLEAN [] covered = retrieveFromDB(tbl_doc, "covered");
+		B1.addValues(tbl_search, id, owner, match, clearance_level, covered);
+		
+	}else{
+		print("ERROR: Table "+ tbl_search +" already exists");
+		print("Choose another name");
+		return;
+	}
+	
+	//access control phase on matchs
+	var private INT [] clearance_levels = retrieveFromDB(tbl_search, "clearance_level");
+	var private BOOLEAN [] covered = retrieveFromDB(tbl_search, "covered");
+	var private INT vetting_level = retrieveFromClient("vetting_level");
+	
+	var private BOOLEAN [] acCovered = B3.accessControlCovered(match, covered, clearance_levels, vetting_level);
+	
+	//create new dataset to save access control results
+	var public STRING tbl_access_control = "access-control-myID-keyword";
+	if( ! B1.checkDataset(tbl_access_control)){
+		parameter did = <private INT> "id";
+		parameter m = <private BOOLEAN> "match";
+		parameter ac = <private BOOLEAN> "access_control";
+		B1.createDataset(tbl_access_control, did, o, m, ac);
+		
+		var private INT [] id = retrieveFromDB(tbl_search, "id");
+		var private INT [] owner = retrieveFromDB(tbl_search, "owner");
+		B1.addValues(tbl_access_control, id, owner, match, acCovered);
+		
+	}else{
+		print("ERROR: Table "+ tbl_access_control +" already exists");
+		print("Choose another name");
+		return;
+	}
+	
+	//TO ADD block permission release
+}
