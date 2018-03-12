@@ -290,16 +290,15 @@ client.prototype.search = function(searchParams, callback) {
         console.log(hexMatches);
 
         // We distribute all excrypted results to all ROCU-s:
-        var config = this.config;
-        Object.keys(this.config.rocus).forEach(function (rid) {
+        Object.keys(parent.config.rocus).forEach(function (rid) {
             console.log("Notifying ROCU ID = " + rid);
-            var url = config.rocus[rid].endpoint;
+            var url = parent.config.rocus[rid].endpoint;
 
             // multiplying the slice indices by 16 because the a buffer is indexed with bytes
             // and a AES block size is 16 bytes.
             // console.log(matches.slice(16*i, 16*(i+1)).toString('hex'));
             var args = {encryptedResult: hexMatches,
-                        rocuId: config.rocuid,
+                        rocuId: parent.config.rocuid,
                         searchId: searchParams.id,
                         searchUsername: searchParams.username,
                         searchClearance: searchParams.clearance,
