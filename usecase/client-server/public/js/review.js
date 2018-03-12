@@ -124,7 +124,7 @@ var renderList = function(listData) {
                     </div>
                     <div id="collapse${i+1}" class="collapse ${show}" role="tabpanel">
                     <div class="card-block ml-3 mt-2 justify-content-between flex-column align-items-start">
-                        <p>Search by <b>${element.username} (${element.clearance})</b> from ${element.rocuname}</p>
+                        <p>Search by <b>${element.username} (<span data-toggle="tooltip" data-placement="top" title="${vLvlToString(element.clearance)}">${element.clearance}</span>)</b> from ${element.rocuname}</p>
                         <p>
                         <h6>Matching documents:</h6>
                         <ul>
@@ -169,4 +169,11 @@ var renderList = function(listData) {
     //     $('[data-toggle="tooltip"]').tooltip()
     // })
     // console.log(listData);
+}
+
+var vLvlToString = function(vlvl) {
+    if (vlvl == 'CTC') return 'Counter Terrorism Check';
+    else if (vlvl == 'SC') return 'Security Check';
+    else if (vlvl == 'DV') return 'Developed Vetting';
+    return '';
 }

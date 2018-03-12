@@ -211,7 +211,7 @@ var rocu_service = {
 function clearanceToString(cl_lvl) {
     if (cl_lvl == 1) return 'CTC';
     else if (cl_lvl == 2) return 'SC';
-    else if (cl_lvl == 3) return 'CV';
+    else if (cl_lvl == 3) return 'DV';
     return 'undefined';
 }
 

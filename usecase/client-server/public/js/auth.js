@@ -64,7 +64,7 @@ var authorizeUser = function() {
                 var logindata = document.getElementById('logindata');
                 logindata.innerHTML = `Logged in as: ${localStorage.getItem('name')}`;
                 var clearancedata = document.getElementById('clearancedata');
-                clearancedata.innerHTML = `Vetting level: ${localStorage.getItem('clearance')}`;
+                clearancedata.innerHTML = `Vetting level: ${vLvlToString(localStorage.getItem('clearance'))} (${localStorage.getItem('clearance')})`;
             }
         })
         .fail(function() {
@@ -79,4 +79,11 @@ var logout = function() {
     localStorage.removeItem('username');
     localStorage.removeItem('clearance');
     window.location.replace("/login/");
+}
+
+var vLvlToString = function(vlvl) {
+    if (vlvl == 'CTC') return 'Counter Terrorism Check';
+    else if (vlvl == 'SC') return 'Security Check';
+    else if (vlvl == 'DV') return 'Developed Vetting';
+    return '';
 }
